@@ -1,62 +1,59 @@
-import React, { PropTypes, Component } from 'react';
-import fetch from 'isomorphic-fetch';
+import React, {PropTypes, Component} from 'react';
+//import auth from '../middleware/auth';
+import { browserHistory } from 'react-router';
 
 import Registration from '../components/Registration';
 
 class RegistrationContainer extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            errorMessage: null,
+            errorMessage: null
         };
+
     }
     render() {
-        console.log(this.props.errorMessage);
-        return ( 
-          <div >
-            <Registration addUser={ addUser } errorMessage={ this.props.errorMessage }/> 
-          </div>
+        console.log(this.state.errorMessage);
+        return (
+            <div >
+                <Registration addUser={this.addUser} errorMessage={this.state.errorMessage}/>
+            </div>
         );
+    }
+    addUser(user) {
+
+        let config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }
+        
+        return fetch("http://localhost:3001/users", config)
+            .then(response => response.json().then(json => ({json, response})))
+            .then(({json, response}) => {
+                if (!response.ok) {
+                    console.log("json.errorMessage " + json.errorMessage);                    
+                    throw new Error(json.errorMessage);
+                    
+                }                
+
+                if (json.id_token) {
+                    console.log("token: " + (json.id_token));
+                };
+                //localStorage.setItem({id_token: json.id_token}); this to be done by clicking 'confirm' link
+                //                                                 in the email rather.
+
+                browserHistory.push('/confirmationPending');
+                return json;
+            });
+            //.catch(response => response, error => error);
+
     }
 }
 
-function addUser(user) {
-    console.log("RegistrationContainer.addUser()");
-    let config={
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `username=${user.username}&password=${user.password}`
-    };
-
-    
-
-        return fetch('http://localhost:3001/users', config)
-            .then(response =>
-                response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) => {
-                if (!response.ok) {
-                    
-                    //console.log("user.message: " + err);
-
-                    return Promise.reject(user.errorMessage);
-                } else {
-                    // If login was successful, set the token in local storage
-                    console.log('bingo!');
-                    localStorage.setItem('id_token', user.id_token);
-                    // Dispatch the success action
-
-
-                }
-            }).catch(err => {
-                 console.log("ZoMG! Error: ", err.errorMessage);
-                 // display errorMessage in Registration component
-                 RegistrationContainer.setState({errorMessage: "balls"});
-            });
-    
-    
-}
-
-RegistrationContainer.propTypes={
-    errorMessage: PropTypes.string,
+RegistrationContainer.propTypes = {
+    errorMessage: PropTypes.string
 };
 export default RegistrationContainer;
