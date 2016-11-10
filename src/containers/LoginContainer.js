@@ -38,6 +38,7 @@ function loginUser(creds) {
                 // If login was successful, set the token in local storage
                 // and go to dashboard
                 localStorage.setItem('id_token', json.id_token);
+                localStorage.setItem('isAuthenticated',  true);
                 browserHistory.push('/dashboard');
 
             }

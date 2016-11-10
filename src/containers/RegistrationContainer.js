@@ -21,7 +21,7 @@ class RegistrationContainer extends Component {
         );
     }
     addUser(user) {
-
+        //console.log(JSON.stringify(user));
         let config = {
             method: 'post',
             headers: {

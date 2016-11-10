@@ -1,18 +1,17 @@
-function auth(user) {
+function auth(token) {
 
-  console.log("auth: " + JSON.stringify(user));
+  console.log("auth: " + token);
 
   let config = {
-    method: 'post',
+    method: 'post',    
     headers: {
       'content-type': 'application/json'
     },
-    body: user
+    body: JSON.stringify(token)
   }
-  return fetch("http://localhost:3001/users", config)
+  return fetch("http://localhost:3001/token", config)
     .then(response => response.json().then(json => ({json, response})))
     .then(({json, response}) => {
-
       if (!response.ok) {
         console.log("!response.ok");
         return Promise.reject(json);
@@ -20,7 +19,10 @@ function auth(user) {
       if (json.id_token) {
         console.log("token: " + (json.id_token));
       };
-      return json;
+      if (json.decoded) {
+        console.log("decode == true");
+      };
+      return true;
     })
     .then(response => response, error => error);
 }
