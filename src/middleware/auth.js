@@ -1,13 +1,13 @@
 function auth(token) {
 
-  console.log("auth: " + token);
+  //console.log("auth: " + token);
 
   let config = {
     method: 'post',    
     headers: {
       'content-type': 'application/json'
     },
-    body: JSON.stringify(token)
+    body: JSON.stringify(this.props.params.id_token)
   }
   return fetch("http://localhost:3001/token", config)
     .then(response => response.json().then(json => ({json, response})))

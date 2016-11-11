@@ -37,6 +37,7 @@ function loginUser(creds) {
             } else {
                 // If login was successful, set the token in local storage
                 // and go to dashboard
+                localStorage.setItem ('username', json.username);
                 localStorage.setItem('id_token', json.id_token);
                 localStorage.setItem('isAuthenticated',  true);
                 browserHistory.push('/dashboard');

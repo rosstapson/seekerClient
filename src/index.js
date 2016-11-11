@@ -20,15 +20,18 @@ ReactDOM.render(
     <Route path="/confirmationPending" component={ConfirmationPending}/>
     <Route path="/confirm/:id_token" component={Confirmation}/>
     <Route path="/login" component={LoginContainer}/>
-    <Route path="/dashboard" component={Dashboard} onEnter={ requireCredentials } />
+    <Route path="/dashboard" component={Dashboard} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/error" component={Error}/>
   </Route>
 </Router>, document.getElementById('root'));
 
+//temporarily...
+/* eslint-disable */
 function requireCredentials(nextState, replace, next) {
+  console.log("requireCredentials, from onEnter");
   if (!localStorage.isAuthenticated) {
     console.log("not authenticated");
-    replace('/error')
-    next()
-  }  
+    replace('/login')    
+  } 
+  next()
 }

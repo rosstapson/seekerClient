@@ -6,10 +6,17 @@ import auth from '../middleware/auth'
 
 export default class Confirmation extends Component {
   componentWillMount() {
-    
+
     localStorage.setItem("isAuthenticated", false);
 
-    auth(this.props.params.id_token).then(function () {
+    let config = {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({id_token: this.props.params.id_token})
+    }
+    fetch("http://localhost:3001/token", config).then(function () {
       console.log("good");
       localStorage.setItem("isAuthenticated", true);
     }, function (err) {
@@ -18,7 +25,7 @@ export default class Confirmation extends Component {
       console.log("not good: " + err.message);
       browserHistory.push("/error");
     });
-    
+
   }
 
   render() {

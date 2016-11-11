@@ -45,7 +45,7 @@ export default class Login extends Component {
             });
     }
     else {
-      alert("Please provide username/email and password.");
+      alert("Please provide username and password.");
     }
   }
   render() {
@@ -65,13 +65,13 @@ export default class Login extends Component {
 
         }
         <div>
-            <label className="form-label" htmlFor="userName">Username or email:</label>
+            <label className="form-label" htmlFor="userName">Username:</label>
             <input
               className='form-field'
               type="text"
               ref="userName"
               id="userName"
-              placeholder="Username/email"/>
+              placeholder="Username"/>
           </div>
           <div>
             <label className="form-label" htmlFor="password">Password:
