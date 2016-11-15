@@ -8,6 +8,7 @@ import LoginContainer from './containers/LoginContainer';
 import ConfirmationPending from './containers/ConfirmationPending';
 import Confirmation from './containers/Confirmation';
 import Error from './containers/Error'
+import Assets from './containers/Assets'
 import './index.css';
 
 ReactDOM.render(
@@ -21,7 +22,8 @@ ReactDOM.render(
     <Route path="/confirm/:id_token" component={Confirmation}/>
     <Route path="/login" component={LoginContainer}/>
     <Route path="/dashboard" component={Dashboard} onEnter={ requireCredentials } username={ localStorage.username }/>
-    <Route path="/error" component={Error}/>
+    <Route path="/assets" component={Assets} onEnter={ requireCredentials } username={ localStorage.username }/>
+    <Route path="/error" component={Error} />
   </Route>
 </Router>, document.getElementById('root'));
 
@@ -29,7 +31,7 @@ ReactDOM.render(
 /* eslint-disable */
 function requireCredentials(nextState, replace, next) {
   console.log("requireCredentials, from onEnter");
-  if (!localStorage.isAuthenticated) {
+  if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {
     console.log("not authenticated");
     replace('/login')    
   } 
