@@ -84,7 +84,7 @@ export default class Login extends Component {
               id="password"/>
             
           </div>
-          <button type="button" className="submit-button" onClick={this.loginUser}>Submit</button>
+          <button type="button" className="asset-submit-button" onClick={this.loginUser}>Submit</button>
       </form>
     )
   }
