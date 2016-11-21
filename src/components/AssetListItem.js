@@ -1,6 +1,6 @@
 // components/AssetListItem.js
 
-import React, {Component, PropTypes} from 'react'
+import React, {Component, /* PropTypes */} from 'react'
 import './components.css';
 
 export default class AssetListItem extends Component {
@@ -11,17 +11,17 @@ export default class AssetListItem extends Component {
   render() {
 
     return (
-      <li onClick={this.handleOnClick}>{this.props.dnaCode} {this.props.assetCode} {this.props.description} {this.props.dateAdded} {this.props.dateModified}</li>
+      <li onClick={this.props.viewAsset}>{this.props.dnaCode} {this.props.assetCode} {this.props.description} {this.props.dateAdded} {this.props.dateModified}</li>
     )
   }
 
 }
 
-AssetListItem.propTypes = {
-  viewAsset: PropTypes.func.isRequired,
-  dnaCode: PropTypes.string.isRequired,
-  assetCode: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  dateAdded: PropTypes.string.isRequired,
-  dateModified: PropTypes.string.isRequired
-}
+// AssetListItem.propTypes = {
+//   viewAsset: PropTypes.func.isRequired,
+//   dnaCode: PropTypes.string.isRequired,
+//   assetCode: PropTypes.string.isRequired,
+//   description: PropTypes.string.isRequired,
+//   dateAdded: PropTypes.string.isRequired,
+//   dateModified: PropTypes.string.isRequired
+// }

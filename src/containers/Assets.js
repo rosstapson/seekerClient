@@ -1,21 +1,27 @@
 import React, {Component, PropTypes} from 'react'
-import AssetListItem from '../components/AssetListItem'
+import AssetList from '../components/AssetList'
 import AddAssetWidget from '../components/AddAssetWidget'
 
 // import getAssetsForUsername from '../middleware/AssetStore' import {
 import {browserHistory} from 'react-router';
 
 export default class Assets extends Component {
+  self = this;
   constructor(props) {
     super(props);
     console.log("Assets constructor()");
-    this.showAddAsset = this
-      .showAddAsset
-      .bind(this);
+    // this.showAddAsset = this
+    //   .showAddAsset
+    //   .bind(this);
+    
     this.addAsset = this
       .addAsset
       .bind(this);
       this.setState = this.setState.bind(this);
+      
+  }
+  componentWillMount() {
+    this.setState({showAddAsset: false});
   }
   showAddAsset() {
     this.setState({showAddAsset: true});
@@ -51,58 +57,27 @@ export default class Assets extends Component {
       //.then(response => response, error => error);//delete this?
   }
 
-  componentWillMount() {
-    console.log("componentWillMount()");
-    //var mySelf = this;
-    // eslint-disable-next-line
-    var myAssets = this
-      .getAssetsForUsername(localStorage.getItem("username"))
-      // somehow need to force it to get myAssets before rendering
-      // eslint-disable-next-line
-      .then(assets => {
-        console.log(".then");
-        this.setState({myAssets: assets, showAddAsset: false});
-      })
-      .catch(error => {
-        console.log(error);
-        browserHistory.push("/error");
-      });
-      console.log("other then");
-  }
   render() {
-    console.log("render");
-    const errorMessage = this.props.errorMessage;
-    const username = localStorage.username;
-    const myAssets = this.state.myAssets;
-    console.log(myAssets);
+    var username = localStorage.getItem('username');
 
     return (
       <div>
         <h2>
-          User {username}
-          Assets</h2>
-        {errorMessage}
+          User  {username} Assets</h2>
+        
         <div>
-          <button className="asset-submit-button" onClick={this.showAddAsset}>Add New</button>
-
+          <button className="asset-submit-button" onClick={this.showAddAsset.bind(this)}>Add New</button>
+           {this.state.showAddAsset && 
+             <AddAssetWidget addAsset={this.addAsset}/>
+           }
         </div>
         <div>
-          {this.state.showAddAsset && <AddAssetWidget addAsset={this.addAsset}/>
-}
+          <AssetList promise={this.getAssetsForUsername(username)} viewAsset={this.viewAsset} />
+
 
         </div>
-        <div>
-          {myAssets && <ul>
-            zomg.
-            {myAssets
-              .map(function (asset) {
-                return <AssetListItem onClick={this.viewAsset}/>
-              })
-}}
-        </ul>
-        }
-      </div>
-    </div>
+        </div>
+       
 
     ); } } Assets.propTypes = {//  myAssets: PropTypes.arrayOf(PropTypes.shape({   dnaCode:
     // PropTypes.string.isRequired,   assetCode: PropTypes.string.isRequired,
