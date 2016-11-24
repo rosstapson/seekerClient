@@ -11,27 +11,28 @@ export default class Assets extends Component {
     super(props);
     console.log("Assets constructor()");
     // this.showAddAsset = this   .showAddAsset   .bind(this);
-    this.handleFilterByChange = this
-      .handleFilterByChange
-      .bind(this);
-    this.handleFilterFieldChange = this
-      .handleFilterFieldChange
-      .bind(this);
+    
     this.addAsset = this
       .addAsset
       .bind(this);
     this.viewAsset = this
       .viewAsset
       .bind(this);
+      this.deleteAsset = this
+      .deleteAsset
+      .bind(this);
     this.setState = this
       .setState
       .bind(this);
-      this.customFilter = this
-      .customFilter
-      .bind(this);
+
   }
   componentWillMount() {
-    this.setState({showAddAsset: false, pendingAddAsset: false, pendingDeleteAsset: false, filterField: 'description', filterBy: ''});
+    this.setState({
+      showAddAsset: false, 
+      pendingAddAsset: false, 
+      pendingDeleteAsset: false,
+      pendingViewAsset: false
+  });
   }
   showAddAsset() {
     this.setState({showAddAsset: true});
@@ -62,11 +63,16 @@ export default class Assets extends Component {
         return json.assets;
 
       });
-
   }
-  deleteAsset(dnaCode) {} // todo: swap the names here and implement ViewAsset.js
   viewAsset(dnaCode) {
-    console.log("viewAsset - " + dnaCode + ":" + localStorage.getItem('username'));
+    console.log("View Asset: " + dnaCode);
+  } // todo: swap the names here and implement ViewAsset.js
+  deleteAsset(dnaCode) {
+    if (!confirm("Delete asset?")) {
+      return;
+    }
+
+    console.log("deleteAsset - " + dnaCode + ":" + localStorage.getItem('username'));
     //temporary, just to test delete:
     this.setState({pendingDeleteAsset: true});
 
@@ -95,42 +101,9 @@ export default class Assets extends Component {
       });
 
   }
-  handleFilterByChange(event) {
-
-    this.setState({filterBy: event.target.value});
-    console.log(this.state.filterField + ":" + this.state.filterBy);
-  }
-  handleFilterFieldChange(event) {
-
-    this.setState({filterField: event.target.value});
-
-  }
-  customFilter(asset) {        
-    var tempFilterBy = this.state.filterBy;
-      var tempFilterField = this.state.filterField;      
-        var keys = Object.keys(asset);        
-        for ( var i = 0, len = keys.length; i < len; i++) {
-          if (keys[i] === tempFilterField) {
-            console.log(keys[i]);
-            if (asset[keys[i]].includes(tempFilterBy)) {
-              console.log(asset[keys[i]] + " includes" + tempFilterBy);
-              return true;
-            }
-          }
-        }
-        return false;
-      }
+  
   getAssetsForUsername(username) {
-    if (this.state.filterBy) {
-      
-      var tempAssets = JSON.parse(localStorage.getItem('assets'));
-      var filteredAssets = tempAssets.filter(this.customFilter);
-      console.log(filteredAssets);
-      return filteredAssets;
-    }
-   
-    console.log("getAssetsForUsername: " + username);
-
+    
     let config = {
       method: 'post',
       headers: {
@@ -167,7 +140,8 @@ export default class Assets extends Component {
     return (
       <div>
         <div className="asset-title">
-          User {username} Assets
+          User {username}
+          Assets
         </div>
 
         <div>
@@ -180,27 +154,12 @@ export default class Assets extends Component {
 }
 
         </div>
-        <div className="inline-div">Search:</div>
-        <input
-          type="text"
-          value={this.state.filterBy}
-          onChange={this.handleFilterByChange}/>
-        <div className="inline-div">
-          <select
-            className="select"
-            value={this.state.filterField}
-            onChange={this.handleFilterFieldChange}>
-            <option value="description">Description</option>
-            <option value="dnaCode">DNA Code</option>
-            <option value="assetCode">Asset Code</option>
-            <option value="dateCreated">Date Created</option>
-            <option value="dateUpdated">Date Updated</option>
-          </select>
-        </div>
+        
         <div>
           <AssetList
             promise={this.getAssetsForUsername(username)}
-            viewAsset={this.viewAsset}/>
+            viewAsset={this.viewAsset}
+            deleteAsset={this.deleteAsset} />
 
         </div>
       </div>

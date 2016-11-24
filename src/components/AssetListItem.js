@@ -5,9 +5,13 @@ import './components.css';
 
 export default class AssetListItem extends Component {
 
-  handleOnClick = () => {
+  handleView = () => {
     
     this.props.viewAsset(this.props.asset.dnaCode);
+  };
+  handleDelete = () => {
+    
+    this.props.deleteAsset(this.props.asset.dnaCode);
   };
   render() {
 
@@ -17,7 +21,9 @@ export default class AssetListItem extends Component {
         <td className="td">{this.props.asset.assetCode} </td>
         <td className="td">{this.props.asset.description} </td>
         <td className="td">{this.props.asset.dateAdded} </td>
-        <td className="td">{this.props.asset.dateModified}</td>
+        <td className="td">{this.props.asset.dateUpdated}</td>
+        <td><button onClick={this.handleView}>View/Update</button></td>
+        <td><button onClick={this.handleDelete}>Delete</button></td>
       </tr>
     )
   }
