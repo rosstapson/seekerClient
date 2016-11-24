@@ -6,7 +6,7 @@ import './App.css';
 
 class App extends Component {
     render() {
-        const isAuthenticated = this.props.isAuthenticated;
+        let isAuthenticated = localStorage.getItem('isAuthenticated');
         return (
             <div className="App">
                 <div className="App-header">

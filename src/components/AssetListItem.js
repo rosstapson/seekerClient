@@ -6,12 +6,19 @@ import './components.css';
 export default class AssetListItem extends Component {
 
   handleOnClick = () => {
-    console.log("handleOnClick");
+    
+    this.props.viewAsset(this.props.asset.dnaCode);
   };
   render() {
 
     return (
-      <li onClick={this.props.viewAsset}>{this.props.dnaCode} {this.props.assetCode} {this.props.description} {this.props.dateAdded} {this.props.dateModified}</li>
+      <tr onClick={this.handleOnClick} className="tr-highlight">
+        <td className="td">{this.props.asset.dnaCode}</td> 
+        <td className="td">{this.props.asset.assetCode} </td>
+        <td className="td">{this.props.asset.description} </td>
+        <td className="td">{this.props.asset.dateAdded} </td>
+        <td className="td">{this.props.asset.dateModified}</td>
+      </tr>
     )
   }
 

@@ -17,9 +17,7 @@ export default class Dashboard extends Component {
 
     return (
       <div>
-        <h2>
-          User {username}
-          Dashboard</h2>
+        <div className="asset-title"> User {username} Dashboard </div>
         {errorMessage}
         <DashboardWidget
           displayAssets={ this.displayAssets }
