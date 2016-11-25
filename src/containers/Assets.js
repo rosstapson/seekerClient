@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import AssetList from '../components/AssetList'
 import AddAssetWidget from '../components/AddAssetWidget'
+import UpdateAsset from '../components/UpdateAsset'
 
 // import getAssetsForUsername from '../middleware/AssetStore' import {
 import {browserHistory} from 'react-router';
@@ -11,14 +12,20 @@ export default class Assets extends Component {
     super(props);
     console.log("Assets constructor()");
     // this.showAddAsset = this   .showAddAsset   .bind(this);
-    
+
     this.addAsset = this
       .addAsset
+      .bind(this);
+    this.closeViewAsset = this
+      .closeViewAsset
       .bind(this);
     this.viewAsset = this
       .viewAsset
       .bind(this);
-      this.deleteAsset = this
+    this.updateAsset = this
+      .updateAsset
+      .bind(this);
+    this.deleteAsset = this
       .deleteAsset
       .bind(this);
     this.setState = this
@@ -28,11 +35,14 @@ export default class Assets extends Component {
   }
   componentWillMount() {
     this.setState({
-      showAddAsset: false, 
-      pendingAddAsset: false, 
+      showAddAsset: false,
+      showUpdate: false,
+      assetToView: null,
+      pendingAddAsset: false,
+      pendingUpdateAsset: false,
       pendingDeleteAsset: false,
       pendingViewAsset: false
-  });
+    });
   }
   showAddAsset() {
     this.setState({showAddAsset: true});
@@ -59,14 +69,53 @@ export default class Assets extends Component {
           browserHistory.push("/error");
         }
         console.log("json.assets: " + json.assets);
-        this.setState({showAddAsset: false, pendingAddAsset: false});
+        this.setState({
+          showAddAsset: false, 
+          pendingAddAsset: false,
+          showUpdate: true,
+          assetToView: asset
+      });
         return json.assets;
 
       });
   }
-  viewAsset(dnaCode) {
-    console.log("View Asset: " + dnaCode);
-  } // todo: swap the names here and implement ViewAsset.js
+  closeViewAsset() {
+    this.setState({showUpdate: false, assetToView: ''});
+  }
+  viewAsset(asset) {
+    console.log("View Asset: " + asset.dnaCode);
+    //if (confirm("wait a sec...")) {
+    this.setState({showUpdate: true, assetToView: asset});
+    //}
+
+  } 
+  updateAsset(asset) {
+    this.setState({pendingUpdateAsset: true});
+
+    console.log("Asset.js updateAsset");
+    let config = {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem('username'),
+        asset: asset
+      })
+    }
+    return fetch("http://localhost:3001/updateasset", config)
+      .then(response => response.json().then(json => ({json, response})))
+      .then(({json, response}) => {
+        if (!response.ok) {
+          console.log("!response.ok");
+          browserHistory.push("/error");
+        }
+        console.log("json.assets: " + json.assets);
+        this.setState({showUpdate: false, pendingUpdateAsset: false});
+        return json.assets;
+
+      });
+  }
   deleteAsset(dnaCode) {
     if (!confirm("Delete asset?")) {
       return;
@@ -101,9 +150,9 @@ export default class Assets extends Component {
       });
 
   }
-  
+
   getAssetsForUsername(username) {
-    
+
     let config = {
       method: 'post',
       headers: {
@@ -140,28 +189,36 @@ export default class Assets extends Component {
     return (
       <div>
         <div className="asset-title">
-          User {username}
-          Assets
+          User&nbsp;{username}&nbsp;Assets
         </div>
-
+        {!this.state.showUpdate &&
         <div>
           <button
             className="asset-submit-button"
             onClick={this
             .showAddAsset
             .bind(this)}>Add New</button>
-          {this.state.showAddAsset && <AddAssetWidget addAsset={this.addAsset}/>
-}
+          {this.state.showAddAsset && <div><AddAssetWidget addAsset={this.addAsset}/></div>
+          }
+        
 
         </div>
-        
+        }
+        {this.state.showUpdate && 
+          <div><UpdateAsset
+          asset={this.state.assetToView}
+          close={this.closeViewAsset}
+          updateAsset={this.updateAsset}/></div>
+        }
+        {!this.state.showUpdate &&
         <div>
           <AssetList
             promise={this.getAssetsForUsername(username)}
             viewAsset={this.viewAsset}
-            deleteAsset={this.deleteAsset} />
+            deleteAsset={this.deleteAsset}/>
 
         </div>
+        }
       </div>
 
     );

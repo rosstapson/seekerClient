@@ -63,7 +63,7 @@ constructor(props) {
               ref="descripton"
               id="descripton"/>
               </div><div className="inline-div">
-            <button type="button" className="submit-button" onClick={this.addAsset}>Submit</button>
+            <button type="button" className="asset-submit-button" onClick={this.addAsset}>Submit</button>
           </div>
          
           

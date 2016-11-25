@@ -3,7 +3,7 @@
 import React, {Component, PropTypes} from 'react'
 import DashboardWidget from '../components/DashboardWidget'
 
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -17,13 +17,15 @@ export default class Dashboard extends Component {
 
     return (
       <div>
-        <div className="asset-title"> User {username} Dashboard </div>
+        <div className="asset-title">
+          User&nbsp;{username}&nbsp;Dashboard
+        </div>
         {errorMessage}
         <DashboardWidget
-          displayAssets={ this.displayAssets }
-          manageAssets={ this.manageAssets }
-          manageAccount={ this.manageAccount }
-          logout={ this.logout }/>
+          displayAssets={this.displayAssets}
+          manageAssets={this.manageAssets}
+          manageAccount={this.manageAccount}
+          logout={this.logout}/>
       </div>
     );
   }
