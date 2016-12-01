@@ -14,7 +14,8 @@ constructor(props) {
     const asset = {
       dnaCode: this.refs.dnaCode.value.trim(),
       assetCode: this.refs.assetCode.value.trim(),
-      description: this.refs.descripton.value.trim()
+      description: this.refs.descripton.value.trim(),
+      imageUrls: []
     }
     this.props.addAsset(asset);
   }

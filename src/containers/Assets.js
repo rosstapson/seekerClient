@@ -89,6 +89,21 @@ export default class Assets extends Component {
     //}
 
   } 
+  uploadImage(file) {
+
+    console.log("Asset.js uploadImage");
+    console.log(file);
+    var formData = new FormData();
+    formData.append('username', localStorage.getItem('username'));
+    formData.append('image', file);
+    console.log(formData);
+    let config = {
+      method: 'post',
+      body: formData
+      }
+    
+    return fetch("http://localhost:3001/file-upload", config);
+  }
   updateAsset(asset) {
     this.setState({pendingUpdateAsset: true});
 
@@ -208,7 +223,9 @@ export default class Assets extends Component {
           <div><UpdateAsset
           asset={this.state.assetToView}
           close={this.closeViewAsset}
-          updateAsset={this.updateAsset}/></div>
+          updateAsset={this.updateAsset}
+          uploadImage={this.uploadImage}
+          /></div>
         }
         {!this.state.showUpdate &&
         <div>

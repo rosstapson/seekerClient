@@ -4,6 +4,7 @@ import React, {
   Component,
   /* PropTypes */
 } from 'react'
+import FileInput from 'react-file-input';
 
 import './components.css'; 
 
@@ -14,9 +15,13 @@ export default class UpdateAsset extends Component {
      //this.handleOnChange = this.handleOnChange.bind(this);
      this.handleUpdate = this.handleUpdate.bind(this);
      this.handleClose = this.handleClose.bind(this);
-    // this.state = {
-    //   isEditing: false
-    // }
+     this.pendingUploadImage = this.pendingUploadImage.bind(this);
+     this.handleUploadImage = this.handleUploadImage.bind(this);
+     this.state = {
+       imageIsUploading: false,
+       imageUploadError: false,
+       selectedFile: ''
+     }
    
   }
   // handleOnChange(event) {
@@ -28,6 +33,18 @@ export default class UpdateAsset extends Component {
       .props
       .close();
 
+  }
+  pendingUploadImage(event) {
+    this.setState({selectedFile: event.target.files[0]});
+    console.log(event.target.files[0]);
+  }
+  handleUploadImage(event) {
+    event.preventDefault();
+    console.log(event);
+    this.setState({imageIsUploading: true});
+    this.props.uploadImage(this.state.selectedFile)
+      .then(() => this.setState({imageIsUploading: false}))
+      .catch((err) => this.setState({imageIsUploading: false, imageUploadError: true}));
   }
   handleUpdate() {
     var tempAsset = this.props.asset;
@@ -105,7 +122,41 @@ export default class UpdateAsset extends Component {
             </div>
           </div>
           
-          
+          <div>
+            <div className="inline-div">
+
+              <label className="form-label" htmlFor="images">Images:
+              </label>
+           </div>
+           <div>
+           {
+            
+             this.props.asset.imageUrls.forEach(function(url) {
+             return <div>
+                <img src={'http://127.0.0.1:3001/image' + url} alt='{url}' />                
+
+              </div>
+            }, this)
+            
+           }
+           </div>
+           <div className="inline-field-div">
+            <FileInput 
+              accept=".png,.gif" 
+              name="image"
+              placeholder="Click here to Select..."
+              className='form-field' 
+              onChange={this.pendingUploadImage}
+              ref="fileUrl"
+              />
+           </div>
+           <div className="inline-div">
+            <button className="asset-submit-button" onClick={this.handleUploadImage}>Upload</button>
+           </div>
+           { this.state.imageIsUploading &&
+             <div className="loader">Uploading Image...</div>
+           }
+          </div>
           <div>
             <div className="inline-div">
 

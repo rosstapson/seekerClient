@@ -45,22 +45,23 @@ export class Registration extends Component {
               .value
               .trim(),
 
-            addressline1: addressLine1Ref
-              .value
-              .trim(),
-            addressline2: addressLine2Ref
-              .value
-              .trim(),
-            addressline3: addressLine3Ref
-              .value
-              .trim(),
-            addressState: addressStateRef
-              .value
-              .trim(),
-            addressCountry: addressCountryRef
-              .value
-              .trim(),
-
+            address: {
+              line1: addressLine1Ref
+                .value
+                .trim(),
+              line2: addressLine2Ref
+                .value
+                .trim(),
+              line3: addressLine3Ref
+                .value
+                .trim(),
+              state: addressStateRef
+                .value
+                .trim(),
+              country: addressCountryRef
+                .value
+                .trim(),
+            },
             telephone: telephoneRef
               .value
               .trim(),

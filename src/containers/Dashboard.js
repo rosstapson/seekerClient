@@ -37,7 +37,8 @@ export default class Dashboard extends Component {
     console.log("manageAssets");
   }
   manageAccount() {
-    console.log("manageAccount")
+    console.log("manageAccount");
+    browserHistory.push('/updateuser');
   }
   logout() {
     console.log("logout");

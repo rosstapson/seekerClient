@@ -1,0 +1,15 @@
+todo: add a picture box to the asset details, with a default placeholder pic "fetched" from the server
+      underneath or next to it, a file chooser button, and when the file is chosen (onchanged?)
+      bring up an 'upload' button (api route is done: '/file-upload'). on success, display the pic in the 
+      pic box in place of the default.
+
+      2-step process - upload pic with req.files.thumbnail.path and req.files.thumbnail.name, path being the username/slug and 
+      name being the dnaCode plus whatever the extension is.
+      step two, update the asset with .imageUrl.
+      then setState with the image(s) in place on the detail page. there may be more than one image.
+
+also: update user details page - more or less reproduce the registration page, but with default values in place
+      on all the fields, have 'onchanged' property. note that on the two 'new password fields', the onchanged property should
+      check that the passwords match. we can check for password strength later.
+
+      click button -> fetch user -> open update page with user as prop

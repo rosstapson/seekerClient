@@ -171,7 +171,17 @@
 }
 .inline-div {
   display: inline-block;
-    width: 150px;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+  margin-bottom: 12px;
+  color: #757575;
+  padding: 15px;
+    
+}
+.inline-field-div {
+  display: inline-block;
+    width: 300px;
     height: 50px;
     font-size: 20px;
   margin-bottom: 12px;
