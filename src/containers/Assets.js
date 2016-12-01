@@ -90,9 +90,9 @@ export default class Assets extends Component {
 
   } 
   uploadImage(file) {
-
     console.log("Asset.js uploadImage");
-    console.log(file);
+    console.log('file name: ' + file.name);
+    
     var formData = new FormData();
     formData.append('username', localStorage.getItem('username'));
     formData.append('image', file);

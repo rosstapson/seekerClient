@@ -4,7 +4,7 @@ import React, {
   Component,
   /* PropTypes */
 } from 'react'
-import FileInput from 'react-file-input';
+//import FileInput from 'react-file-input';
 
 import './components.css'; 
 
@@ -36,15 +36,22 @@ export default class UpdateAsset extends Component {
   }
   pendingUploadImage(event) {
     this.setState({selectedFile: event.target.files[0]});
-    console.log(event.target.files[0]);
+    //console.log(event.target.files[0]);
   }
   handleUploadImage(event) {
     event.preventDefault();
-    console.log(event);
+    //console.log(event);
+    
     this.setState({imageIsUploading: true});
     this.props.uploadImage(this.state.selectedFile)
-      .then(() => this.setState({imageIsUploading: false}))
-      .catch((err) => this.setState({imageIsUploading: false, imageUploadError: true}));
+      .then(() => this.setState({imageIsUploading: false, imageUploadError: false}))  //try to add new imageurl to the array on the props :/
+      .catch((err) => {
+        //alert(err);
+        this.setState({
+        imageIsUploading: false, 
+        imageUploadError: err
+      })
+    });
   }
   handleUpdate() {
     var tempAsset = this.props.asset;
@@ -139,10 +146,14 @@ export default class UpdateAsset extends Component {
             }, this)
             
            }
+           
            </div>
+           { this.state.imageUploadError &&
+             <div>{this.state.imageUploadError}</div>
+           }
            <div className="inline-field-div">
-            <FileInput 
-              accept=".png,.gif" 
+            <input type="file" 
+              accept="image/*"              
               name="image"
               placeholder="Click here to Select..."
               className='form-field' 
