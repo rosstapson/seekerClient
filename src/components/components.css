@@ -179,6 +179,10 @@
   padding: 15px;
     
 }
+.img {
+    height: 50%;
+    width: 50%;
+}
 .inline-field-div {
   display: inline-block;
     width: 300px;

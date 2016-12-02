@@ -17,10 +17,12 @@ export default class UpdateAsset extends Component {
      this.handleClose = this.handleClose.bind(this);
      this.pendingUploadImage = this.pendingUploadImage.bind(this);
      this.handleUploadImage = this.handleUploadImage.bind(this);
+     
      this.state = {
        imageIsUploading: false,
        imageUploadError: false,
        selectedFile: ''
+       
      }
    
   }
@@ -44,7 +46,15 @@ export default class UpdateAsset extends Component {
     
     this.setState({imageIsUploading: true});
     this.props.uploadImage(this.state.selectedFile)
-      .then(() => this.setState({imageIsUploading: false, imageUploadError: false}))  //try to add new imageurl to the array on the props :/
+      .then((imageUrl) => {
+        
+        this.props.asset.imageUrls.push(imageUrl);
+        
+        this.setState({
+          imageIsUploading: false, 
+          imageUploadError: false
+        });
+      })  //try to add new imageurl to the array on the props :/
       .catch((err) => {
         //alert(err);
         this.setState({
@@ -136,15 +146,10 @@ export default class UpdateAsset extends Component {
               </label>
            </div>
            <div>
-           {
-            
-             this.props.asset.imageUrls.forEach(function(url) {
-             return <div>
-                <img src={'http://127.0.0.1:3001/image' + url} alt='{url}' />                
-
-              </div>
-            }, this)
-            
+           {            
+            this.props.asset.imageUrls.map(function(url) {
+               return <div key={url}><img className='img' src={'http://127.0.0.1:3001/image/' + url} alt={url} /></div>
+             })          
            }
            
            </div>

@@ -25,16 +25,16 @@ export default class Assets extends Component {
     this.updateAsset = this
       .updateAsset
       .bind(this);
+    this.uploadImage = this
+      .uploadImage
+      .bind(this);
     this.deleteAsset = this
       .deleteAsset
       .bind(this);
     this.setState = this
       .setState
       .bind(this);
-
-  }
-  componentWillMount() {
-    this.setState({
+    this.state = {
       showAddAsset: false,
       showUpdate: false,
       assetToView: null,
@@ -42,8 +42,19 @@ export default class Assets extends Component {
       pendingUpdateAsset: false,
       pendingDeleteAsset: false,
       pendingViewAsset: false
-    });
+    };
   }
+    // componentWillMount() {
+    //   this.setState({
+    //     showAddAsset: false,
+    //     showUpdate: false,
+    //     assetToView: null,
+    //     pendingAddAsset: false,
+    //     pendingUpdateAsset: false,
+    //     pendingDeleteAsset: false,
+    //     pendingViewAsset: false
+    //   });
+    // }
   showAddAsset() {
     this.setState({showAddAsset: true});
   }
@@ -95,6 +106,7 @@ export default class Assets extends Component {
     
     var formData = new FormData();
     formData.append('username', localStorage.getItem('username'));
+    formData.append('dnaCode', this.state.assetToView.dnaCode);
     formData.append('image', file);
     console.log(formData);
     let config = {
@@ -102,7 +114,19 @@ export default class Assets extends Component {
       body: formData
       }
     
-    return fetch("http://localhost:3001/file-upload", config);
+    return fetch("http://localhost:3001/file-upload", config)    
+      .then(response => response.json().then(json => ({json, response})))
+      .then(({json, response}) => {
+        if (!response.ok) {
+          console.log("!response.ok");
+          //browserHistory.push("/error");
+        }
+        console.log("json.imageUrl: " + json.imageUrl);
+        return json.imageUrl;
+
+      });
+      
+    
   }
   updateAsset(asset) {
     this.setState({pendingUpdateAsset: true});
