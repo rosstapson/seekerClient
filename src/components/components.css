@@ -179,6 +179,14 @@
   padding: 15px;
     
 }
+.float-left {
+  float: left;
+  width: 50%;
+}
+.float-right {
+  float: right;
+  width: 50%;
+}
 .img {
     height: 50%;
     width: 50%;
