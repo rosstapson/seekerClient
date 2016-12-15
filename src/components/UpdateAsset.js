@@ -33,8 +33,12 @@ export default class UpdateAsset extends Component {
 
     this.state = {
       imageIsUploading: false,
+      uploadPending: false,
       imageUploadError: false,
-      selectedFile: ''
+      selectedFile: '',
+      imageIsDeleting: false,
+      //imageUrlToDelete: '',
+      imageUrls: this.props.asset.imageUrls
 
     }
 
@@ -48,31 +52,61 @@ export default class UpdateAsset extends Component {
 
   }
   pendingUploadImage(event) {
-    this.setState({selectedFile: event.target.files[0]});
+    this.setState({
+      uploadPending: true,
+      selectedFile: event.target.files[0]
+    });
     //console.log(event.target.files[0]);
   }
-  handleDeleteImage(event) {
-    
-    console.log("Delete url: " + event);
+  handleDeleteImage(url) {
+    if (!confirm("Delete Image?")) {
+      return;
+    }
+    this.setState({
+      imageIsDeleting: true,
+      //imageUrlToDelete: url
+    });
+    // call props.deleteImage remove url from  this.props.asset.imageUrls
+    this
+      .props
+      .deleteImage(url, this.props.asset.dnaCode)
+      .then(() => {
+        console.log("urls: " + this.state.imageUrls);
+        console.log("url to filter by: " + url);
+        var tempUrls = this.state.imageUrls.filter((value) => {
+            return value !== url;
+          });
+        console.log("tempUrls: " + tempUrls);
+        this.setState({imageUrls: tempUrls, imageIsDeleting: false});
+        console.log("urls: " + this.state.imageUrls);
+      })
+      .catch((err) => {
+        alert(err);
+        this.setState({imageIsDeleting: false});
+      });
+
   }
   handleUploadImage(event) {
     event.preventDefault();
     //console.log(event);
 
-    this.setState({imageIsUploading: true});
+    this.setState({
+      uploadPending: false,
+      imageIsUploading: true
+    });
     this
       .props
       .uploadImage(this.state.selectedFile)
       .then((imageUrl) => {
+        var tempArray = this.state.imageUrls.slice();
+        tempArray.push(imageUrl);        
 
-        this
-          .props
-          .asset
-          .imageUrls
-          .push(imageUrl);
-
-        this.setState({imageIsUploading: false, imageUploadError: false});
-      }) //try to add new imageurl to the array on the props :/
+        this.setState({
+          imageIsUploading: false, 
+          imageUploadError: false,          
+          imageUrls: tempArray
+      });
+      }) 
       .catch((err) => {
         //alert(err);
         this.setState({imageIsUploading: false, imageUploadError: err})
@@ -444,26 +478,25 @@ export default class UpdateAsset extends Component {
           </form>
         </div>
         <div className="float-right">
-         
-            <div className="form-title">
-              Asset Images
-            </div>
-            <div>
 
-              <div>
-                {this
-                  .props
-                  .asset
-                  .imageUrls
-                  .map(function (url) {
-                    return (
-                      <div key={url}><ImageListItem url={url} deleteImage={this.handleDeleteImage}/></div>
-                    )
-                  }, this)
+          <div className="form-title">
+            Asset Images
+          </div>
+          <div>
+
+            <div>
+              {this               
+                .state
+                .imageUrls
+                .map(function (url) {
+                  return (
+                    <div key={url}><ImageListItem url={url} deleteImage={this.handleDeleteImage}/></div>
+                  )
+                }, this)
 }
 
-              </div>
-              <form>
+            </div>
+            <form>
               {this.state.imageUploadError && <div>{this.state.imageUploadError}</div>
 }
               <div className="inline-field-div">
@@ -473,6 +506,7 @@ export default class UpdateAsset extends Component {
                   name="image"
                   placeholder="Click here to Select..."
                   className='form-field'
+                  
                   onChange={this.pendingUploadImage}
                   ref="fileUrl"/>
               </div>
@@ -480,10 +514,10 @@ export default class UpdateAsset extends Component {
                 <button className="asset-submit-button" onClick={this.handleUploadImage}>Upload</button>
               </div>
               {this.state.imageIsUploading && <div className="loader">Uploading Image...</div>
-  }
+}
             </form>
-            </div>
-          
+          </div>
+
         </div>
       </div>
     )

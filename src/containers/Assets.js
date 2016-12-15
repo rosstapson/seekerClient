@@ -28,6 +28,9 @@ export default class Assets extends Component {
     this.uploadImage = this
       .uploadImage
       .bind(this);
+    this.deleteImage = this
+      .deleteImage
+      .bind(this);
     this.deleteAsset = this
       .deleteAsset
       .bind(this);
@@ -44,17 +47,7 @@ export default class Assets extends Component {
       pendingViewAsset: false
     };
   }
-    // componentWillMount() {
-    //   this.setState({
-    //     showAddAsset: false,
-    //     showUpdate: false,
-    //     assetToView: null,
-    //     pendingAddAsset: false,
-    //     pendingUpdateAsset: false,
-    //     pendingDeleteAsset: false,
-    //     pendingViewAsset: false
-    //   });
-    // }
+    
   showAddAsset() {
     this.setState({showAddAsset: true});
   }
@@ -189,6 +182,32 @@ export default class Assets extends Component {
       });
 
   }
+  deleteImage(url, dnaCode) {  
+
+    console.log("deleteImage - " + url + ":" + localStorage.getItem('username'));
+   
+    let config = {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem('username'),
+        url: url,
+        dnaCode: dnaCode
+      })
+    }
+    return fetch("http://localhost:3001/deleteimage", config)
+      .then(response => response.json().then(json => ({json, response})))
+      .then(({json, response}) => {
+        if (!response.ok) {
+          alert(response.errorMessage);
+        }
+        return;
+
+      });
+
+  }
 
   getAssetsForUsername(username) {
 
@@ -249,6 +268,7 @@ export default class Assets extends Component {
           close={this.closeViewAsset}
           updateAsset={this.updateAsset}
           uploadImage={this.uploadImage}
+          deleteImage={this.deleteImage}
           /></div>
         }
         {!this.state.showUpdate &&
