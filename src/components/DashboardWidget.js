@@ -14,8 +14,8 @@ export default class DashboardWidget extends Component {
       <div>
         <div>
         
-          <button className="asset-submit-button" onClick={ this.props.displayAssets } >Display Assets</button>
-          <button className="asset-submit-button" onClick={ this.props.manageAssets } >Manage Assets</button>
+          <button className="asset-submit-button" onClick={ this.props.displayAssets } >Manage Assets</button>
+          
           <button className="asset-submit-button" onClick={ this.props.manageAccount } >Manage Account Details</button>
         </div>
         <div>
