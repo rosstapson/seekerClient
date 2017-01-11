@@ -9,7 +9,7 @@ function getAssetsForUsername(username) {
     },
     body: JSON.stringify(username)
   }
-  return fetch("http://localhost:3001/assets", config)
+  return fetch("http://seekerdnasecure.co.za:3001/assets", config)
     .then(response => response.json().then(json => ({json, response})))
     .then(({json, response}) => {
       if (!response.ok) {

@@ -65,7 +65,7 @@ export default class Assets extends Component {
         asset: asset
       })
     }
-    return fetch("http://localhost:3001/addasset", config)
+    return fetch("http://seekerdnasecure.co.za:3001/addasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -107,7 +107,7 @@ export default class Assets extends Component {
       body: formData
       }
     
-    return fetch("http://localhost:3001/file-upload", config)    
+    return fetch("http://seekerdnasecure.co.za:3001/file-upload", config)    
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -135,7 +135,7 @@ export default class Assets extends Component {
         asset: asset
       })
     }
-    return fetch("http://localhost:3001/updateasset", config)
+    return fetch("http://seekerdnasecure.co.za:3001/updateasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -168,7 +168,7 @@ export default class Assets extends Component {
         dnaCode: dnaCode
       })
     }
-    return fetch("http://localhost:3001/deleteasset", config)
+    return fetch("http://seekerdnasecure.co.za:3001/deleteasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -197,7 +197,7 @@ export default class Assets extends Component {
         dnaCode: dnaCode
       })
     }
-    return fetch("http://localhost:3001/deleteimage", config)
+    return fetch("http://seekerdnasecure.co.za:3001/deleteimage", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -218,7 +218,7 @@ export default class Assets extends Component {
       },
       body: JSON.stringify({username: username})
     }
-    return fetch("http://localhost:3001/assets", config)
+    return fetch("http://seekerdnasecure.co.za:3001/assets", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {

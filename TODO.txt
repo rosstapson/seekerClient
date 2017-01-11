@@ -8,8 +8,5 @@ todo: add a picture box to the asset details, with a default placeholder pic "fe
       step two, update the asset with .imageUrl.
       then setState with the image(s) in place on the detail page. there may be more than one image.
 
-also: update user details page - more or less reproduce the registration page, but with default values in place
-      on all the fields, have 'onchanged' property. note that on the two 'new password fields', the onchanged property should
-      check that the passwords match. we can check for password strength later.
-
-      click button -> fetch user -> open update page with user as prop
+      validation-y bits
+            username must be usable as a folder name - work out or find a regexp and apply it.

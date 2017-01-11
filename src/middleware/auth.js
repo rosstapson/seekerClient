@@ -9,7 +9,7 @@ function auth(token) {
     },
     body: JSON.stringify(this.props.params.id_token)
   }
-  return fetch("http://localhost:3001/token", config)
+  return fetch("http://seekerdnasecure.co.za:3001/token", config)
     .then(response => response.json().then(json => ({json, response})))
     .then(({json, response}) => {
       if (!response.ok) {

@@ -30,9 +30,10 @@ class RegistrationContainer extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("http://localhost:3001/users", config)
+        return fetch("http://seekerdnasecure.co.za:3001/users", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
+                console.log("here");
                 if (!response.ok) {
                     console.log("json.errorMessage " + json.errorMessage);                    
                     throw new Error(json.errorMessage);

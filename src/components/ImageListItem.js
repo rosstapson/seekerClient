@@ -14,7 +14,7 @@ export default class ImageListItem extends Component {
     return (
       <div>
         <div>
-        <img className='img' src={'http://127.0.0.1:3001/image/' + this.props.url} alt={this.props.url} />
+        <img className='img' src={'http://seekerdnasecure.co.za:3001/image/' + this.props.url} alt={this.props.url} />
         </div>
         <div className="inline-div">
         <button className="asset-submit-button" onClick={this.handleDelete}>Delete</button>

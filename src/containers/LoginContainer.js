@@ -26,7 +26,7 @@ function loginUser(creds) {
         body: `username=${creds.username}&password=${creds.password}`
     };
 
-    return fetch('http://localhost:3001/sessions/create', config)
+    return fetch('http://seekerdnasecure.co.za:3001/sessions/create', config)
         .then(response => response.json().then(json => ({json, response})))
         .then(({json, response}) => {
             if (!response.ok) {
