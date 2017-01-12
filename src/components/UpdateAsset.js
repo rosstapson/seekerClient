@@ -45,7 +45,7 @@ export default class UpdateAsset extends Component {
   }
   // handleOnChange(event) {   this.setState({isEditing: true}); }
   handleClose(event) {
-    console.log("handleClose");
+    //console.log("handleClose");
     this
       .props
       .close();
@@ -71,14 +71,14 @@ export default class UpdateAsset extends Component {
       .props
       .deleteImage(url, this.props.asset.dnaCode)
       .then(() => {
-        console.log("urls: " + this.state.imageUrls);
-        console.log("url to filter by: " + url);
+        //console.log("urls: " + this.state.imageUrls);
+        //console.log("url to filter by: " + url);
         var tempUrls = this.state.imageUrls.filter((value) => {
             return value !== url;
           });
-        console.log("tempUrls: " + tempUrls);
+        //console.log("tempUrls: " + tempUrls);
         this.setState({imageUrls: tempUrls, imageIsDeleting: false});
-        console.log("urls: " + this.state.imageUrls);
+        //console.log("urls: " + this.state.imageUrls);
       })
       .catch((err) => {
         alert(err);

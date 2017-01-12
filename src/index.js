@@ -33,8 +33,7 @@ ReactDOM.render(
 
 //temporarily...
 /* eslint-disable */
-function requireCredentials(nextState, replace, next) {
-  console.log("requireCredentials, from onEnter");
+function requireCredentials(nextState, replace, next) {  
   if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {
     console.log("not authenticated");
     replace('/login')    

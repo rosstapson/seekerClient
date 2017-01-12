@@ -15,8 +15,7 @@ class LoginContainer extends Component {
     }
 }
 
-function loginUser(creds) {
-    console.log("LoginContainer.loginUser. ");
+function loginUser(creds) {    
 
     let config = {
         method: 'POST',
@@ -39,12 +38,11 @@ function loginUser(creds) {
                 // and go to dashboard
                 localStorage.setItem ('username', json.username);
                 localStorage.setItem('id_token', json.id_token);
-                if (json.accessLevel === 2) {
-                    console.log("he's an admin!")
+                if (json.accessLevel === 2) {                    
                     localStorage.setItem('isAdmin', true);
                 }
-                if (json.accessLevel === 1) {
-                    localStorage.setItem('isAdmin', false);
+                if (json.accessLevel < 2) {                    
+                    localStorage.removeItem('isAdmin');
                 }
                 localStorage.setItem('isAuthenticated',  true);
                 browserHistory.push('/dashboard');

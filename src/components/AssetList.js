@@ -43,8 +43,7 @@ export default class AssetList extends Component {
     this.setState({
       filterBy: event.target.value,
       filteredAssets: tempAssets
-    });
-    console.log(this.state.filterField + ":" + event.target.value);
+    });    
     
   }
   handleFilterFieldChange(event) {
@@ -69,10 +68,7 @@ export default class AssetList extends Component {
     this
       .props
       .promise
-      .then(function (value) {
-        // setTimeout(function () {
-        //   this.setState({loading: false, assets: value})
-        // }.bind(this), 3000);
+      .then(function (value) {        
         self.setState({loading: false, assets: value});
       }, function (error) {
         self.setState({loading: false, error: error});

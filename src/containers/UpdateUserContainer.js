@@ -7,7 +7,6 @@ import UpdateUser from '../components/UpdateUser';
 class UpdateUserContainer extends Component {
     constructor(props) {
         super(props);
-        console.log('username: ' + localStorage.getItem('username'));
         this.setState = this.setState.bind(this);
         this.state = {
             errorMessage: null,
@@ -25,8 +24,7 @@ class UpdateUserContainer extends Component {
     }
     render() {
         console.log(this.state.errorMessage);
-        if (this.state.isFetchingUserDetails) {
-          console.log("zomg");
+        if (this.state.isFetchingUserDetails) {         
           return(<div className="loader">Fetching User Details...</div>);
         } 
         else {
@@ -57,11 +55,7 @@ class UpdateUserContainer extends Component {
                     
                 }                
 
-                // if (json.id_token) { //is this going to be changed during update?
-                //     console.log("token: " + (json.id_token));
-                // };
-                //localStorage.setItem({id_token: json.id_token}); this to be done by clicking 'confirm' link
-                //                                                in the email rather.
+                
                
                 return json;
             });
@@ -86,14 +80,9 @@ class UpdateUserContainer extends Component {
                     console.log("json.errorMessage " + json.errorMessage);                    
                     throw new Error(json.errorMessage);
                     
-                }                
+                }             
 
-                if (json.id_token) {
-                    console.log("token: " + (json.id_token));
-                };
-                //localStorage.setItem({id_token: json.id_token}); this to be done by clicking 'confirm' link
-                //                                                 in the email rather.
-
+               
                 browserHistory.push('/dashboard');
                 return json;
             });

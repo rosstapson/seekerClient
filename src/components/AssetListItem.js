@@ -30,11 +30,3 @@ export default class AssetListItem extends Component {
 
 }
 
-// AssetListItem.propTypes = {
-//   viewAsset: PropTypes.func.isRequired,
-//   dnaCode: PropTypes.string.isRequired,
-//   assetCode: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-//   dateAdded: PropTypes.string.isRequired,
-//   dateModified: PropTypes.string.isRequired
-// }

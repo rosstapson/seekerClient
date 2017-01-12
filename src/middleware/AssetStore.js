@@ -12,8 +12,7 @@ function getAssetsForUsername(username) {
   return fetch("http://seekerdnasecure.co.za:3001/assets", config)
     .then(response => response.json().then(json => ({json, response})))
     .then(({json, response}) => {
-      if (!response.ok) {
-        console.log("!response.ok");
+      if (!response.ok) {       
         return Promise.reject(json);
       }
       

@@ -6,14 +6,11 @@ import DashboardWidget from '../components/DashboardWidget'
 import {browserHistory} from 'react-router';
 
 export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    console.log("Dashboard constructor()");
-
-  }
+  
   render() {
     const errorMessage = this.props.errorMessage;
     const username = localStorage.username;
+    //console.log("is admin? " + localStorage.isAdmin);
     //const isAdmin = localStorage.isAdmin;
 
     return (
@@ -48,7 +45,7 @@ export default class Dashboard extends Component {
     browserHistory.push('/updateuser');
   }
   logout() {
-    console.log("logout");
+    //console.log("logout");
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated")
     browserHistory.push('/login');

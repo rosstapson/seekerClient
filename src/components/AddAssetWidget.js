@@ -9,8 +9,7 @@ constructor(props) {
     
     this.addAsset = this.addAsset.bind(this);
   }
-  addAsset() {
-    console.log("addAsset");
+  addAsset() {   
     const asset = {
       dnaCode: this.refs.dnaCode.value.trim(),
       assetCode: this.refs.assetCode.value.trim(),

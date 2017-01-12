@@ -24,7 +24,7 @@ export default class Login extends Component {
               .value
               .trim(),
       }
-      console.log("here.");
+      //console.log("here.");
       let self = this;
       this
             .props
