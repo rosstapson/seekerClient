@@ -8,7 +8,7 @@ export default class DashboardWidget extends Component {
 
   render() {
     //const { errorMessage } = this.props.errorMessage;
-    
+    const isAdmin = this.props.isAdmin;
 
     return (
       <div>
@@ -17,8 +17,10 @@ export default class DashboardWidget extends Component {
           <button className="asset-submit-button" onClick={ this.props.displayAssets } >Manage Assets</button>
           
           <button className="asset-submit-button" onClick={ this.props.manageAccount } >Manage Account Details</button>
-        </div>
-        <div>
+
+          {isAdmin &&
+            <button className="asset-submit-button" onClick={ this.props.showUsers } >Show Users</button>
+            }
           <button className="asset-submit-button" onClick={ this.props.logout } >Secure Logout</button>
         </div>
         

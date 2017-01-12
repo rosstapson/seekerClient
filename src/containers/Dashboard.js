@@ -14,6 +14,7 @@ export default class Dashboard extends Component {
   render() {
     const errorMessage = this.props.errorMessage;
     const username = localStorage.username;
+    //const isAdmin = localStorage.isAdmin;
 
     return (
       <div>
@@ -25,19 +26,25 @@ export default class Dashboard extends Component {
           displayAssets={this.displayAssets}
           manageAssets={this.manageAssets}
           manageAccount={this.manageAccount}
+          showUsers={this.showUsers}
+          isAdmin={localStorage.isAdmin}
           logout={this.logout}/>
       </div>
     );
   }
   displayAssets() {
-    console.log("displayAssets");
+   
     browserHistory.push('/assets');
   }
   manageAssets() {
     console.log("manageAssets");
   }
+  showUsers() {
+   
+    browserHistory.push('/users');
+  }
   manageAccount() {
-    console.log("manageAccount");
+   
     browserHistory.push('/updateuser');
   }
   logout() {

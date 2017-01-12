@@ -39,6 +39,13 @@ function loginUser(creds) {
                 // and go to dashboard
                 localStorage.setItem ('username', json.username);
                 localStorage.setItem('id_token', json.id_token);
+                if (json.accessLevel === 2) {
+                    console.log("he's an admin!")
+                    localStorage.setItem('isAdmin', true);
+                }
+                if (json.accessLevel === 1) {
+                    localStorage.setItem('isAdmin', false);
+                }
                 localStorage.setItem('isAuthenticated',  true);
                 browserHistory.push('/dashboard');
 
