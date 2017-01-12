@@ -82,7 +82,7 @@ export default class AssetList extends Component {
     
     if (this.state.loading) {
       //return <Spinner />;
-      return <div>Loading....</div>
+      return <div  className="loader">Loading Assets....</div>
     } else if (this.state.error !== null) {
       return <span>Error: {this.state.error.message}</span>;
     } else {
