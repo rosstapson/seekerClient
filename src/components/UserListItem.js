@@ -1,21 +1,21 @@
 // components/UserListItem.js
 
 import React, {Component, /* PropTypes */} from 'react'
-import './components.css';
+
 
 
 export default class UserListItem extends Component {
 
   handleView = () => {
-    
+    console.log("handleview");
     this.props.viewUser(this.props.user);
   };
-  handleDelete = () => {
+  handleDelete = () => { 
     
     this.props.deleteUser(this.props.user.username);
   };
   render() {
-
+    
     return (
       <tr onClick={this.handleOnClick} className="tr-highlight">
         <td className="td">{this.props.user.username}</td>

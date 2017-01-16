@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
+import {browserHistory} from 'react-router';
 import './components.css'
 import UserListItem from './UserListItem'
+import UpdateUser from './UpdateUser'
 
 export default class UserList extends Component {
 
@@ -15,11 +17,19 @@ export default class UserList extends Component {
     this.customFilter = this
       .customFilter
       .bind(this);
+    this.viewUser = this
+      .viewUser
+      .bind(this);
+    this.updateUser = this
+      .updateUser
+      .bind(this);
     this.state = {
       loading: true,
+      showUpdate: false,
+      userToUpdate: null,
       error: null,
       users: null,
-      filterField: 'description', 
+      filterField: 'username', 
       filterBy: ''
     };
   }
@@ -60,6 +70,39 @@ export default class UserList extends Component {
     }
     return false;
   }
+  viewUser(user) {
+    console.log("UserList.js : viewUser");
+    this.setState({userToUpdate: user, showUpdate: true});
+  }
+  
+    updateUser(user) {
+        //console.log(JSON.stringify(user));
+        let config = {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }
+        
+        return fetch("http://seekerdnasecure.co.za:3001/updateuser", config)
+            .then(response => response.json().then(json => ({json, response})))
+            .then(({json, response}) => {
+                if (!response.ok) {
+                    console.log("json.errorMessage " + json.errorMessage);                    
+                    throw new Error(json.errorMessage);
+                    
+                }             
+
+               
+                browserHistory.push('/dashboard');
+                return json;
+            });
+            //.catch(response => response, error => error);
+
+    }
+
+  
   componentDidMount() {
     
     var self = this;
@@ -79,7 +122,7 @@ export default class UserList extends Component {
       return <div  className="loader">Loading Users....</div>
     } else if (this.state.error !== null) {
       return <span>Error: {this.state.error.message}</span>;
-    } else {
+    } else if (!this.state.showUpdate) {
       
       return (
         <div>
@@ -114,20 +157,26 @@ export default class UserList extends Component {
               this.state.filteredUsers.map(user => <UserListItem
               key={user.username}
               user={user}
-              viewUser={this.props.viewUser}
+              viewUser={this.viewUser}
               deleteUser={this.props.deleteUser} />)
           }
           {!this.state.filterBy &&
             this.state.users.map(user => <UserListItem
               key={user.username}
               user={user}
-              viewUser={this.props.viewUser}
+              viewUser={this.viewUser}
               deleteUser={this.props.deleteUser} />)
           }
         </tbody>
         </table></div></div>
       )
 
+    } else {
+      return (
+        <div>            
+          <UpdateUser updateUser={this.updateUser} userDetails={this.state.userToUpdate} errorMessage={this.state.errorMessage}/>
+        </div> 
+      )
     }
   }
 }

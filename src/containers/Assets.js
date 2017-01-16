@@ -3,7 +3,6 @@ import AssetList from '../components/AssetList'
 import AddAssetWidget from '../components/AddAssetWidget'
 import UpdateAsset from '../components/UpdateAsset'
 
-// import getAssetsForUsername from '../middleware/AssetStore' import {
 import {browserHistory} from 'react-router';
 
 export default class Assets extends Component {
