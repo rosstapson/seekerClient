@@ -20,12 +20,16 @@ export default class UserList extends Component {
     this.viewUser = this
       .viewUser
       .bind(this);
+    this.viewAssets = this
+      .viewAssets
+      .bind(this);
     this.updateUser = this
       .updateUser
       .bind(this);
     this.state = {
       loading: true,
       showUpdate: false,
+      showAssets: false,
       userToUpdate: null,
       error: null,
       users: null,
@@ -71,8 +75,12 @@ export default class UserList extends Component {
     return false;
   }
   viewUser(user) {
-    console.log("UserList.js : viewUser");
     this.setState({userToUpdate: user, showUpdate: true});
+  }
+  viewAssets(user) {
+    //this.setState({userToUpdate: user, showAssets: true});
+    localStorage.setItem("userInQuestion", user.username);
+    browserHistory.push("/assets");
   }
   
     updateUser(user) {
@@ -122,8 +130,13 @@ export default class UserList extends Component {
       return <div  className="loader">Loading Users....</div>
     } else if (this.state.error !== null) {
       return <span>Error: {this.state.error.message}</span>;
-    } else if (!this.state.showUpdate) {
-      
+    } else if (this.state.showUpdate) {
+      return (
+        <div>            
+          <UpdateUser updateUser={this.updateUser} userDetails={this.state.userToUpdate} errorMessage={this.state.errorMessage}/>
+        </div> 
+      )    
+    } else {
       return (
         <div>
         <div className="inline-div">Search:</div>
@@ -158,6 +171,7 @@ export default class UserList extends Component {
               key={user.username}
               user={user}
               viewUser={this.viewUser}
+              viewAssets={this.viewAssets}
               deleteUser={this.props.deleteUser} />)
           }
           {!this.state.filterBy &&
@@ -165,17 +179,11 @@ export default class UserList extends Component {
               key={user.username}
               user={user}
               viewUser={this.viewUser}
+              viewAssets={this.viewAssets}
               deleteUser={this.props.deleteUser} />)
           }
         </tbody>
         </table></div></div>
-      )
-
-    } else {
-      return (
-        <div>            
-          <UpdateUser updateUser={this.updateUser} userDetails={this.state.userToUpdate} errorMessage={this.state.errorMessage}/>
-        </div> 
       )
     }
   }

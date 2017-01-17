@@ -1,6 +1,7 @@
 // components/Login.js
 
 import React, {Component, PropTypes} from 'react'
+import {Link} from 'react-router';
 import './components.css';
 
 export default class Login extends Component {
@@ -53,6 +54,8 @@ export default class Login extends Component {
  
 
     return (
+      <div>
+      <div>
       <form>
         <div >
           <h2 className='form-title'>Login</h2>
@@ -86,6 +89,9 @@ export default class Login extends Component {
           </div>
           <button type="button" className="asset-submit-button" onClick={this.loginUser}>Submit</button>
       </form>
+      </div>
+      <div className="form-label"> <Link to="/forgotpassword">Forgotten your password?</Link></div>
+      </div>
     )
   }
 

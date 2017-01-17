@@ -8,6 +8,8 @@ import LoginContainer from './containers/LoginContainer';
 import ConfirmationPending from './containers/ConfirmationPending';
 import Confirmation from './containers/Confirmation';
 import Error from './containers/Error'
+import ForgotPassword from './containers/ForgotPassword';
+import ResetPassword from './containers/ResetPassword';
 import Assets from './containers/Assets'
 import Users from './containers/Users'
 import UpdateUserContainer from './containers/UpdateUserContainer'
@@ -27,6 +29,8 @@ ReactDOM.render(
     <Route path="/assets" component={Assets} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
+    <Route path="/forgotpassword" component={ForgotPassword} />
+    <Route path="/resetpassword" component={ResetPassword}/>
     <Route path="/error" component={Error} />
   </Route>
 </Router>, document.getElementById('root'));

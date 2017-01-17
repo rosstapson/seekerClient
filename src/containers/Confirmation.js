@@ -21,8 +21,7 @@ export default class Confirmation extends Component {
       localStorage.setItem("isAuthenticated", true);
     }, function (err) {
       localStorage.setItem("isAuthenticated", false);
-      localStorage.setItem("errorMessage", err.message);
-      console.log("not good: " + err.message);
+      localStorage.setItem("errorMessage", err.message);      
       browserHistory.push("/error");
     });
 
@@ -33,11 +32,11 @@ export default class Confirmation extends Component {
     return (
       <div>
         <h2>
-          Confirmation
+          Registration confirmed.
         </h2>
-        Hvala ti, gospodin.
+       
         <Link to="/login">
-          Login.
+        <h3>  Login.</h3>
         </Link>
 
       </div>

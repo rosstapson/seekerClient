@@ -31,13 +31,12 @@ export default class Users extends Component {
     return fetch("http://seekerdnasecure.co.za:3001/users", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
-        if (!response.ok) {
-          console.log("!response.ok");
+        if (!response.ok) {          
           browserHistory.push("/error");
         }
         
         localStorage.setItem('users', JSON.stringify(json.users));
-        return json.assets;
+        return json.assets; //this should be json.assets, but it's a type on the server component
       });
 
   }

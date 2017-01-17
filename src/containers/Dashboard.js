@@ -20,8 +20,7 @@ export default class Dashboard extends Component {
         </div>
         {errorMessage}
         <DashboardWidget
-          displayAssets={this.displayAssets}
-          manageAssets={this.manageAssets}
+          displayAssets={this.displayAssets}          
           manageAccount={this.manageAccount}
           showUsers={this.showUsers}
           isAdmin={localStorage.isAdmin}
@@ -30,24 +29,21 @@ export default class Dashboard extends Component {
     );
   }
   displayAssets() {
-   
+   localStorage.setItem("userInQuestion", localStorage.getItem("username"));
     browserHistory.push('/assets');
   }
-  manageAssets() {
-    console.log("manageAssets");
-  }
-  showUsers() {
-   
+ 
+  showUsers() {   
     browserHistory.push('/users');
   }
   manageAccount() {
-   
+   localStorage.setItem("userInQuestion", localStorage.getItem("username"));
     browserHistory.push('/updateuser');
   }
   logout() {
-    //console.log("logout");
     localStorage.removeItem("id_token");
-    localStorage.removeItem("isAuthenticated")
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("username");
     browserHistory.push('/login');
   }
 
