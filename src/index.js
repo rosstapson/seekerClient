@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, browserHistory} from 'react-router';
+import jwt from 'jsonwebtoken';
 import App from './App';
 import Dashboard from './containers/Dashboard';
 import RegistrationContainer from './containers/RegistrationContainer';
@@ -30,7 +31,7 @@ ReactDOM.render(
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/forgotpassword" component={ForgotPassword} />
-    <Route path="/resetpassword" component={ResetPassword}/>
+    <Route path="/resetpassword/:id_token" component={ResetPassword} onEnter={requireToken}/>
     <Route path="/error" component={Error} />
   </Route>
 </Router>, document.getElementById('root'));
@@ -42,5 +43,16 @@ function requireCredentials(nextState, replace, next) {
     console.log("not authenticated");
     replace('/login')    
   } 
+  next()
+}
+function requireToken(nextState, replace, next) {  
+  if (!localStorage.getItem("id_token") && !nextState.params.id_token) {
+    console.log("no token");
+    replace('/login')    
+  }
+  if (nextState.params.id_token) {
+    const decodedName = jwt.verify(nextState.params.id_token).username;
+    localStorage.setItem("decodedName", decodedName);
+  }
   next()
 }
