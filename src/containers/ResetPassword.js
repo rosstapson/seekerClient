@@ -1,45 +1,39 @@
 import React, {Component} from 'react'
+import {browserHistory} from 'react-router'
 
 export default class ResetPassword extends Component {
   resetPassword = () => {
-    const passwordConfirmRef = this.refs.passwordConfirm;
+    
     const passwordRef = this.refs.password;
-    if (this.refs.passwordConfrm.value && this.refs.password.value) {
-      if (this.refs.passwordConfrm.value === this.refs.password.value) {
-        const user = {
-          username: localStorage
-            .getItem("decodedName")
-            .value
-            .trim(),
-          password: passwordRef
-            .value
-            .trim()
+    if (this.refs.passwordConfirm.value && this.refs.password.value) {
+      if (this.refs.passwordConfirm.value === this.refs.password.value) {
+           
+        let config = {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            password: passwordRef.value.trim(),
+            id_token: this.props.params.id_token
+          })
         }
-        doReset(user);
+
+        return fetch("http://localhost:3001/resetpassword", config)
+          .then(response => response.json().then(json => ({json, response})))
+          .then(({json, response}) => {
+            if (!response.ok) {
+              alert(json.errorMessage);
+              throw new Error(json.errorMessage);
+            }
+            browserHistory.push('/dashboard');
+            return json;
+          })
+        .catch(response => response, error => error);
       }
     } // 'else' validations and alerts etc etc
   }
-  doReset(user) {
-    let config = {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    }
 
-    return fetch("http://seekerdnasecure.co.za:3001/resetpassword", config)
-      .then(response => response.json().then(json => ({json, response})))
-      .then(({json, response}) => {
-        if (!response.ok) {
-          alert(json.errorMessage);
-          throw new Error(json.errorMessage);
-        }
-        browserHistory.push('/dashboard');
-        return json;
-      });
-    //.catch(response => response, error => error);
-  }
   render() {
 
     return (

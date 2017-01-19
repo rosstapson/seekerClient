@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, browserHistory} from 'react-router';
-import jwt from 'jsonwebtoken';
+//import jwt from 'jsonwebtoken';
 import App from './App';
 import Dashboard from './containers/Dashboard';
 import RegistrationContainer from './containers/RegistrationContainer';
@@ -50,9 +50,6 @@ function requireToken(nextState, replace, next) {
     console.log("no token");
     replace('/login')    
   }
-  if (nextState.params.id_token) {
-    const decodedName = jwt.verify(nextState.params.id_token).username;
-    localStorage.setItem("decodedName", decodedName);
-  }
+  
   next()
 }
