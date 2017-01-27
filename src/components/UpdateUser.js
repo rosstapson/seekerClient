@@ -112,7 +112,7 @@ export class UpdateUser extends Component {
     }
     return (
       <form>
-        <div >
+        <div>
           <h2 className='form-title'>Update User Details</h2>
 
           <div>
@@ -144,11 +144,13 @@ export class UpdateUser extends Component {
               ref="emailConfirm"/>
 
           </div>
-          {isAdmin && <div>
+          {isAdmin && 
+            <div>
             <label className="form-label" htmlFor="accessLevel">Access Level:
             </label>
           </div>
-}
+          }
+          {isAdmin && 
           <div>
             <select 
               className='form-field' 
@@ -162,6 +164,7 @@ export class UpdateUser extends Component {
               <option value="3">God</option>
             </select>
           </div>
+          }
           <div>
             <label className="form-label" htmlFor="password">Password:
             </label>
