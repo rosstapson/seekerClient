@@ -10,6 +10,7 @@ import ConfirmationPending from './containers/ConfirmationPending';
 import Confirmation from './containers/Confirmation';
 import Error from './containers/Error'
 import ForgotPassword from './containers/ForgotPassword';
+import ResetMailSent from './containers/ResetMailSent';
 import ResetPassword from './containers/ResetPassword';
 import Assets from './containers/Assets'
 import Users from './containers/Users'
@@ -31,6 +32,7 @@ ReactDOM.render(
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/forgotpassword" component={ForgotPassword} />
+    <Route path="/resetMailSent" component={ResetMailSent} />
     <Route path="/resetpassword/:id_token" component={ResetPassword} onEnter={requireToken}/>
     <Route path="/error" component={Error} />
   </Route>
