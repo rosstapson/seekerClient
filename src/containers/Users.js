@@ -28,7 +28,7 @@ export default class Users extends Component {
         'content-type': 'application/json'
       }
     }
-    return fetch("http://seekerdnasecure.co.za:3001/users", config)
+    return fetch("https://seekerdnasecure.co.za:3002/users", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {          

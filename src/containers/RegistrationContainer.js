@@ -30,7 +30,7 @@ class RegistrationContainer extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("http://seekerdnasecure.co.za:3001/users", config)
+        return fetch("https://seekerdnasecure.co.za:3002/users", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 

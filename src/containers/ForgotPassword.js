@@ -15,7 +15,7 @@ export default class ForgotPassword extends Component {
             },
             body: JSON.stringify({username: usernameRef})
     }
-    return fetch("http://seekerdnasecure.co.za:3001/mailpasswordreset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/mailpasswordreset", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {

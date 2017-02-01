@@ -19,7 +19,7 @@ export default class ResetPassword extends Component {
           })
         }
 
-        return fetch("http://seekerdnasecure:3001/resetpassword", config)
+        return fetch("https://seekerdnasecure:3002/resetpassword", config)
           .then(response => response.json().then(json => ({json, response})))
           .then(({json, response}) => {
             if (!response.ok) {

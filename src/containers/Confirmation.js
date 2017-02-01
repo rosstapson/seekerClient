@@ -16,7 +16,7 @@ export default class Confirmation extends Component {
       },
       body: JSON.stringify({id_token: this.props.params.id_token})
     }
-    fetch("http://seekerdnasecure.co.za:3001/token", config).then(function () {
+    fetch("https://seekerdnasecure.co.za:3002/token", config).then(function () {
       console.log("good");
       localStorage.setItem("isAuthenticated", true);
     }, function (err) {

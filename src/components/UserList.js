@@ -93,7 +93,7 @@ export default class UserList extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("http://seekerdnasecure.co.za:3001/updateuser", config)
+        return fetch("https://seekerdnasecure.co.za:3002/updateuser", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {

@@ -61,7 +61,7 @@ export default class Assets extends Component {
         asset: asset
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/addasset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/addasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -96,7 +96,7 @@ export default class Assets extends Component {
       body: formData
       }
     
-    return fetch("http://seekerdnasecure.co.za:3001/file-upload", config)    
+    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)    
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -123,7 +123,7 @@ export default class Assets extends Component {
         asset: asset
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/updateasset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/updateasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {          
@@ -150,7 +150,7 @@ export default class Assets extends Component {
         dnaCode: dnaCode
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/deleteasset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/deleteasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {          
@@ -176,7 +176,7 @@ export default class Assets extends Component {
         dnaCode: dnaCode
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/deleteimage", config)
+    return fetch("https://seekerdnasecure.co.za:3002/deleteimage", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -197,7 +197,7 @@ export default class Assets extends Component {
       },
       body: JSON.stringify({username: username})
     }
-    return fetch("http://seekerdnasecure.co.za:3001/assets", config)
+    return fetch("https://seekerdnasecure.co.za:3002/assets", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {

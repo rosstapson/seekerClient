@@ -2,7 +2,7 @@
   "name": "seekerClient",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://seekerdnasecure.co.za:3001",
+  "proxy": "https://seekerdnasecure.co.za:3002",
   "devDependencies": {
     "react-scripts": "0.7.0"
   },

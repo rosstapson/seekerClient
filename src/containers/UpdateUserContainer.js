@@ -46,7 +46,7 @@ class UpdateUserContainer extends Component {
             body: JSON.stringify({username})
         }
         
-        return fetch("http://seekerdnasecure.co.za:3001/userdetails", config)
+        return fetch("https://seekerdnasecure.co.za:3002/userdetails", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {
@@ -73,7 +73,7 @@ class UpdateUserContainer extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("http://seekerdnasecure.co.za:3001/updateuser", config)
+        return fetch("https://seekerdnasecure.co.za:3002/updateuser", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {
