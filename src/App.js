@@ -1,10 +1,19 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 
 import logo from './logo.png';
 import './App.css';
 
 class App extends Component {
+    goToRegistration() {
+        browserHistory.push("/registration");
+    }
+    goToLogin() {
+        browserHistory.push("/login");
+    }
+    goToDashboard() {
+        browserHistory.push("/dashboard");
+    }
     render() {
         let isAuthenticated = localStorage.getItem('isAuthenticated');
         return (
@@ -15,24 +24,16 @@ class App extends Component {
                 </div>
                 <p className="App-intro">
                     {!isAuthenticated && 
-                        <li>
-                        < Link to="/registration">
-                            Register
-                        </Link>
-                    </li> 
+                        <button className="asset-submit-button" onClick={this.goToRegistration}>Register</button>
                     }
                     {!isAuthenticated && 
-                    <li> 
-                        <Link to="/login" > 
-                            Log In 
-                        </Link>
-                    </li>
+                    
+                         <button className="asset-submit-button" onClick={this.goToLogin}>Log In</button>
+                    
                     }
-                    {isAuthenticated && <li >
-                        < Link to="/dashboard">
-                            Dashboard
-                        </Link>
-                    </li >
+                    {isAuthenticated && 
+                         <button className="asset-submit-button" onClick={this.goToDashboard}>Dashboard</button>
+                    
                     }
 
                 </p>
