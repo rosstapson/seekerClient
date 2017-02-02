@@ -26,6 +26,9 @@ export default class Users extends Component {
       method: 'get',
       headers: {
         'content-type': 'application/json'
+      },
+      body: {
+        'id_token' : localStorage.getItem('id_token')
       }
     }
     return fetch("https://seekerdnasecure.co.za:3002/users", config)
