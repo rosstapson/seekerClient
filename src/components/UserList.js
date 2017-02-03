@@ -88,7 +88,8 @@ export default class UserList extends Component {
         let config = {
             method: 'post',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                 'x-access-token' : localStorage.getItem('id_token')
             },
             body: JSON.stringify(user)
         }
