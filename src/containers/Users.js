@@ -29,7 +29,7 @@ export default class Users extends Component {
         'x-access-token' : localStorage.getItem('id_token')
       }
     }
-    alert("from localStorage: " + localStorage.getItem('id_token'));
+    
     return fetch("https://seekerdnasecure.co.za:3002/users", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
