@@ -37,6 +37,7 @@ function loginUser(creds) {
                 // If login was successful, set the token in local storage
                 // and go to dashboard
                 localStorage.setItem ('username', json.username);
+                console.log("token: " + json.id_token);
                 localStorage.setItem('id_token', json.id_token);
                 if (json.accessLevel === 2) {                    
                     localStorage.setItem('isAdmin', true);

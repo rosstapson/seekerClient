@@ -25,12 +25,11 @@ export default class Users extends Component {
     let config = {
       method: 'get',
       headers: {
-        'content-type': 'application/json'
-      },
-      body: {
-        'id_token' : localStorage.getItem('id_token')
+        'content-type': 'application/json',
+        'x-access-token' : localStorage.getItem('id_token')
       }
     }
+    alert("from localStorage: " + localStorage.getItem('id_token'));
     return fetch("https://seekerdnasecure.co.za:3002/users", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
@@ -39,7 +38,8 @@ export default class Users extends Component {
         }
         
         localStorage.setItem('users', JSON.stringify(json.users));
-        return json.assets; //this should be json.assets, but it's a type on the server component
+        
+        return json.assets; //this should be json.users, but it's a typo on the server component
       });
 
   }

@@ -9,7 +9,7 @@ export default class Assets extends Component {
   self = this;
   constructor(props) {
     super(props);
-   
+
     this.addAsset = this
       .addAsset
       .bind(this);
@@ -44,7 +44,7 @@ export default class Assets extends Component {
       pendingViewAsset: false
     };
   }
-    
+
   showAddAsset() {
     this.setState({showAddAsset: true});
   }
@@ -54,7 +54,8 @@ export default class Assets extends Component {
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
         username: localStorage.getItem('userInQuestion'),
@@ -68,12 +69,7 @@ export default class Assets extends Component {
           browserHistory.push("/error");
         }
         console.log("json.assets: " + json.assets);
-        this.setState({
-          showAddAsset: false, 
-          pendingAddAsset: false,
-          showUpdate: true,
-          assetToView: asset
-      });
+        this.setState({showAddAsset: false, pendingAddAsset: false, showUpdate: true, assetToView: asset});
         return json.assets;
 
       });
@@ -81,11 +77,11 @@ export default class Assets extends Component {
   closeViewAsset() {
     this.setState({showUpdate: false, assetToView: ''});
   }
-  viewAsset(asset) {   
+  viewAsset(asset) {
     this.setState({showUpdate: true, assetToView: asset});
-  } 
-  uploadImage(file) {   
-    
+  }
+  uploadImage(file) {
+
     var formData = new FormData();
     formData.append('username', localStorage.getItem('userInQuestion'));
     formData.append('dnaCode', this.state.assetToView.dnaCode);
@@ -93,22 +89,25 @@ export default class Assets extends Component {
     console.log(formData);
     let config = {
       method: 'post',
+      headers: {
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
+      },
       body: formData
-      }
-    
-    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)    
+    }
+
+    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
           alert("Unable to upload image");
-          
+
         }
-        
+
         return json.imageUrl;
 
       });
-      
-    
+
   }
   updateAsset(asset) {
     this.setState({pendingUpdateAsset: true});
@@ -116,7 +115,8 @@ export default class Assets extends Component {
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
         username: localStorage.getItem('userInQuestion'),
@@ -126,9 +126,9 @@ export default class Assets extends Component {
     return fetch("https://seekerdnasecure.co.za:3002/updateasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
-        if (!response.ok) {          
+        if (!response.ok) {
           browserHistory.push("/error");
-        }        
+        }
         this.setState({showUpdate: false, pendingUpdateAsset: false});
         return json.assets;
 
@@ -143,7 +143,8 @@ export default class Assets extends Component {
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
         username: localStorage.getItem('userInQuestion'),
@@ -153,7 +154,7 @@ export default class Assets extends Component {
     return fetch("https://seekerdnasecure.co.za:3002/deleteasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
-        if (!response.ok) {          
+        if (!response.ok) {
           browserHistory.push("/error");
         }
         console.log("json.assets: " + json.assets);
@@ -163,12 +164,13 @@ export default class Assets extends Component {
       });
 
   }
-  deleteImage(url, dnaCode) {  
+  deleteImage(url, dnaCode) {
 
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
         username: localStorage.getItem('userInQuestion'),
@@ -193,7 +195,8 @@ export default class Assets extends Component {
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({username: username})
     }
@@ -227,42 +230,37 @@ export default class Assets extends Component {
         <div className="asset-title">
           User&nbsp;{username}&nbsp;Assets
         </div>
-        {!this.state.showUpdate &&
-        <div>
+        {!this.state.showUpdate && <div>
           <button
             className="asset-submit-button"
             onClick={this
             .showAddAsset
             .bind(this)}>Add New</button>
           {this.state.showAddAsset && <div><AddAssetWidget addAsset={this.addAsset}/></div>
-          }
-        
+}
 
         </div>
-        }
-        {this.state.showUpdate && 
-          <div><UpdateAsset
+}
+        {this.state.showUpdate && <div><UpdateAsset
           asset={this.state.assetToView}
           close={this.closeViewAsset}
           updateAsset={this.updateAsset}
           uploadImage={this.uploadImage}
-          deleteImage={this.deleteImage}
-          /></div>
-        }
-        {!this.state.showUpdate &&
-        <div>
+          deleteImage={this.deleteImage}/></div>
+}
+        {!this.state.showUpdate && <div>
           <AssetList
             promise={this.getAssetsForUsername(username)}
             viewAsset={this.viewAsset}
             deleteAsset={this.deleteAsset}/>
 
         </div>
-        }
+}
       </div>
 
     );
   }
 }
-Assets.propTypes = { 
+Assets.propTypes = {
   errorMessage: PropTypes.string
 }

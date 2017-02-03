@@ -10,9 +10,10 @@ export default class ForgotPassword extends Component {
     }
     let config = {
             method: 'post',
-            headers: {
-                'content-type': 'application/json'
-            },
+             headers: {
+        'content-type': 'application/json',
+         'x-access-token' : localStorage.getItem('id_token')
+      },
             body: JSON.stringify({username: usernameRef})
     }
     return fetch("https://seekerdnasecure.co.za:3002/mailpasswordreset", config)
