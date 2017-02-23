@@ -116,7 +116,7 @@ export class UpdateUser extends Component {
           <h2 className='form-title'>Update User Details</h2>
 
           <div>
-            <label className="form-label" htmlFor="userName">User name</label>
+            <label className="form-label" htmlFor="userName">User name</label><br />
             <input
               className='form-field'
               type="text"
@@ -128,7 +128,7 @@ export class UpdateUser extends Component {
 
           </div>
           <div>
-            <label className="form-label" htmlFor="email">Email address:</label>
+            <label className="form-label" htmlFor="email">Email address:</label><br />
             <input
               className='form-field'
               type="email"
@@ -167,7 +167,7 @@ export class UpdateUser extends Component {
           }
           <div>
             <label className="form-label" htmlFor="password">Password:
-            </label>
+            </label><br />
             <input
               className='form-field'
               type="password"
@@ -184,7 +184,7 @@ export class UpdateUser extends Component {
 
           </div>
           <div className="form-group">
-            <label className="form-label" htmlFor="companyName">Company Name:</label>
+            <label className="form-label" htmlFor="companyName">Company Name:</label><br />
             <input
               className='form-field'
               type="text"
@@ -192,7 +192,8 @@ export class UpdateUser extends Component {
               placeholder="Company name"
               ref="companyName"
               id="companyName"/>
-            <label className="form-label" htmlFor="addressline1">Address:</label>
+              </div><div>
+            <label className="form-label" htmlFor="addressline1">Address:</label><br />
             <input
               className='form-field'
               type="text"
@@ -212,14 +213,18 @@ export class UpdateUser extends Component {
               defaultValue={this.props.userDetails.address.line3}
               placeholder="Line 3"
               ref="addressline3"/>
+              <br />
             <label className="form-label" htmlFor="addressState">State:</label>
+            <br />
             <input
               className='form-field'
               type="text"
               defaultValue={this.props.userDetails.address.state}
               placeholder="State"
               ref="addressState"/>
+              <br />
             <label className="form-label" htmlFor="addressCountry">Country:</label>
+            <br />
             <input
               className='form-field'
               type="text"
@@ -227,14 +232,18 @@ export class UpdateUser extends Component {
               placeholder="Country"
               ref="addressCountry"
               id="addressCountry"/>
+              </div><div>
             <label className="form-label" htmlFor="telephone">Company Telephone:</label>
+            <br />
             <input
               className='form-field'
               type="tel"
               defaultValue={this.props.userDetails.telephone}
               placeholder="Telephone"
               ref="telephone"/>
+              <br />
             <label className="form-label" htmlFor="contactPerson">Contact Person</label>
+            <br />
             <input
               className='form-field'
               type="text"
@@ -242,6 +251,7 @@ export class UpdateUser extends Component {
               placeholder="Contact Person"
               ref="contactPerson"
               id="contactPerson"/>
+              </div><div>
             <button type="button" className="submit-button" onClick={this.updateUser}>Submit</button>
           </div>
         </div>

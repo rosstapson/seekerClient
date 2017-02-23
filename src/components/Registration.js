@@ -110,7 +110,7 @@ export class Registration extends Component {
           <h2 className='form-title'>New Account Registration</h2>
           
           <div>
-            <label className="form-label" htmlFor="userName">User name</label>
+            <label className="form-label" htmlFor="userName">User name</label><br />
             <input
               className='form-field'
               type="text"
@@ -119,8 +119,9 @@ export class Registration extends Component {
               placeholder="Username must be minimum 8 alphanumeric characters."/>
 
           </div>
+          <br />
           <div>
-            <label className="form-label" htmlFor="email">Email address:</label>
+            <label className="form-label" htmlFor="email">Email address:</label><br />
             <input
               className='form-field'
               type="email"
@@ -134,10 +135,10 @@ export class Registration extends Component {
               ref="emailConfirm"/>
 
           </div>
-
+          <br />
           <div>
             <label className="form-label" htmlFor="password">Password:
-            </label>
+            </label><br />
             <input
               className='form-field'
               type="password"
@@ -151,15 +152,18 @@ export class Registration extends Component {
               ref="passwordConfirm"/>
 
           </div>
+          <br />
           <div className="form-group">
-            <label className="form-label" htmlFor="companyName">Company Name:</label>
+            <label className="form-label" htmlFor="companyName">Company Name:</label><br />
             <input
               className='form-field'
               type="text"
               placeholder="Company name"
               ref="companyName"
               id="companyName"/>
-            <label className="form-label" htmlFor="addressline1">Address:</label>
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="addressline1">Address:</label><br />
             <input
               className='form-field'
               type="text"
@@ -176,32 +180,37 @@ export class Registration extends Component {
               type="text"
               placeholder="Line 3"
               ref="addressline3"/>
-            <label className="form-label" htmlFor="addressState">State:</label>
+              <br />
+            <label className="form-label" htmlFor="addressState">State:</label><br />
             <input
               className='form-field'
               type="text"
               placeholder="State"
               ref="addressState"/>
-            <label className="form-label" htmlFor="addressCountry">Country:</label>
+              <br />
+            <label className="form-label" htmlFor="addressCountry">Country:</label><br />
             <input
               className='form-field'
               type="text"
               placeholder="Country"
               ref="addressCountry"
               id="addressCountry"/>
-            <label className="form-label" htmlFor="telephone">Company Telephone:</label>
+              <br />
+            <label className="form-label" htmlFor="telephone">Company Telephone:</label><br />
             <input
               className='form-field'
               type="tel"
               placeholder="Telephone"
               ref="telephone"/>
-            <label className="form-label" htmlFor="contactPerson">Contact Person</label>
+              <br />
+            <label className="form-label" htmlFor="contactPerson">Contact Person</label><br />
             <input
               className='form-field'
               type="text"
               placeholder="Contact Person"
               ref="contactPerson"
               id="contactPerson"/>
+              <br />
             <button type="button" className="submit-button" onClick={this.addUser}>Submit</button>
           </div>
         </div>
