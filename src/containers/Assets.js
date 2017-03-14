@@ -92,6 +92,7 @@ export default class Assets extends Component {
       method: 'post',
       headers: {
          //'content-type': 'application/json',
+         
         'x-access-token': localStorage.getItem('id_token')
       },
       body: formData
