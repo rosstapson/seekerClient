@@ -86,11 +86,12 @@ export default class Assets extends Component {
     formData.append('username', localStorage.getItem('userInQuestion'));
     formData.append('dnaCode', this.state.assetToView.dnaCode);
     formData.append('image', file);
+    console.dir(file);
     console.log(formData);
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json',
+         //'content-type': 'application/json',
         'x-access-token': localStorage.getItem('id_token')
       },
       body: formData
