@@ -39,10 +39,10 @@ function loginUser(creds) {
                 localStorage.setItem ('username', json.username);
                 console.log("token: " + json.id_token);
                 localStorage.setItem('id_token', json.id_token);
-                if (json.accessLevel === 2) {                    
+                if (json.accessLevel === 3) {                    
                     localStorage.setItem('isAdmin', true);
                 }
-                if (json.accessLevel < 2) {                    
+                if (json.accessLevel < 3) {                    
                     localStorage.removeItem('isAdmin');
                 }
                 localStorage.setItem('isAuthenticated',  true);
