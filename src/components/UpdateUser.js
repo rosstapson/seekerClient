@@ -160,8 +160,9 @@ export class UpdateUser extends Component {
               >
               <option value="0">Guest</option>
               <option value="1">Client</option>
-              <option value="2">Admin</option>
-              <option value="3">God</option>
+              <option value="2">Agent</option>
+              <option value="3">Admin</option>
+              <option value="4">God</option>
             </select>
           </div>
           }

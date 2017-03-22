@@ -20,10 +20,7 @@ import './index.css';
 ReactDOM.render(
   <Router history={browserHistory}>
   <Route path="/" component={App}>
-    <Route
-      path="/registration"
-      component={RegistrationContainer}
-      history={browserHistory}/>
+    <Route path="/registration" component={RegistrationContainer} history={browserHistory}/>
     <Route path="/confirmationPending" component={ConfirmationPending}/>
     <Route path="/confirm/:id_token" component={Confirmation}/>
     <Route path="/login" component={LoginContainer}/>
