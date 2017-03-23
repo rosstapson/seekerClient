@@ -13,14 +13,14 @@ function auth(token) {
     .then(response => response.json().then(json => ({json, response})))
     .then(({json, response}) => {
       if (!response.ok) {
-        console.log("!response.ok");
+        //console.log("!response.ok");
         return Promise.reject(json);
       }
       if (json.id_token) {
-        console.log("token: " + (json.id_token));
+        //console.log("token: " + (json.id_token));
       };
       if (json.decoded) {
-        console.log("decode == true");
+        //console.log("decode == true");
       };
       return true;
     })

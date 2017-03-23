@@ -22,7 +22,7 @@ export default class AssetListItem extends Component {
         <td className="td">{this.props.asset.description} </td>
         <td className="td">{this.props.asset.dateAdded} </td>
         <td className="td">{this.props.asset.dateUpdated}</td>
-        {this.props.asset.imageUrls[0] &&
+        {this.props.asset.imageUrls[0] && 
            <img className='img' src={'https://seekerdnasecure.co.za:3002/image/' 
            + this.props.asset.imageUrls[0]} alt={this.props.asset.imageUrls[0]} />
         }

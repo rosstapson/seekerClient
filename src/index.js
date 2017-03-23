@@ -39,14 +39,14 @@ ReactDOM.render(
 /* eslint-disable */
 function requireCredentials(nextState, replace, next) {  
   if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {
-    console.log("not authenticated");
+   
     replace('/login')    
   } 
   next()
 }
 function requireToken(nextState, replace, next) {  
   if (!localStorage.getItem("id_token") && !nextState.params.id_token) {
-    console.log("no token");
+    //console.log("no token");
     replace('/login')    
   }
   

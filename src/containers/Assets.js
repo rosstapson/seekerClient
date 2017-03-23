@@ -68,7 +68,7 @@ export default class Assets extends Component {
         if (!response.ok) {
           browserHistory.push("/error");
         }
-        console.log("json.assets: " + json.assets);
+        //console.log("json.assets: " + json.assets);
         this.setState({showAddAsset: false, pendingAddAsset: false, showUpdate: true, assetToView: asset});
         return json.assets;
 
@@ -86,8 +86,7 @@ export default class Assets extends Component {
     formData.append('username', localStorage.getItem('userInQuestion'));
     formData.append('dnaCode', this.state.assetToView.dnaCode);
     formData.append('image', file);
-    console.dir(file);
-    console.log(formData);
+    
     let config = {
       method: 'post',
       headers: {
@@ -159,7 +158,7 @@ export default class Assets extends Component {
         if (!response.ok) {
           browserHistory.push("/error");
         }
-        console.log("json.assets: " + json.assets);
+        
         this.setState({pendingDeleteAsset: false});
         return json.assets;
 

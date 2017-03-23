@@ -58,7 +58,7 @@ class UpdateUserContainer extends Component {
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {
-                    console.log("json.errorMessage " + json.errorMessage);
+                    //console.log("json.errorMessage " + json.errorMessage);
                     alert(json.errorMessage);
 
                 }
@@ -83,7 +83,7 @@ class UpdateUserContainer extends Component {
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {
-                    console.log("json.errorMessage " + json.errorMessage);
+                   
                     throw new Error(json.errorMessage);
 
                 }

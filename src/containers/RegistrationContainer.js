@@ -35,7 +35,7 @@ class RegistrationContainer extends Component {
             .then(({json, response}) => {
                 
                 if (!response.ok) {
-                    console.log(json.errorMessage);                    
+                    //console.log(json.errorMessage);                    
                     throw new Error(json.errorMessage);
                     
                 }             

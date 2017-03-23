@@ -29,15 +29,14 @@ function loginUser(creds) {
         .then(response => response.json().then(json => ({json, response})))
         .then(({json, response}) => {
             if (!response.ok) {
-                // If there was a problem, we want to dispatch the error condition
-                console.log("user.message: " + json.errorMessage);
+                
 
                 throw new Error(json.errorMessage);
             } else {
                 // If login was successful, set the token in local storage
                 // and go to dashboard
                 localStorage.setItem ('username', json.username);
-                console.log("token: " + json.id_token);
+               
                 localStorage.setItem('id_token', json.id_token);
                 if (json.accessLevel === 3) {                    
                     localStorage.setItem('isAdmin', true);
