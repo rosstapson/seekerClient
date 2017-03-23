@@ -17,7 +17,9 @@ class App extends Component {
     }
     render() {
         let isAuthenticated = localStorage.getItem('isAuthenticated');
-        let bgStyle = {minHeight: "100%", minWidth: "100%"};
+        //let bgStyle = {minHeight: "100%", minWidth: "100%"};
+        
+        
         return (
             <div className="App">
                 {isAuthenticated &&
@@ -38,25 +40,23 @@ class App extends Component {
                    </div>
                 }
                 {!isAuthenticated &&
-                    <div>
-                        <img src={"background.jpg"} alt="background" style={bgStyle} />
-                    </div>
+                     <div className="enjoy-css">
+                     <button className="asset-submit-button" onClick={this.goToRegistration}>Register</button>
+                     <button className="asset-submit-button" onClick={this.goToLogin}>Log In</button>
+                     </div>
                 }
-                <p className="App-intro">
-                    {!isAuthenticated && 
-                        <button className="asset-submit-button" onClick={this.goToRegistration}>Register</button>
-                    }
-                    {!isAuthenticated && 
-                    
-                         <button className="asset-submit-button" onClick={this.goToLogin}>Log In</button>
-                    
-                    }
+               <div>
+               
+                   
                     {isAuthenticated && 
+                        <div>
+                        
                          <button className="asset-submit-button" onClick={this.goToDashboard}>Dashboard</button>
+                         </div>
                     
                     }
 
-                </p>
+                </div>
                 {this.props.children}
             </div> 
         )} 
