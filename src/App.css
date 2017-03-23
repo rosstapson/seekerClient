@@ -46,15 +46,15 @@
 
 .App-intro {
      font-size: large;
-     /* background-image: url('background.jpg') ; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100%;*/
+     
 }
 
 
-
+.blurb {
+    font-size:xx-large;
+    color: white;
+    word-spacing: 10px;
+}
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);

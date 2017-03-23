@@ -69,6 +69,7 @@ class App extends Component {
                 </div>
 }
                 {this.state.showButtons && !isAuthenticated && <div className="enjoy-css">
+                <p className="blurb">Unique | Secure | Covert | Robust </p>
                     <button className="asset-submit-button" onClick={this.goToRegistration}>Register</button>
                     <button className="asset-submit-button" onClick={this.goToLogin}>Log In</button>
                 </div>
