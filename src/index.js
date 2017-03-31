@@ -42,8 +42,7 @@ function requireCredentials(nextState, replace, next) {
   } 
   next()
 }
-function verifyCredentials(nextState, replace, next) {
-  console.log("verifyCredentials");
+function verifyCredentials(nextState, replace, next) {  
   if (localStorage.getItem("id_token")) {
     let response = fetch('https://seekerdnasecure.co.za:3002/token', {
         method: 'post',
@@ -55,7 +54,7 @@ function verifyCredentials(nextState, replace, next) {
       })
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
-        console.log(json.decoded);
+        
         if (response.status >= 200 && response.status < 300) {
           next();
         }

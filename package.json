@@ -4,13 +4,13 @@
   "private": true,
   "proxy": "https://seekerdnasecure.co.za:3002",
   "devDependencies": {
-    "react-scripts": "0.7.0"
+    "react-scripts": "0.9.5"
   },
   "dependencies": {
     "halogen": "^0.2.0",
     "material-ui": "^0.16.4",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "react-file-input": "^0.2.5",
     "react-router": "^3.0.0"
   },
