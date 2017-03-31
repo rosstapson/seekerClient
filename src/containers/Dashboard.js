@@ -44,7 +44,7 @@ export default class Dashboard extends Component {
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("username");
-    browserHistory.push('/');
+    browserHistory.push('/login');
   }
 
 }
