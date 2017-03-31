@@ -11,7 +11,7 @@ import Confirmation from './containers/Confirmation';
 import Error from './containers/Error'
 import ForgotPassword from './containers/ForgotPassword';
 import ResetMailSent from './containers/ResetMailSent';
-import ResetPassword from './containers/ResetPassword';
+
 import Assets from './containers/Assets'
 import Users from './containers/Users'
 import UpdateUserContainer from './containers/UpdateUserContainer'
@@ -24,13 +24,12 @@ ReactDOM.render(
     <Route path="/confirmationPending" component={ConfirmationPending}/>
     <Route path="/confirm/:id_token" component={Confirmation}/>
     <Route path="/login" component={LoginContainer}/>
-    <Route path="/dashboard" component={Dashboard} onEnter={ requireCredentials } username={ localStorage.username }/>
+    <Route path="/dashboard" component={Dashboard} onEnter={ verifyCredentials } username={ localStorage.username }/>
     <Route path="/assets" component={Assets} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/forgotpassword" component={ForgotPassword} />
     <Route path="/resetMailSent" component={ResetMailSent} />
-    <Route path="/resetpassword/:id_token" component={ResetPassword} onEnter={requireToken}/>
     <Route path="/error" component={Error} />
   </Route>
 </Router>, document.getElementById('root'));
@@ -38,12 +37,40 @@ ReactDOM.render(
 //temporarily...
 /* eslint-disable */
 function requireCredentials(nextState, replace, next) {  
-  if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {
-   
+  if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {   
     replace('/login')    
   } 
   next()
 }
+function verifyCredentials(nextState, replace, next) {
+  console.log("verifyCredentials");
+  if (localStorage.getItem("id_token")) {
+    let response = fetch('https://seekerdnasecure.co.za:3002/token', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id_token: localStorage.getItem("id_token")})
+      })
+      .then(response => response.json().then(json => ({json, response})))
+      .then(({json, response}) => {
+        console.log(json.decoded);
+        if (response.status >= 200 && response.status < 300) {
+          next();
+        }
+        else {
+          localStorage.setItem("id_token", "");
+          localStorage.setItem('isAuthenticated',  false);
+          replace("/login");
+          next();
+        }
+      });
+      
+  }
+  
+}
+
 function requireToken(nextState, replace, next) {  
   if (!localStorage.getItem("id_token") && !nextState.params.id_token) {
     //console.log("no token");

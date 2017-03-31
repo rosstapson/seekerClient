@@ -11,8 +11,7 @@ export default class ForgotPassword extends Component {
     let config = {
             method: 'post',
              headers: {
-        'content-type': 'application/json',
-         'x-access-token' : localStorage.getItem('id_token')
+        'content-type': 'application/json'
       },
             body: JSON.stringify({username: usernameRef})
     }
