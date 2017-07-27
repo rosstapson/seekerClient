@@ -128,6 +128,7 @@ export default class Assets extends Component {
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
+          alert("Error");
           browserHistory.push("/error");
         }
         this.setState({showUpdate: false, pendingUpdateAsset: false});
