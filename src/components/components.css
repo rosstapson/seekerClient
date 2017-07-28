@@ -235,6 +235,11 @@
     text-align: left;
     padding: 15px;
 }
+.td-center {
+border-bottom: 1px solid #ddd;
+    text-align: center;
+    padding: 15px;
+}
 
 .loader,
 .loader:before,

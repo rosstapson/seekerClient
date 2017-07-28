@@ -99,8 +99,7 @@ export default class AssetList extends Component {
             <option value="description">Description</option>
             <option value="dnaCode">DNA Code</option>
             <option value="assetCode">Asset Code</option>
-            <option value="dateCreated">Date Created</option>
-            <option value="dateUpdated">Date Updated</option>
+            
           </select>
         </div><div>
         <table className="table">
@@ -109,14 +108,15 @@ export default class AssetList extends Component {
         <td className="column-name">DNA Code</td>
         <td className="column-name">Asset Code</td>
         <td className="column-name">Description</td>
-        <td className="column-name">Date Added</td>
-        <td className="column-name">Last Modified</td>
+        
+       
         </tr>
           {this.state.filterBy && 
               this.state.filteredAssets.map(asset => <AssetListItem
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
+              transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }
           {!this.state.filterBy &&
@@ -124,6 +124,7 @@ export default class AssetList extends Component {
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
+              transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }
         </tbody>

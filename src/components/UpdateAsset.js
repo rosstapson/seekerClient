@@ -30,6 +30,9 @@ export default class UpdateAsset extends Component {
     this.handleDeleteImage = this
       .handleDeleteImage
       .bind(this);
+    this.statusChanged = this
+      .statusChanged
+      .bind(this);
 
     this.state = {
       imageIsUploading: false,
@@ -37,6 +40,7 @@ export default class UpdateAsset extends Component {
       imageUploadError: false,
       selectedFile: '',
       imageIsDeleting: false,
+      showTransferWidget: false, 
       //imageUrlToDelete: '',
       imageUrls: this.props.asset.imageUrls
 
@@ -111,6 +115,27 @@ export default class UpdateAsset extends Component {
         //alert(err);
         this.setState({imageIsUploading: false, imageUploadError: err})
       });
+  }
+  statusChanged(event) {
+    
+    if (event.target.value === "PendingTransfer") {
+      this.setState({
+        showTransferWidget: true,
+        showAlertWidget: false
+      });
+    }
+    if (event.target.value === "Alert") {
+      this.setState({
+        showAlertWidget: true,
+        showTransferWidget: false
+      })
+    }
+    if (event.target.value === "Active") {
+      this.setState({
+        showAlertWidget: false,
+        showTransferWidget: false
+      })
+    }
   }
   handleUpdate() {
     var tempAsset = this.props.asset;
@@ -245,7 +270,40 @@ export default class UpdateAsset extends Component {
                   id="itemCode"/>
               </div>
             </div>
+              <div className="inline-div">
+                <label className="form-label" htmlFor="status">Status:
+                </label>
+              </div>
+              <div className="inline-div">
+                <select
+                  className='form-field'
+                  defaultValue={this.props.asset.status}
+                  onChange={this.statusChanged}
+                  ref="status"
+                  id="status">                  
+                  <option value="Active">Active</option>
+                  <option value="Alert">Alert</option>
+                  <option value="PendingTransfer">Pending Transfer</option>
+                </select>
+              </div>
+               <div className="inline-div">
 
+                {this.state.showTransferWidget &&
+                  <div className="inline-div">
+
+                <label className="form-label" htmlFor="description">Transfer:
+                </label>
+              </div>
+                }
+              {this.state.showAlertWidget &&
+                  <div className="inline-div">
+
+                <label className="form-label" htmlFor="description">Alert:
+                </label>
+              </div>
+                }
+              </div>
+            
             <div>
               <div className="inline-div">
 
@@ -360,23 +418,7 @@ export default class UpdateAsset extends Component {
                   id="capturedOrModifiedBy"/>
               </div>
             </div>
-            <div>
-              <div className="inline-div">
-                <label className="form-label" htmlFor="status">Status:
-                </label>
-              </div>
-              <div className="inline-div">
-                <select
-                  className='form-field'
-                  defaultValue={this.props.asset.status}
-                  ref="status"
-                  id="status">
-                  <option value="Alert">Alert</option>
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                </select>
-              </div>
-            </div>
+           
             <div>
               <div className="inline-div">
                 <label className="form-label" htmlFor="dateReported">Date Reported:

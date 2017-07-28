@@ -192,6 +192,10 @@ export default class Assets extends Component {
 
   }
 
+  transferAsset() {
+    console.log("Asset.js transferAsset");
+  }
+
   getAssetsForUsername(username) {
 
     let config = {
@@ -247,6 +251,7 @@ export default class Assets extends Component {
           asset={this.state.assetToView}
           close={this.closeViewAsset}
           updateAsset={this.updateAsset}
+          transferAsset={this.transferAsset}
           uploadImage={this.uploadImage}
           deleteImage={this.deleteImage}/></div>
 }
@@ -254,6 +259,7 @@ export default class Assets extends Component {
           <AssetList
             promise={this.getAssetsForUsername(username)}
             viewAsset={this.viewAsset}
+            transferAsset={this.transferAsset}
             deleteAsset={this.deleteAsset}/>
 
         </div>
