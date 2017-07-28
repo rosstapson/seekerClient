@@ -116,7 +116,7 @@ export default class AssetList extends Component {
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
-              transferAsset={this.props.transferAsset}
+              //transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }
           {!this.state.filterBy &&
@@ -124,7 +124,7 @@ export default class AssetList extends Component {
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
-              transferAsset={this.props.transferAsset}
+              //transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }
         </tbody>

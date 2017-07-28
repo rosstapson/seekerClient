@@ -5,6 +5,7 @@ import React, {
   /* PropTypes */
 } from 'react'
 import ImageListItem from './ImageListItem';
+import TransferAssetWidget from './TransferAssetWidget';
 
 import './components.css';
 
@@ -30,8 +31,15 @@ export default class UpdateAsset extends Component {
     this.handleDeleteImage = this
       .handleDeleteImage
       .bind(this);
-    this.statusChanged = this
-      .statusChanged
+    
+    this.handleAlertPressed = this
+      .handleAlertPressed
+      .bind(this);
+    this.handleTransferPressed = this
+      .handleTransferPressed
+      .bind(this);
+    this.handleTransferAsset = this
+      .handleTransferAsset
       .bind(this);
 
     this.state = {
@@ -40,9 +48,11 @@ export default class UpdateAsset extends Component {
       imageUploadError: false,
       selectedFile: '',
       imageIsDeleting: false,
-      showTransferWidget: false, 
+      showTransferWidget: false,
+      showAlertWidget: false,
       //imageUrlToDelete: '',
-      imageUrls: this.props.asset.imageUrls
+      imageUrls: this.props.asset.imageUrls,
+      asset: this.props.asset
 
     }
 
@@ -73,7 +83,7 @@ export default class UpdateAsset extends Component {
     // call props.deleteImage remove url from  this.props.asset.imageUrls
     this
       .props
-      .deleteImage(url, this.props.asset.dnaCode)
+      .deleteImage(url, this.state.asset.dnaCode)
       .then(() => {
         //console.log("urls: " + this.state.imageUrls);
         //console.log("url to filter by: " + url);
@@ -116,28 +126,9 @@ export default class UpdateAsset extends Component {
         this.setState({imageIsUploading: false, imageUploadError: err})
       });
   }
-  statusChanged(event) {
-    
-    if (event.target.value === "PendingTransfer") {
-      this.setState({
-        showTransferWidget: true,
-        showAlertWidget: false
-      });
-    }
-    if (event.target.value === "Alert") {
-      this.setState({
-        showAlertWidget: true,
-        showTransferWidget: false
-      })
-    }
-    if (event.target.value === "Active") {
-      this.setState({
-        showAlertWidget: false,
-        showTransferWidget: false
-      })
-    }
-  }
+  
   handleUpdate() {
+    alert("handleUpdate");
     var tempAsset = this.props.asset;
     tempAsset.dnaCode = this
       .refs
@@ -218,6 +209,37 @@ export default class UpdateAsset extends Component {
       .props
       .updateAsset(tempAsset);
   }
+    handleAlertPressed() {      
+      this.setState({
+        showAlertWidget: true,
+        showTransferWidget: false
+      });
+    }
+    handleTransferPressed() {
+      
+      this.setState({
+        showAlertWidget: false,
+        showTransferWidget: true
+      });
+    }
+    handleTransferAsset(username) {
+      alert("handleTransferAsset: " + username);
+      let tempAsset = Object.assign(
+        {},
+        this.state.asset,
+        {
+          
+          pendingTransfer: true,
+          pendingTransferToUser: username
+        }
+      );
+      
+      this.props.transferAsset(tempAsset);
+      this.setState({
+        showTransferWidget: false,
+        asset: tempAsset
+      })
+    }
   render() {
 
     return (
@@ -270,29 +292,48 @@ export default class UpdateAsset extends Component {
                   id="itemCode"/>
               </div>
             </div>
+            <div>
               <div className="inline-div">
                 <label className="form-label" htmlFor="status">Status:
                 </label>
               </div>
               <div className="inline-div">
-                <select
+                <div className="inline-div">
+                <input
                   className='form-field'
-                  defaultValue={this.props.asset.status}
-                  onChange={this.statusChanged}
+                  type="text"
                   ref="status"
-                  id="status">                  
-                  <option value="Active">Active</option>
-                  <option value="Alert">Alert</option>
-                  <option value="PendingTransfer">Pending Transfer</option>
-                </select>
+                  id="status"
+                  disabled
+                  defaultValue={this.props.asset.status}/>
               </div>
-               <div className="inline-div">
-
-                {this.state.showTransferWidget &&
-                  <div className="inline-div">
-
-                <label className="form-label" htmlFor="description">Transfer:
-                </label>
+              </div>
+            </div>
+            <div>
+            {this.props.asset.status === "Active" &&
+            <div className="inline-div">
+                <button
+                  type="button"
+                  className="asset-submit-button"
+                  onClick={this.handleTransferPressed}>Transfer</button>
+              </div>
+            }
+            {this.props.asset.status === "Active" &&
+            <div className="inline-div">
+                <button
+                  type="button"
+                  className="asset-submit-button"
+                  onClick={this.handleAlertPressed}>Alert</button>
+              </div>
+              }
+            </div>
+            <div>
+            {this.state.showTransferWidget &&
+              <div className="inline-div">
+               <TransferAssetWidget 
+                  transferAsset={this.handleTransferAsset}
+                  
+               />
               </div>
                 }
               {this.state.showAlertWidget &&

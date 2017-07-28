@@ -31,6 +31,9 @@ export default class Assets extends Component {
     this.deleteAsset = this
       .deleteAsset
       .bind(this);
+    // this.transferAsset = this
+    //   transferAsset
+    //   .bind(this);
     this.setState = this
       .setState
       .bind(this);
@@ -192,8 +195,30 @@ export default class Assets extends Component {
 
   }
 
-  transferAsset() {
+  transferAsset(asset) {
     console.log("Asset.js transferAsset");
+    //req.body.username (seller)
+    //req.body.asset (with pendingTransferToUser set to buyer's username, and status: PendingTransfer)
+    let config = {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem('userInQuestion'),
+        asset: asset
+      })
+    }
+    return fetch("https://seekerdnasecure.co.za:3002/initiateTransferAsset", config)
+      .then(response => response.json().then(json => ({json, response})))
+      .then(({json, response}) => {
+        if (!response.ok) {
+          alert(response.errorMessage);
+        }
+        return;
+
+      });
   }
 
   getAssetsForUsername(username) {
