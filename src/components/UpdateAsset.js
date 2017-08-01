@@ -223,7 +223,7 @@ export default class UpdateAsset extends Component {
       });
     }
     handleTransferAsset(username) {
-      alert("handleTransferAsset: " + username);
+      //alert("handleTransferAsset: " + username);
       let tempAsset = Object.assign(
         {},
         this.state.asset,
