@@ -34,8 +34,9 @@ function loginUser(creds) {
                 throw new Error(json.errorMessage);
             } else {
                 // If login was successful, set the token in local storage
-                // and go to dashboard
+                // and go to assets
                 localStorage.setItem ('username', json.username);
+                localStorage.setItem('userInQuestion', json.username);
                
                 localStorage.setItem('id_token', json.id_token);
                 if (json.accessLevel === 3) {                    
@@ -45,7 +46,7 @@ function loginUser(creds) {
                     localStorage.removeItem('isAdmin');
                 }
                 localStorage.setItem('isAuthenticated',  true);
-                browserHistory.push('/dashboard');
+                browserHistory.push('/assets');
 
             }
             

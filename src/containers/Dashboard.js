@@ -1,7 +1,8 @@
 // components/Dashboard.js
 
 import React, {Component, PropTypes} from 'react'
-import DashboardWidget from '../components/DashboardWidget'
+//import DashboardWidget from '../components/DashboardWidget'
+import Assets from './Assets'
 
 import {browserHistory} from 'react-router';
 
@@ -16,15 +17,10 @@ export default class Dashboard extends Component {
     return (
       <div>
         <div className="asset-title">
-          User&nbsp;{username}&nbsp;Dashboard
+          User:&nbsp;{username}
         </div>
         {errorMessage}
-        <DashboardWidget
-          displayAssets={this.displayAssets}          
-          manageAccount={this.manageAccount}
-          showUsers={this.showUsers}
-          isAdmin={localStorage.isAdmin}
-          logout={this.logout}/>
+        <Assets username={ localStorage.username }/>
       </div>
     );
   }

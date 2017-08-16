@@ -37,7 +37,7 @@ ReactDOM.render(
 //temporarily...
 /* eslint-disable */
 function requireCredentials(nextState, replace, next) {  
-  if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {   
+  if (!localStorage.isAuthenticated || localStorage.isAuthenticated == false || !localStorage.getItem("id_token")) {
     replace('/login')    
   } 
   next()
@@ -59,8 +59,16 @@ function verifyCredentials(nextState, replace, next) {
           next();
         }
         else {
-          localStorage.setItem("id_token", "");
-          localStorage.setItem('isAuthenticated',  false);
+          // localStorage.setItem("id_token", "");
+          // localStorage.setItem('isAuthenticated',  false);
+          localStorage.removeItem("id_token");
+          localStorage.removeItem("isAuthenticated");
+          localStorage.removeItem("isAdmin");
+          localStorage.removeItem("username");
+          localStorage.removeItem("assets");
+          localStorage.removeItem("userInQuestion");
+          localStorage.removeItem("users");
+          //browserHistory.push('/login');
           replace("/login");
           next();
         }
@@ -70,11 +78,11 @@ function verifyCredentials(nextState, replace, next) {
   
 }
 
-function requireToken(nextState, replace, next) {  
-  if (!localStorage.getItem("id_token") && !nextState.params.id_token) {
-    //console.log("no token");
-    replace('/login')    
-  }
+// function requireToken(nextState, replace, next) {  
+//   if (!localStorage.getItem("id_token") && !nextState.params.id_token) {
+//     //console.log("no token");
+//     replace('/login')    
+//   }
   
-  next()
-}
+//   next()
+// }

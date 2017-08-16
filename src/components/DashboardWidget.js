@@ -3,6 +3,9 @@
 import React, { Component, PropTypes  } from 'react'
 
 import './components.css';
+import assets from './icons/assets.png';
+import profile from './icons/profile.png';
+import users from './icons/users.png';
 
 export default class DashboardWidget extends Component {
 
@@ -13,12 +16,12 @@ export default class DashboardWidget extends Component {
       <div>
         <div>
         
-          <button className="asset-submit-button" onClick={ this.props.displayAssets } >Manage Assets</button>
+          <button onClick={ this.props.displayAssets }> <img src={assets} alt="Assets" /></button>
         
-          <button className="asset-submit-button" onClick={ this.props.manageAccount } >Manage Account Details</button>
+          <button onClick={ this.props.manageAccount } ><img src={profile} alt="Profile" /></button>
       
           {this.props.isAdmin &&
-            <button className="asset-submit-button" onClick={ this.props.showUsers } >Show Users</button>  
+            <button onClick={ this.props.showUsers } ><img src={users} alt="Users" /></button>  
             
           }
           

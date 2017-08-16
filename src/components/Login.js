@@ -1,7 +1,7 @@
 // components/Login.js
 
 import React, {Component, PropTypes} from 'react'
-import {Link} from 'react-router';
+import {browserHistory} from 'react-router';
 import './components.css';
 
 export default class Login extends Component {
@@ -11,6 +11,9 @@ export default class Login extends Component {
       isInError: false,
       errorMessage: ""
     };
+  }
+  forgotPassword = () => {
+    browserHistory.push("/forgotpassword");
   }
   loginUser = () => {
 
@@ -58,8 +61,11 @@ export default class Login extends Component {
       <div>
       <form>
         <div >
-          <h2 className='form-title'>Login</h2>
-        
+          <h2 className='form-title'>Secure Asset Management Database</h2>
+          <div>
+          <h3 className='form-label'>Login</h3>
+
+          </div>
         </div>
         { this.props.errorMessage && 
           <div>
@@ -67,31 +73,42 @@ export default class Login extends Component {
           </div>
 
         }
+        <br /><hr /><br /><br />
         <div>
-            <label className="form-label" htmlFor="userName">Username:</label>
+            
             <input
               className='form-field'
               type="text"
               ref="userName"
               id="userName"
-              placeholder="Username"/>
+              placeholder="Enter Username"
+              style={{width: 300}} />
           </div>
+          <br /><br />
           <div>
-            <label className="form-label" htmlFor="password">Password:
-            </label>
+            
             <input
               className='form-field'
               type="password"
-              placeholder="Password"
+              placeholder="Enter Password"
               ref="password"
-              id="password"/>
+              id="password" 
+              style={{width: 300}} />
             
           </div>
+          <br /><br />
           <button type="button" className="asset-submit-button" onClick={this.loginUser}>Submit</button>
       </form>
       </div>
-      <div className="form-label"> <Link to="/forgotpassword">Forgotten your password?</Link></div>
+       <br /><hr /><br />
+      
+      <div><button type="button" className="asset-submit-button" onClick={this.forgotPassword}>Reset Password</button></div>
+      <h2 className='form-title'>The use of this system is strictly reserved for registered clients of SeekerDNA Products.</h2>  
+
       </div>
+      
+        
+     
     )
   }
 

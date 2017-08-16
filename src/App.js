@@ -6,10 +6,13 @@ import logo from './logo.png';
 import './App.css';
 import LoginContainer from './containers/LoginContainer';
 import RegistrationContainer from './containers/RegistrationContainer';
+import DashboardWidget from './components/DashboardWidget';
+//import Assets from './containers/Assets';
 
 class App extends Component {
     constructor(props) {
         super(props);
+        localStorage.setItem("userInQuestion", localStorage.getItem("username"));
         this.state = {
             isInError: false,
             errorMessage: ""
@@ -46,6 +49,28 @@ class App extends Component {
     goToRoot() {
         this.setState({showRegistration: false, showLogin: false, showButtons: true});
     }
+    displayAssets() {
+    localStorage.setItem("userInQuestion", localStorage.getItem("username"));
+    browserHistory.push('/assets');
+  }
+ 
+  showUsers() {   
+    browserHistory.push('/users');
+  }
+  manageAccount() {
+    localStorage.setItem("userInQuestion", localStorage.getItem("username"));
+    browserHistory.push('/updateuser');
+  }
+  logout() {
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("username");
+    localStorage.removeItem("assets");
+    localStorage.removeItem("userInQuestion");
+    localStorage.removeItem("users");
+    browserHistory.push('/login');
+  }
     render() {
         let isAuthenticated = localStorage.getItem('isAuthenticated');
 
@@ -78,7 +103,12 @@ class App extends Component {
 
                     {isAuthenticated && <div>
 
-                        <button className="asset-submit-button" onClick={this.goToDashboard}>Dashboard</button>
+                        <DashboardWidget
+                            displayAssets={this.displayAssets}          
+                            manageAccount={this.manageAccount}
+                            showUsers={this.showUsers}
+                            isAdmin={localStorage.isAdmin}
+                            logout={this.logout}/>
                     </div>
 }
 
