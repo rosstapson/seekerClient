@@ -24,7 +24,7 @@ class App extends Component {
         this.goToLogin = this.goToLogin.bind(this);
         this.goToRoot = this.goToRoot.bind(this);
         this.goToDashboard = this.goToDashboard.bind(this);
-        
+        this.goToAddAsset = this.goToAddAsset.bind(this);
     }
     componentWillMount() {
         let isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -50,9 +50,14 @@ class App extends Component {
         this.setState({showRegistration: false, showLogin: false, showButtons: true});
     }
     displayAssets() {
-    localStorage.setItem("userInQuestion", localStorage.getItem("username"));
-    browserHistory.push('/assets');
-  }
+        localStorage.setItem("userInQuestion", localStorage.getItem("username"));
+        browserHistory.push({pathname: '/assets', state: {showAddAsset: false}});
+    }
+    goToAddAsset() {
+        this.setState({showRegistration: false, showLogin: false, showButtons: false});
+       
+        browserHistory.push({pathname: "/addasset", state: {}});
+    }
  
   showUsers() {   
     browserHistory.push('/users');
@@ -104,7 +109,8 @@ class App extends Component {
                     {isAuthenticated && <div>
 
                         <DashboardWidget
-                            displayAssets={this.displayAssets}          
+                            displayAssets={this.displayAssets} 
+                            goToAddAsset={this.goToAddAsset}        
                             manageAccount={this.manageAccount}
                             showUsers={this.showUsers}
                             isAdmin={localStorage.isAdmin}
