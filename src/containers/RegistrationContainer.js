@@ -30,22 +30,17 @@ class RegistrationContainer extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("http://seekerdnasecure.co.za:3001/users", config)
+        return fetch("https://seekerdnasecure.co.za:3002/users", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
-                console.log("here");
+                
                 if (!response.ok) {
-                    console.log("json.errorMessage " + json.errorMessage);                    
+                    //console.log(json.errorMessage);                    
                     throw new Error(json.errorMessage);
                     
-                }                
+                }             
 
-                if (json.id_token) {
-                    console.log("token: " + (json.id_token));
-                };
-                //localStorage.setItem({id_token: json.id_token}); this to be done by clicking 'confirm' link
-                //                                                 in the email rather.
-
+    
                 browserHistory.push('/confirmationPending');
                 return json;
             });

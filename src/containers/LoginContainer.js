@@ -15,8 +15,7 @@ class LoginContainer extends Component {
     }
 }
 
-function loginUser(creds) {
-    console.log("LoginContainer.loginUser. ");
+function loginUser(creds) {    
 
     let config = {
         method: 'POST',
@@ -26,21 +25,28 @@ function loginUser(creds) {
         body: `username=${creds.username}&password=${creds.password}`
     };
 
-    return fetch('http://seekerdnasecure.co.za:3001/sessions/create', config)
+    return fetch('https://seekerdnasecure.co.za:3002/sessions/create', config)
         .then(response => response.json().then(json => ({json, response})))
         .then(({json, response}) => {
             if (!response.ok) {
-                // If there was a problem, we want to dispatch the error condition
-                console.log("user.message: " + json.errorMessage);
+                
 
                 throw new Error(json.errorMessage);
             } else {
                 // If login was successful, set the token in local storage
-                // and go to dashboard
+                // and go to assets
                 localStorage.setItem ('username', json.username);
+                localStorage.setItem('userInQuestion', json.username);
+               
                 localStorage.setItem('id_token', json.id_token);
+                if (json.accessLevel === 3) {                    
+                    localStorage.setItem('isAdmin', true);
+                }
+                if (json.accessLevel < 3) {                    
+                    localStorage.removeItem('isAdmin');
+                }
                 localStorage.setItem('isAuthenticated',  true);
-                browserHistory.push('/dashboard');
+                browserHistory.push('/assets');
 
             }
             

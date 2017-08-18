@@ -43,8 +43,7 @@ export default class AssetList extends Component {
     this.setState({
       filterBy: event.target.value,
       filteredAssets: tempAssets
-    });
-    console.log(this.state.filterField + ":" + event.target.value);
+    });    
     
   }
   handleFilterFieldChange(event) {
@@ -69,10 +68,7 @@ export default class AssetList extends Component {
     this
       .props
       .promise
-      .then(function (value) {
-        // setTimeout(function () {
-        //   this.setState({loading: false, assets: value})
-        // }.bind(this), 3000);
+      .then(function (value) {        
         self.setState({loading: false, assets: value});
       }, function (error) {
         self.setState({loading: false, error: error});
@@ -80,8 +76,7 @@ export default class AssetList extends Component {
   }
   render() {
     
-    if (this.state.loading) {
-      //return <Spinner />;
+    if (this.state.loading) {      
       return <div  className="loader">Loading Assets....</div>
     } else if (this.state.error !== null) {
       return <span>Error: {this.state.error.message}</span>;
@@ -104,8 +99,7 @@ export default class AssetList extends Component {
             <option value="description">Description</option>
             <option value="dnaCode">DNA Code</option>
             <option value="assetCode">Asset Code</option>
-            <option value="dateCreated">Date Created</option>
-            <option value="dateUpdated">Date Updated</option>
+            
           </select>
         </div><div>
         <table className="table">
@@ -114,14 +108,15 @@ export default class AssetList extends Component {
         <td className="column-name">DNA Code</td>
         <td className="column-name">Asset Code</td>
         <td className="column-name">Description</td>
-        <td className="column-name">Date Added</td>
-        <td className="column-name">Last Modified</td>
+        
+       
         </tr>
           {this.state.filterBy && 
               this.state.filteredAssets.map(asset => <AssetListItem
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
+              //transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }
           {!this.state.filterBy &&
@@ -129,6 +124,7 @@ export default class AssetList extends Component {
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
+              //transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }
         </tbody>

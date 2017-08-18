@@ -9,12 +9,12 @@ constructor(props) {
     
     this.addAsset = this.addAsset.bind(this);
   }
-  addAsset() {
-    console.log("addAsset");
+  addAsset() {   
     const asset = {
       dnaCode: this.refs.dnaCode.value.trim(),
       assetCode: this.refs.assetCode.value.trim(),
       description: this.refs.descripton.value.trim(),
+      status: "Active",
       imageUrls: []
     }
     this.props.addAsset(asset);

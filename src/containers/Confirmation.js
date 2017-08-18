@@ -11,18 +11,18 @@ export default class Confirmation extends Component {
 
     let config = {
       method: 'post',
-      headers: {
-        'content-type': 'application/json'
+       headers: {
+        'content-type': 'application/json',
+         'x-access-token' : localStorage.getItem('id_token')
       },
       body: JSON.stringify({id_token: this.props.params.id_token})
     }
-    fetch("http://seekerdnasecure.co.za:3001/token", config).then(function () {
-      console.log("good");
+    fetch("https://seekerdnasecure.co.za:3002/token", config).then(function () {
+      
       localStorage.setItem("isAuthenticated", true);
     }, function (err) {
       localStorage.setItem("isAuthenticated", false);
-      localStorage.setItem("errorMessage", err.message);
-      console.log("not good: " + err.message);
+      localStorage.setItem("errorMessage", err.message);      
       browserHistory.push("/error");
     });
 
@@ -33,11 +33,11 @@ export default class Confirmation extends Component {
     return (
       <div>
         <h2>
-          Confirmation
+          Registration confirmed.
         </h2>
-        Hvala ti, gospodin.
+       
         <Link to="/login">
-          Login.
+        <h3>  Login.</h3>
         </Link>
 
       </div>

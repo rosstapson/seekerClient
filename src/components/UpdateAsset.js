@@ -5,6 +5,7 @@ import React, {
   /* PropTypes */
 } from 'react'
 import ImageListItem from './ImageListItem';
+import TransferAssetWidget from './TransferAssetWidget';
 
 import './components.css';
 
@@ -30,6 +31,16 @@ export default class UpdateAsset extends Component {
     this.handleDeleteImage = this
       .handleDeleteImage
       .bind(this);
+    
+    this.handleAlertPressed = this
+      .handleAlertPressed
+      .bind(this);
+    this.handleTransferPressed = this
+      .handleTransferPressed
+      .bind(this);
+    this.handleTransferAsset = this
+      .handleTransferAsset
+      .bind(this);
 
     this.state = {
       imageIsUploading: false,
@@ -37,15 +48,18 @@ export default class UpdateAsset extends Component {
       imageUploadError: false,
       selectedFile: '',
       imageIsDeleting: false,
+      showTransferWidget: false,
+      showAlertWidget: false,
       //imageUrlToDelete: '',
-      imageUrls: this.props.asset.imageUrls
+      imageUrls: this.props.asset.imageUrls,
+      asset: this.props.asset
 
     }
 
   }
   // handleOnChange(event) {   this.setState({isEditing: true}); }
   handleClose(event) {
-    console.log("handleClose");
+    //console.log("handleClose");
     this
       .props
       .close();
@@ -69,16 +83,16 @@ export default class UpdateAsset extends Component {
     // call props.deleteImage remove url from  this.props.asset.imageUrls
     this
       .props
-      .deleteImage(url, this.props.asset.dnaCode)
+      .deleteImage(url, this.state.asset.dnaCode)
       .then(() => {
-        console.log("urls: " + this.state.imageUrls);
-        console.log("url to filter by: " + url);
+        //console.log("urls: " + this.state.imageUrls);
+        //console.log("url to filter by: " + url);
         var tempUrls = this.state.imageUrls.filter((value) => {
             return value !== url;
           });
-        console.log("tempUrls: " + tempUrls);
+        //console.log("tempUrls: " + tempUrls);
         this.setState({imageUrls: tempUrls, imageIsDeleting: false});
-        console.log("urls: " + this.state.imageUrls);
+        //console.log("urls: " + this.state.imageUrls);
       })
       .catch((err) => {
         alert(err);
@@ -112,7 +126,9 @@ export default class UpdateAsset extends Component {
         this.setState({imageIsUploading: false, imageUploadError: err})
       });
   }
+  
   handleUpdate() {
+    alert("handleUpdate");
     var tempAsset = this.props.asset;
     tempAsset.dnaCode = this
       .refs
@@ -193,6 +209,37 @@ export default class UpdateAsset extends Component {
       .props
       .updateAsset(tempAsset);
   }
+    handleAlertPressed() {      
+      this.setState({
+        showAlertWidget: true,
+        showTransferWidget: false
+      });
+    }
+    handleTransferPressed() {
+      
+      this.setState({
+        showAlertWidget: false,
+        showTransferWidget: true
+      });
+    }
+    handleTransferAsset(username) {
+      //alert("handleTransferAsset: " + username);
+      let tempAsset = Object.assign(
+        {},
+        this.state.asset,
+        {
+          
+          pendingTransfer: true,
+          pendingTransferToUser: username
+        }
+      );
+      
+      this.props.transferAsset(tempAsset);
+      this.setState({
+        showTransferWidget: false,
+        asset: tempAsset
+      })
+    }
   render() {
 
     return (
@@ -245,7 +292,59 @@ export default class UpdateAsset extends Component {
                   id="itemCode"/>
               </div>
             </div>
+            <div>
+              <div className="inline-div">
+                <label className="form-label" htmlFor="status">Status:
+                </label>
+              </div>
+              <div className="inline-div">
+                <div className="inline-div">
+                <input
+                  className='form-field'
+                  type="text"
+                  ref="status"
+                  id="status"
+                  disabled
+                  defaultValue={this.props.asset.status}/>
+              </div>
+              </div>
+            </div>
+            <div>
+            {this.props.asset.status === "Active" &&
+            <div className="inline-div">
+                <button
+                  type="button"
+                  className="asset-submit-button"
+                  onClick={this.handleTransferPressed}>Transfer</button>
+              </div>
+            }
+            {this.props.asset.status === "Active" &&
+            <div className="inline-div">
+                <button
+                  type="button"
+                  className="asset-submit-button"
+                  onClick={this.handleAlertPressed}>Alert</button>
+              </div>
+              }
+            </div>
+            <div>
+            {this.state.showTransferWidget &&
+              <div className="inline-div">
+               <TransferAssetWidget 
+                  transferAsset={this.handleTransferAsset}
+                  
+               />
+              </div>
+                }
+              {this.state.showAlertWidget &&
+                  <div className="inline-div">
 
+                <label className="form-label" htmlFor="description">Alert:
+                </label>
+              </div>
+                }
+              </div>
+            
             <div>
               <div className="inline-div">
 
@@ -360,23 +459,7 @@ export default class UpdateAsset extends Component {
                   id="capturedOrModifiedBy"/>
               </div>
             </div>
-            <div>
-              <div className="inline-div">
-                <label className="form-label" htmlFor="status">Status:
-                </label>
-              </div>
-              <div className="inline-div">
-                <select
-                  className='form-field'
-                  defaultValue={this.props.asset.status}
-                  ref="status"
-                  id="status">
-                  <option value="Alert">Alert</option>
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                </select>
-              </div>
-            </div>
+           
             <div>
               <div className="inline-div">
                 <label className="form-label" htmlFor="dateReported">Date Reported:

@@ -3,15 +3,12 @@ import AssetList from '../components/AssetList'
 import AddAssetWidget from '../components/AddAssetWidget'
 import UpdateAsset from '../components/UpdateAsset'
 
-// import getAssetsForUsername from '../middleware/AssetStore' import {
 import {browserHistory} from 'react-router';
 
 export default class Assets extends Component {
   self = this;
   constructor(props) {
     super(props);
-    console.log("Assets constructor()");
-    // this.showAddAsset = this   .showAddAsset   .bind(this);
 
     this.addAsset = this
       .addAsset
@@ -34,6 +31,9 @@ export default class Assets extends Component {
     this.deleteAsset = this
       .deleteAsset
       .bind(this);
+    // this.transferAsset = this
+    //   transferAsset
+    //   .bind(this);
     this.setState = this
       .setState
       .bind(this);
@@ -47,38 +47,32 @@ export default class Assets extends Component {
       pendingViewAsset: false
     };
   }
-    
+
   showAddAsset() {
     this.setState({showAddAsset: true});
   }
   addAsset(asset) {
     this.setState({pendingAddAsset: true});
 
-    console.log("Asset.js addAsset");
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
-        username: localStorage.getItem('username'),
+        username: localStorage.getItem('userInQuestion'),
         asset: asset
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/addasset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/addasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
-          console.log("!response.ok");
           browserHistory.push("/error");
         }
-        console.log("json.assets: " + json.assets);
-        this.setState({
-          showAddAsset: false, 
-          pendingAddAsset: false,
-          showUpdate: true,
-          assetToView: asset
-      });
+        //console.log("json.assets: " + json.assets);
+        this.setState({showAddAsset: false, pendingAddAsset: false, showUpdate: true, assetToView: asset});
         return json.assets;
 
       });
@@ -87,62 +81,59 @@ export default class Assets extends Component {
     this.setState({showUpdate: false, assetToView: ''});
   }
   viewAsset(asset) {
-    console.log("View Asset: " + asset.dnaCode);
-    //if (confirm("wait a sec...")) {
     this.setState({showUpdate: true, assetToView: asset});
-    //}
-
-  } 
+  }
   uploadImage(file) {
-    console.log("Asset.js uploadImage");
-    console.log('file name: ' + file.name);
-    
+
     var formData = new FormData();
-    formData.append('username', localStorage.getItem('username'));
+    formData.append('username', localStorage.getItem('userInQuestion'));
     formData.append('dnaCode', this.state.assetToView.dnaCode);
     formData.append('image', file);
-    console.log(formData);
+    
     let config = {
       method: 'post',
+      headers: {
+         //'content-type': 'application/json',
+         
+        'x-access-token': localStorage.getItem('id_token')
+      },
       body: formData
-      }
-    
-    return fetch("http://seekerdnasecure.co.za:3001/file-upload", config)    
+    }
+
+    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
-          console.log("!response.ok");
-          //browserHistory.push("/error");
+          alert("Unable to upload image");
+
         }
-        console.log("json.imageUrl: " + json.imageUrl);
+
         return json.imageUrl;
 
       });
-      
-    
+
   }
   updateAsset(asset) {
     this.setState({pendingUpdateAsset: true});
 
-    console.log("Asset.js updateAsset");
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
-        username: localStorage.getItem('username'),
+        username: localStorage.getItem('userInQuestion'),
         asset: asset
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/updateasset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/updateasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
-          console.log("!response.ok");
+          alert("Error");
           browserHistory.push("/error");
         }
-        console.log("json.assets: " + json.assets);
         this.setState({showUpdate: false, pendingUpdateAsset: false});
         return json.assets;
 
@@ -152,52 +143,47 @@ export default class Assets extends Component {
     if (!confirm("Delete asset?")) {
       return;
     }
-
-    console.log("deleteAsset - " + dnaCode + ":" + localStorage.getItem('username'));
-    //temporary, just to test delete:
     this.setState({pendingDeleteAsset: true});
 
-    console.log("Asset.js deleteAsset");
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
-        username: localStorage.getItem('username'),
+        username: localStorage.getItem('userInQuestion'),
         dnaCode: dnaCode
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/deleteasset", config)
+    return fetch("https://seekerdnasecure.co.za:3002/deleteasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
-          console.log("!response.ok");
           browserHistory.push("/error");
         }
-        console.log("json.assets: " + json.assets);
+        
         this.setState({pendingDeleteAsset: false});
         return json.assets;
 
       });
 
   }
-  deleteImage(url, dnaCode) {  
+  deleteImage(url, dnaCode) {
 
-    console.log("deleteImage - " + url + ":" + localStorage.getItem('username'));
-   
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({
-        username: localStorage.getItem('username'),
+        username: localStorage.getItem('userInQuestion'),
         url: url,
         dnaCode: dnaCode
       })
     }
-    return fetch("http://seekerdnasecure.co.za:3001/deleteimage", config)
+    return fetch("https://seekerdnasecure.co.za:3002/deleteimage", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -209,20 +195,46 @@ export default class Assets extends Component {
 
   }
 
+  transferAsset(asset) {
+    console.log("Asset.js transferAsset");
+    //req.body.username (seller)
+    //req.body.asset (with pendingTransferToUser set to buyer's username, and status: PendingTransfer)
+    let config = {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
+      },
+      body: JSON.stringify({
+        username: localStorage.getItem('userInQuestion'),
+        asset: asset
+      })
+    }
+    return fetch("https://seekerdnasecure.co.za:3002/initiateTransferAsset", config)
+      .then(response => response.json().then(json => ({json, response})))
+      .then(({json, response}) => {
+        if (!response.ok) {
+          alert(response.errorMessage);
+        }
+        return;
+
+      });
+  }
+
   getAssetsForUsername(username) {
 
     let config = {
       method: 'post',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'x-access-token': localStorage.getItem('id_token')
       },
       body: JSON.stringify({username: username})
     }
-    return fetch("http://seekerdnasecure.co.za:3001/assets", config)
+    return fetch("https://seekerdnasecure.co.za:3002/assets", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
-          console.log("!response.ok");
           browserHistory.push("/error");
         }
         localStorage.setItem('assets', JSON.stringify(json.assets));
@@ -242,53 +254,46 @@ export default class Assets extends Component {
         <div className="loader">Deleting Asset...</div>
       );
     }
-    var username = localStorage.getItem('username');
+    var username = localStorage.getItem('userInQuestion');
 
     return (
       <div>
         <div className="asset-title">
           User&nbsp;{username}&nbsp;Assets
         </div>
-        {!this.state.showUpdate &&
-        <div>
+        {!this.state.showUpdate && <div>
           <button
             className="asset-submit-button"
             onClick={this
             .showAddAsset
             .bind(this)}>Add New</button>
           {this.state.showAddAsset && <div><AddAssetWidget addAsset={this.addAsset}/></div>
-          }
-        
+}
 
         </div>
-        }
-        {this.state.showUpdate && 
-          <div><UpdateAsset
+}
+        {this.state.showUpdate && <div><UpdateAsset
           asset={this.state.assetToView}
           close={this.closeViewAsset}
           updateAsset={this.updateAsset}
+          transferAsset={this.transferAsset}
           uploadImage={this.uploadImage}
-          deleteImage={this.deleteImage}
-          /></div>
-        }
-        {!this.state.showUpdate &&
-        <div>
+          deleteImage={this.deleteImage}/></div>
+}
+        {!this.state.showUpdate && <div>
           <AssetList
             promise={this.getAssetsForUsername(username)}
             viewAsset={this.viewAsset}
+            transferAsset={this.transferAsset}
             deleteAsset={this.deleteAsset}/>
 
         </div>
-        }
+}
       </div>
 
     );
   }
 }
-Assets.propTypes = { //  myAssets: PropTypes.arrayOf(PropTypes.shape({   dnaCode:
-  // PropTypes.string.isRequired,   assetCode: PropTypes.string.isRequired,
-  // description: PropTypes.string.isRequired,   dateAdded:
-  // PropTypes.string.isRequired,   dateModified: PropTypes.string.isRequired
-  // }).isRequired).isRequired,
+Assets.propTypes = {
   errorMessage: PropTypes.string
 }

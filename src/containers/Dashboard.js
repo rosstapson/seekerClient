@@ -1,49 +1,49 @@
 // components/Dashboard.js
 
 import React, {Component, PropTypes} from 'react'
-import DashboardWidget from '../components/DashboardWidget'
+//import DashboardWidget from '../components/DashboardWidget'
+import Assets from './Assets'
 
 import {browserHistory} from 'react-router';
 
 export default class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    console.log("Dashboard constructor()");
-
-  }
+  
   render() {
     const errorMessage = this.props.errorMessage;
     const username = localStorage.username;
+    //console.log("is admin? " + localStorage.isAdmin);
+    //const isAdmin = localStorage.isAdmin;
 
     return (
       <div>
         <div className="asset-title">
-          User&nbsp;{username}&nbsp;Dashboard
+          User:&nbsp;{username}
         </div>
         {errorMessage}
-        <DashboardWidget
-          displayAssets={this.displayAssets}
-          manageAssets={this.manageAssets}
-          manageAccount={this.manageAccount}
-          logout={this.logout}/>
+        <Assets username={ localStorage.username }/>
       </div>
     );
   }
   displayAssets() {
-    console.log("displayAssets");
+   localStorage.setItem("userInQuestion", localStorage.getItem("username"));
     browserHistory.push('/assets');
   }
-  manageAssets() {
-    console.log("manageAssets");
+ 
+  showUsers() {   
+    browserHistory.push('/users');
   }
   manageAccount() {
-    console.log("manageAccount");
+   localStorage.setItem("userInQuestion", localStorage.getItem("username"));
     browserHistory.push('/updateuser');
   }
   logout() {
-    console.log("logout");
     localStorage.removeItem("id_token");
-    localStorage.removeItem("isAuthenticated")
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("username");
+    localStorage.removeItem("assets");
+    localStorage.removeItem("userInQuestion");
+    localStorage.removeItem("users");
     browserHistory.push('/login');
   }
 

@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from 'react';
-//import ErrorMessage from './ErrorMessage';
+
 import './components.css';
 
 export class UpdateUser extends Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       isInError: false,
       errorMessage: ""
@@ -18,6 +18,7 @@ export class UpdateUser extends Component {
     const userNameRef = this.refs.userName;
     const emailRef = this.refs.email;
     const emailConfirmRef = this.refs.emailConfirm;
+    const accessLevelRef = this.refs.accessLevel;
     const passwordRef = this.refs.password;
     const passwordConfirmRef = this.refs.passwordConfirm;
     const companyNameRef = this.refs.companyName;
@@ -37,6 +38,9 @@ export class UpdateUser extends Component {
             username: userNameRef
               .value
               .trim(),
+            accessLevel: accessLevelRef
+              .value
+              .trim(),
             password: passwordRef
               .value
               .trim(),
@@ -47,22 +51,22 @@ export class UpdateUser extends Component {
               .value
               .trim(),
 
-            address : {
+            address: {
               line1: addressLine1Ref
-              .value
-              .trim(),
-            line2: addressLine2Ref
-              .value
-              .trim(),
-            line3: addressLine3Ref
-              .value
-              .trim(),
-            state: addressStateRef
-              .value
-              .trim(),
-            country: addressCountryRef
-              .value
-              .trim(),
+                .value
+                .trim(),
+              line2: addressLine2Ref
+                .value
+                .trim(),
+              line3: addressLine3Ref
+                .value
+                .trim(),
+              state: addressStateRef
+                .value
+                .trim(),
+              country: addressCountryRef
+                .value
+                .trim()
             },
             telephone: telephoneRef
               .value
@@ -76,19 +80,16 @@ export class UpdateUser extends Component {
           this
             .props
             .updateUser(user)
-            .then(function () { 
+            .then(function () {
               //console.log("here.");
               if (!self.props.errorMessage) {
                 userNameRef.value = emailRef.value = emailConfirmRef.value = passwordRef.value = passwordConfirmRef.value = companyNameRef.value = telephoneRef.value = contactPersonRef.value = addressLine1Ref.value = addressLine2Ref.value = addressLine3Ref.value = addressStateRef.value = addressCountryRef.value = '';
               }
             }, function (error) {
               //console.log("promise rejected:" + error.message);
-              alert(error);         
-              self.setState({
-                errorMessage: error.message,
-                isInError: true, 
-                });
-             // console.log("this.state.errorMessage:" + self);
+              alert(error);
+              self.setState({errorMessage: error.message, isInError: true});
+              // console.log("this.state.errorMessage:" + self);
             });
 
           return;
@@ -105,14 +106,17 @@ export class UpdateUser extends Component {
   };
 
   render() {
-
+    let isAdmin = null;
+    if (localStorage.isAdmin) {
+      isAdmin = true;
+    }
     return (
       <form>
-        <div >
+        <div>
           <h2 className='form-title'>Update User Details</h2>
-          
+
           <div>
-            <label className="form-label" htmlFor="userName">User name</label>
+            <label className="form-label" htmlFor="userName">User name</label><br />
             <input
               className='form-field'
               type="text"
@@ -124,7 +128,7 @@ export class UpdateUser extends Component {
 
           </div>
           <div>
-            <label className="form-label" htmlFor="email">Email address:</label>
+            <label className="form-label" htmlFor="email">Email address:</label><br />
             <input
               className='form-field'
               type="email"
@@ -140,10 +144,31 @@ export class UpdateUser extends Component {
               ref="emailConfirm"/>
 
           </div>
-
+          {isAdmin && 
+            <div>
+            <label className="form-label" htmlFor="accessLevel">Access Level:
+            </label>
+          </div>
+          }
+          {isAdmin && 
+          <div>
+            <select 
+              className='form-field' 
+              defaultValue={this.props.userDetails.accessLevel}
+              ref='accessLevel'
+              id='accessLevel'
+              >
+              <option value="0">Guest</option>
+              <option value="1">Client</option>
+              <option value="2">Agent</option>
+              <option value="3">Admin</option>
+              <option value="4">God</option>
+            </select>
+          </div>
+          }
           <div>
             <label className="form-label" htmlFor="password">Password:
-            </label>
+            </label><br />
             <input
               className='form-field'
               type="password"
@@ -160,7 +185,7 @@ export class UpdateUser extends Component {
 
           </div>
           <div className="form-group">
-            <label className="form-label" htmlFor="companyName">Company Name:</label>
+            <label className="form-label" htmlFor="companyName">Company Name:</label><br />
             <input
               className='form-field'
               type="text"
@@ -168,7 +193,8 @@ export class UpdateUser extends Component {
               placeholder="Company name"
               ref="companyName"
               id="companyName"/>
-            <label className="form-label" htmlFor="addressline1">Address:</label>
+              </div><div>
+            <label className="form-label" htmlFor="addressline1">Address:</label><br />
             <input
               className='form-field'
               type="text"
@@ -188,14 +214,18 @@ export class UpdateUser extends Component {
               defaultValue={this.props.userDetails.address.line3}
               placeholder="Line 3"
               ref="addressline3"/>
+              <br />
             <label className="form-label" htmlFor="addressState">State:</label>
+            <br />
             <input
               className='form-field'
               type="text"
               defaultValue={this.props.userDetails.address.state}
               placeholder="State"
               ref="addressState"/>
+              <br />
             <label className="form-label" htmlFor="addressCountry">Country:</label>
+            <br />
             <input
               className='form-field'
               type="text"
@@ -203,14 +233,18 @@ export class UpdateUser extends Component {
               placeholder="Country"
               ref="addressCountry"
               id="addressCountry"/>
+              </div><div>
             <label className="form-label" htmlFor="telephone">Company Telephone:</label>
+            <br />
             <input
               className='form-field'
               type="tel"
               defaultValue={this.props.userDetails.telephone}
               placeholder="Telephone"
               ref="telephone"/>
+              <br />
             <label className="form-label" htmlFor="contactPerson">Contact Person</label>
+            <br />
             <input
               className='form-field'
               type="text"
@@ -218,6 +252,7 @@ export class UpdateUser extends Component {
               placeholder="Contact Person"
               ref="contactPerson"
               id="contactPerson"/>
+              </div><div>
             <button type="button" className="submit-button" onClick={this.updateUser}>Submit</button>
           </div>
         </div>
