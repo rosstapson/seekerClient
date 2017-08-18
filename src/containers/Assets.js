@@ -10,35 +10,17 @@ export default class Assets extends Component {
   constructor(props) {
     super(props);
 
-    this.addAsset = this
-      .addAsset
-      .bind(this);
-    this.closeViewAsset = this
-      .closeViewAsset
-      .bind(this);
-    this.viewAsset = this
-      .viewAsset
-      .bind(this);
-    this.updateAsset = this
-      .updateAsset
-      .bind(this);
-    this.uploadImage = this
-      .uploadImage
-      .bind(this);
-    this.deleteImage = this
-      .deleteImage
-      .bind(this);
-    this.deleteAsset = this
-      .deleteAsset
-      .bind(this);
-    // this.transferAsset = this
-    //   transferAsset
-    //   .bind(this);
-    this.setState = this
-      .setState
-      .bind(this);
+    this.addAsset = this.addAsset.bind(this);
+    this.closeViewAsset = this.closeViewAsset.bind(this);
+    this.viewAsset = this.viewAsset.bind(this);
+    this.updateAsset = this.updateAsset.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
+    this.deleteImage = this.deleteImage.bind(this);
+    this.deleteAsset = this.deleteAsset.bind(this);
+    // this.transferAsset = this.transferAsset.bind(this);
+    this.setState = this.setState.bind(this);
     this.state = {
-      showAddAsset: false,
+      showAddAsset: this.props.location.state.showAddAsset,
       showUpdate: false,
       assetToView: null,
       pendingAddAsset: false,
@@ -258,37 +240,33 @@ export default class Assets extends Component {
 
     return (
       <div>
-        <div className="asset-title">
-          User&nbsp;{username}&nbsp;Assets
-        </div>
-        {!this.state.showUpdate && <div>
-          <button
-            className="asset-submit-button"
-            onClick={this
-            .showAddAsset
-            .bind(this)}>Add New</button>
-          {this.state.showAddAsset && <div><AddAssetWidget addAsset={this.addAsset}/></div>
-}
+        {
+          this.state.showAddAsset && <div>
+            <AddAssetWidget addAsset={this.addAsset} />
+            </div>
+          
+        }
 
-        </div>
-}
-        {this.state.showUpdate && <div><UpdateAsset
-          asset={this.state.assetToView}
-          close={this.closeViewAsset}
-          updateAsset={this.updateAsset}
-          transferAsset={this.transferAsset}
-          uploadImage={this.uploadImage}
-          deleteImage={this.deleteImage}/></div>
-}
-        {!this.state.showUpdate && <div>
+        
+
+        {
+          this.state.showUpdate && <div><UpdateAsset
+            asset={this.state.assetToView}
+            close={this.closeViewAsset}
+            updateAsset={this.updateAsset}
+            transferAsset={this.transferAsset}
+            uploadImage={this.uploadImage}
+            deleteImage={this.deleteImage}/></div>
+        }
+        {
+          !this.state.showUpdate && <div>
           <AssetList
             promise={this.getAssetsForUsername(username)}
             viewAsset={this.viewAsset}
             transferAsset={this.transferAsset}
             deleteAsset={this.deleteAsset}/>
-
-        </div>
-}
+          </div>
+        }
       </div>
 
     );

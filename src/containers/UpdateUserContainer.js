@@ -7,9 +7,7 @@ import UpdateUser from '../components/UpdateUser';
 class UpdateUserContainer extends Component {
     constructor(props) {
         super(props);
-        this.setState = this
-            .setState
-            .bind(this);
+        this.setState = this.setState.bind(this);
         this.state = {
             errorMessage: null,
             userToUpdate: null,
@@ -26,7 +24,7 @@ class UpdateUserContainer extends Component {
             });
     }
     render() {
-        console.log(this.state.errorMessage);
+        //console.log(this.state.errorMessage);
         if (this.state.isFetchingUserDetails) {
             return (
                 <div className="loader">Fetching User Details...</div>

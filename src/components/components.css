@@ -1,3 +1,14 @@
+
+.widget-button {
+  padding: 6px 8px;
+  margin-right: 20px;
+  margin-left: 20px;
+  height: 48;
+  width: 48;
+  border: 0;
+  background-color: #ffffff;
+}
+
 .divider{
     
     height:auto;
@@ -55,12 +66,13 @@
 }
 
 .form-field{
-  width: 51%;
+  
   margin-bottom: 16px;
- 
+  margin-right: 20px;
+  margin-left: 20px;
   font-size: 16px;
   line-height: normal;
-  padding: 6px 8px;
+  padding: 4px 6px;
   border-radius: 4px;
   border: 1px solid #ddd;
   outline: none;
@@ -216,8 +228,9 @@
   color: #757575;
 }
 .table{
-  width: 100%;
+  width: 70%;
   border-collapse: collapse;
+  
 }
 .column-name{
   text-align: left;

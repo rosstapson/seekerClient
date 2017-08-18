@@ -1,82 +1,171 @@
 
-import React, { Component, PropTypes  } from 'react'
+import React, { Component  } from 'react'
 
 import './components.css';
 
 export default class AddAssetWidget extends Component {
 constructor(props) {
     super(props);   
-    
+    this.state = {
+      pendingAddAsset: false,
+      asset: {
+        dnaCode: '',
+        assetCode: '',
+        itemCode: '',              
+        location: '',
+        unitOfMeasure: '',
+        audited: '',
+        description: '',
+        capturedOrModifiedBy: ''              
+      }
+  }
     this.addAsset = this.addAsset.bind(this);
   }
-  addAsset() {   
-    const asset = {
-      dnaCode: this.refs.dnaCode.value.trim(),
-      assetCode: this.refs.assetCode.value.trim(),
-      description: this.refs.descripton.value.trim(),
-      status: "Active",
-      imageUrls: []
+  addAsset = () => {   
+    this.setState({pendingAddAsset: true});
+    try {
+      this.props.addAsset(this.state.asset);
     }
-    this.props.addAsset(asset);
+    catch(err) {
+      alert(err);
+    }
+    this.setState({pendingAddAsset: false});
+  }
+
+  handleChange = (event) => {
+    let asset = {...this.state.asset};
+    
+    asset[event.target.id] = event.target.value;
+    this.setState({ asset });
+    
+  }
+  logAsset = () => {   // just for debuggery
+    console.log(this.state);
   }
   render() {
-    //const { errorMessage } = this.props.errorMessage;
-    
+    if (this.state.pendingAddAsset) {
+      return (
+        <div className="loader">Saving Asset...</div>
+      );
+    };
 
-    return (
-      <div>
-         <form>
+    return (   
+      <div style={{
         
-        { this.props.errorMessage && 
-          <div>
-          { this.props.errorMessage }
-          </div>
-
-        }
-        <div className="inline-div">
-            <label className="form-label" htmlFor="dnaCode">DNA Code:</label>
-            </div><div className="inline-div">
-            <input
-              className='form-field'
-              type="text"
-              ref="dnaCode"
-              id="dnaCode"
-              placeholder="DNA Code"/>
-          </div><div className="inline-div">
-            <label className="form-label" htmlFor="assetCode">Asset Code:
-            </label>
-            </div><div className="inline-div">
-            <input
-              className='form-field'
-              type="text"
-              placeholder="Asset Code"
-              ref="assetCode"
-              id="assetCode"/>
-            </div><div className="inline-div">
+        display: 'flex',
+        flex: '1',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>
+        <div>
+          <h2 className='form-title'>Register New Asset</h2>
+        </div>
+        <div style={{
           
-            <label className="form-label" htmlFor="descripton">Description:
-            </label>
-            </div><div className="inline-div">
-            <input
-              className='form-field'
-              type="text"
-              placeholder="Description"
-              ref="descripton"
-              id="descripton"/>
-              </div><div className="inline-div">
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'row',
+          justifyContent: 'center'
+        }}>
+          <form>
+            <table  className="table" style={{}}>
+              <tr>
+                <td>
+                  <div className="form-label">
+                    DNA Product Pin
+                  </div>
+                <br/>
+                  <input
+                    className='form-field'
+                    type="text"
+                    id="dnaCode"                
+                    onChange={ this.handleChange }
+                    placeholder="DNA Product Pin"/>
+                </td>
+                <td>
+                  <div className="form-label">
+                    Asset Code
+                  </div>
+                  <br/>
+                  <input
+                    className='form-field'
+                    type="text"
+                    id="assetCode"                
+                    onChange={ this.handleChange }
+                    placeholder="Asset Code"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                  <div className="form-label">
+                    Audited
+                  </div>
+                  <br/>
+                  <select
+                  className='form-field'                
+                  id="audited"                
+                  onChange={ this.handleChange }
+                  defaultValue="Unit Of Measure">
+                  <option value="Unit Of Measure">Unit Of Measure</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Re-Audited">Re-Audited</option>                    
+                  </select>
+                  </td>
+                  <td>
+                  <div className="form-label">
+                    Unit Of Measure
+                  </div>
+                  <br/>
+                    <select
+                      className='form-field'                
+                      id="unitOfMeasure"                
+                      onChange={ this.handleChange }
+                      defaultValue="Unit Of Measure">
+                      <option value="Unit Of Measure">Unit Of Measure</option>
+                        <option value="EA">EA</option>
+                        <option value="Kg">Kg</option>
+                        <option value="Lt">Lt</option>
+                        <option value="PAA">PAA</option>
+                        <option value="MT">MT</option>
+                        <option value="MT2">MT2</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <div className="form-label">
+                      Audited
+                    </div>
+                  <br/>
+                    <input
+                      className='form-field'
+                      type="text"
+                      id="audited"                
+                      onChange={ this.handleChange }
+                      placeholder="DNA Product Pin"/>
+                  </td>
+                  <td>
+                    <div className="form-label">
+                      Asset Code
+                    </div>
+                    <br/>
+                    <input
+                      className='form-field'
+                      type="text"
+                      id="assetCode"                
+                      onChange={ this.handleChange }
+                      placeholder="Asset Code"/>
+                    </td>
+                  </tr>          
+            </table>
+            <div>
             <button type="button" className="asset-submit-button" onClick={this.addAsset}>Submit</button>
+            <button type="button" className="asset-submit-button" onClick={this.logAsset}>log asset</button>
           </div>
-         
-          
-      </form>
-        
-      </div>
-    )
-  }
-
-  
-}
-
-AddAssetWidget.propTypes = {  
-  addAsset: PropTypes.func
+          </form>
+          </div>
+        </div>
+      )
+  }  
 }

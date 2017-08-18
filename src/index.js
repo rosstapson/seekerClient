@@ -12,9 +12,11 @@ import Error from './containers/Error'
 import ForgotPassword from './containers/ForgotPassword';
 import ResetMailSent from './containers/ResetMailSent';
 
-import Assets from './containers/Assets'
+import Assets from './containers/Assets';
+import AddAsset from './containers/AddAsset';
 import Users from './containers/Users'
 import UpdateUserContainer from './containers/UpdateUserContainer'
+
 import './index.css';
 
 ReactDOM.render(
@@ -26,6 +28,7 @@ ReactDOM.render(
     <Route path="/login" component={LoginContainer}/>
     <Route path="/dashboard" component={Dashboard} onEnter={ verifyCredentials } username={ localStorage.username }/>
     <Route path="/assets" component={Assets} onEnter={ requireCredentials } username={ localStorage.username }/>
+    <Route path="/addAsset" component={AddAsset} onEnter={ requireCredentials } />
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/forgotpassword" component={ForgotPassword} />

@@ -101,7 +101,13 @@ export default class AssetList extends Component {
             <option value="assetCode">Asset Code</option>
             
           </select>
-        </div><div>
+        </div>
+        <div  style={{
+          
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'row',
+          justifyContent: 'center'}}>
         <table className="table">
         <tbody>
         <tr>

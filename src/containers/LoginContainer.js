@@ -46,7 +46,7 @@ function loginUser(creds) {
                     localStorage.removeItem('isAdmin');
                 }
                 localStorage.setItem('isAuthenticated',  true);
-                browserHistory.push('/assets');
+                browserHistory.push({pathname: '/assets', state: {showAddAsset: false}});
 
             }
             
