@@ -23,14 +23,14 @@ export default class AddAsset extends Component {
           .then(({json, response}) => {
             if (!response.ok) {
               browserHistory.push("/error");
-            }                  
-            return json.assets;
-    
+            }
+            localStorage.setItem('assets', json.assets);           
+            browserHistory.push('/assets');    
           });
       }
     render() {
       return(
-        <AddAssetWidget addAsset={ this.addAsset }/>
+        <AddAssetWidget addAsset={ this.addAsset } browserHistory={ browserHistory }/>
       )
     }
 }

@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 import AssetList from '../components/AssetList'
-import AddAssetWidget from '../components/AddAssetWidget'
 import UpdateAsset from '../components/UpdateAsset'
 
 import {browserHistory} from 'react-router';
@@ -20,7 +19,6 @@ export default class Assets extends Component {
     // this.transferAsset = this.transferAsset.bind(this);
     this.setState = this.setState.bind(this);
     this.state = {
-      showAddAsset: this.props.location.state.showAddAsset,
       showUpdate: false,
       assetToView: null,
       pendingAddAsset: false,
@@ -30,9 +28,9 @@ export default class Assets extends Component {
     };
   }
 
-  showAddAsset() {
-    this.setState({showAddAsset: true});
-  }
+  // showAddAsset() {
+  //   this.setState({showAddAsset: true});
+  // }
   addAsset(asset) {
     this.setState({pendingAddAsset: true});
 
@@ -54,7 +52,7 @@ export default class Assets extends Component {
           browserHistory.push("/error");
         }
         //console.log("json.assets: " + json.assets);
-        this.setState({showAddAsset: false, pendingAddAsset: false, showUpdate: true, assetToView: asset});
+        this.setState({ pendingAddAsset: false, showUpdate: true, assetToView: asset});
         return json.assets;
 
       });
@@ -240,15 +238,7 @@ export default class Assets extends Component {
 
     return (
       <div>
-        {
-          this.state.showAddAsset && <div>
-            <AddAssetWidget addAsset={this.addAsset} />
-            </div>
-          
-        }
-
         
-
         {
           this.state.showUpdate && <div><UpdateAsset
             asset={this.state.assetToView}

@@ -16,7 +16,8 @@ constructor(props) {
         unitOfMeasure: '',
         audited: '',
         description: '',
-        capturedOrModifiedBy: ''              
+        status: 'active',
+        capturedOrModifiedBy: localStorage.getItem('username')              
       }
   }
     this.addAsset = this.addAsset.bind(this);
@@ -30,6 +31,7 @@ constructor(props) {
       alert(err);
     }
     this.setState({pendingAddAsset: false});
+    
   }
 
   handleChange = (event) => {
@@ -68,7 +70,7 @@ constructor(props) {
           justifyContent: 'center'
         }}>
           <form>
-            <table  className="table" style={{}}>
+            <table  className="table" style={{}}><tbody>
               <tr>
                 <td>
                   <div className="form-label">
@@ -80,7 +82,7 @@ constructor(props) {
                     type="text"
                     id="dnaCode"                
                     onChange={ this.handleChange }
-                    placeholder="DNA Product Pin"/>
+                   />
                 </td>
                 <td>
                   <div className="form-label">
@@ -92,7 +94,33 @@ constructor(props) {
                     type="text"
                     id="assetCode"                
                     onChange={ this.handleChange }
-                    placeholder="Asset Code"/>
+                    />
+                  </td>
+                </tr>
+                <tr>
+                <td>
+                  <div className="form-label">
+                    Item code
+                  </div>
+                <br/>
+                  <input
+                    className='form-field'
+                    type="text"
+                    id="itemCode"                
+                    onChange={ this.handleChange }
+                    />
+                </td>
+                <td>
+                  <div className="form-label">
+                    Location
+                  </div>
+                  <br/>
+                  <input
+                    className='form-field'
+                    type="text"
+                    id="location"                
+                    onChange={ this.handleChange }
+                    />
                   </td>
                 </tr>
                 <tr>
@@ -105,8 +133,8 @@ constructor(props) {
                   className='form-field'                
                   id="audited"                
                   onChange={ this.handleChange }
-                  defaultValue="Unit Of Measure">
-                  <option value="Unit Of Measure">Unit Of Measure</option>
+                 >
+                  
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                     <option value="Re-Audited">Re-Audited</option>                    
@@ -121,8 +149,8 @@ constructor(props) {
                       className='form-field'                
                       id="unitOfMeasure"                
                       onChange={ this.handleChange }
-                      defaultValue="Unit Of Measure">
-                      <option value="Unit Of Measure">Unit Of Measure</option>
+                      >
+                      
                         <option value="EA">EA</option>
                         <option value="Kg">Kg</option>
                         <option value="Lt">Lt</option>
@@ -133,35 +161,21 @@ constructor(props) {
                     </td>
                   </tr>
                   <tr>
-                  <td>
+                  <td colSpan='2'>
                     <div className="form-label">
-                      Audited
+                      Description
                     </div>
                   <br/>
-                    <input
-                      className='form-field'
-                      type="text"
-                      id="audited"                
+                    <textarea
+                      className='textarea'
+                      id="description"                
                       onChange={ this.handleChange }
-                      placeholder="DNA Product Pin"/>
-                  </td>
-                  <td>
-                    <div className="form-label">
-                      Asset Code
-                    </div>
-                    <br/>
-                    <input
-                      className='form-field'
-                      type="text"
-                      id="assetCode"                
-                      onChange={ this.handleChange }
-                      placeholder="Asset Code"/>
+                      />                  
                     </td>
                   </tr>          
-            </table>
+            </tbody></table>
             <div>
-            <button type="button" className="asset-submit-button" onClick={this.addAsset}>Submit</button>
-            <button type="button" className="asset-submit-button" onClick={this.logAsset}>log asset</button>
+            <button type="button" className="asset-submit-button" onClick={this.addAsset}>Submit</button>            
           </div>
           </form>
           </div>
