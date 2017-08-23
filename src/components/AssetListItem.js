@@ -14,9 +14,11 @@ export default class AssetListItem extends Component {
 //      <td className="td-center">Click "View/Update" to upload images. </td>
      
 //    }
-  handleView = () => {
-    
+  handleView = () => {    
     this.props.viewAsset(this.props.asset);
+  };
+  handleViewImages = () => {    
+    this.props.viewImages(this.props.asset);
   };
   handleDelete = () => {
     
@@ -30,7 +32,7 @@ export default class AssetListItem extends Component {
         <td className="td">{this.props.asset.assetCode} </td>
         <td className="td">{this.props.asset.description} </td>
        
-       
+        <td><button className="asset-submit-button" onClick={this.handleViewImages}>Images</button></td>
         <td><button className="asset-submit-button" onClick={this.handleView}>View/Update</button></td>
         <td><button className="asset-submit-button" onClick={this.handleDelete}>Delete</button></td>
       </tr>

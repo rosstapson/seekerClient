@@ -4,7 +4,7 @@ import React, {
   Component,
   /* PropTypes */
 } from 'react'
-import ImageListItem from './ImageListItem';
+
 import TransferAssetWidget from './TransferAssetWidget';
 
 import './components.css';
@@ -22,15 +22,7 @@ export default class UpdateAsset extends Component {
     this.handleClose = this
       .handleClose
       .bind(this);
-    this.pendingUploadImage = this
-      .pendingUploadImage
-      .bind(this);
-    this.handleUploadImage = this
-      .handleUploadImage
-      .bind(this);
-    this.handleDeleteImage = this
-      .handleDeleteImage
-      .bind(this);
+    
     
     this.handleAlertPressed = this
       .handleAlertPressed
@@ -43,14 +35,12 @@ export default class UpdateAsset extends Component {
       .bind(this);
 
     this.state = {
-      imageIsUploading: false,
+      
       uploadPending: false,
       imageUploadError: false,
       selectedFile: '',
-      imageIsDeleting: false,
       showTransferWidget: false,
-      showAlertWidget: false,
-      //imageUrlToDelete: '',
+      showAlertWidget: false,     
       imageUrls: this.props.asset.imageUrls,
       asset: this.props.asset
 
@@ -65,67 +55,7 @@ export default class UpdateAsset extends Component {
       .close();
 
   }
-  pendingUploadImage(event) {
-    this.setState({
-      uploadPending: true,
-      selectedFile: event.target.files[0]
-    });
-    //console.log(event.target.files[0]);
-  }
-  handleDeleteImage(url) {
-    if (!confirm("Delete Image?")) {
-      return;
-    }
-    this.setState({
-      imageIsDeleting: true,
-      //imageUrlToDelete: url
-    });
-    // call props.deleteImage remove url from  this.props.asset.imageUrls
-    this
-      .props
-      .deleteImage(url, this.state.asset.dnaCode)
-      .then(() => {
-        //console.log("urls: " + this.state.imageUrls);
-        //console.log("url to filter by: " + url);
-        var tempUrls = this.state.imageUrls.filter((value) => {
-            return value !== url;
-          });
-        //console.log("tempUrls: " + tempUrls);
-        this.setState({imageUrls: tempUrls, imageIsDeleting: false});
-        //console.log("urls: " + this.state.imageUrls);
-      })
-      .catch((err) => {
-        alert(err);
-        this.setState({imageIsDeleting: false});
-      });
-
-  }
-  handleUploadImage(event) {
-    event.preventDefault();
-    //console.log(event);
-
-    this.setState({
-      uploadPending: false,
-      imageIsUploading: true
-    });
-    this
-      .props
-      .uploadImage(this.state.selectedFile)
-      .then((imageUrl) => {
-        var tempArray = this.state.imageUrls.slice();
-        tempArray.push(imageUrl);        
-
-        this.setState({
-          imageIsUploading: false, 
-          imageUploadError: false,          
-          imageUrls: tempArray
-      });
-      }) 
-      .catch((err) => {
-        //alert(err);
-        this.setState({imageIsUploading: false, imageUploadError: err})
-      });
-  }
+  
   
   handleUpdate() {
     alert("handleUpdate");
@@ -560,48 +490,7 @@ export default class UpdateAsset extends Component {
             </div>
           </form>
         </div>
-        <div className="float-right">
-
-          <div className="form-title">
-            Asset Images
-          </div>
-          <div>
-
-            <div>
-              {this               
-                .state
-                .imageUrls
-                .map(function (url) {
-                  return (
-                    <div key={url}><ImageListItem url={url} deleteImage={this.handleDeleteImage}/></div>
-                  )
-                }, this)
-}
-
-            </div>
-            <form>
-              {this.state.imageUploadError && <div>{this.state.imageUploadError}</div>
-}
-              <div className="inline-field-div">
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="image"
-                  placeholder="Click here to Select..."
-                  className='form-field'
-                  
-                  onChange={this.pendingUploadImage}
-                  ref="fileUrl"/>
-              </div>
-              <div className="inline-div">
-                <button className="asset-submit-button" onClick={this.handleUploadImage}>Upload</button>
-              </div>
-              {this.state.imageIsUploading && <div className="loader">Uploading Image...</div>
-}
-            </form>
-          </div>
-
-        </div>
+       
       </div>
     )
   }

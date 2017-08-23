@@ -63,34 +63,12 @@ export default class Assets extends Component {
   viewAsset(asset) {
     this.setState({showUpdate: true, assetToView: asset});
   }
+  viewImages(asset) {
+    console.log("assets viewImages: " + asset)
+    browserHistory.push({pathname: "/images", state: { asset: asset }});
+  }
   uploadImage(file) {
 
-    var formData = new FormData();
-    formData.append('username', localStorage.getItem('userInQuestion'));
-    formData.append('dnaCode', this.state.assetToView.dnaCode);
-    formData.append('image', file);
-    
-    let config = {
-      method: 'post',
-      headers: {
-         //'content-type': 'application/json',
-         
-        'x-access-token': localStorage.getItem('id_token')
-      },
-      body: formData
-    }
-
-    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)
-      .then(response => response.json().then(json => ({json, response})))
-      .then(({json, response}) => {
-        if (!response.ok) {
-          alert("Unable to upload image");
-
-        }
-
-        return json.imageUrl;
-
-      });
 
   }
   updateAsset(asset) {
@@ -150,28 +128,6 @@ export default class Assets extends Component {
 
   }
   deleteImage(url, dnaCode) {
-
-    let config = {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json',
-        'x-access-token': localStorage.getItem('id_token')
-      },
-      body: JSON.stringify({
-        username: localStorage.getItem('userInQuestion'),
-        url: url,
-        dnaCode: dnaCode
-      })
-    }
-    return fetch("https://seekerdnasecure.co.za:3002/deleteimage", config)
-      .then(response => response.json().then(json => ({json, response})))
-      .then(({json, response}) => {
-        if (!response.ok) {
-          alert(response.errorMessage);
-        }
-        return;
-
-      });
 
   }
 
@@ -254,6 +210,7 @@ export default class Assets extends Component {
             promise={this.getAssetsForUsername(username)}
             viewAsset={this.viewAsset}
             transferAsset={this.transferAsset}
+            viewImages={this.viewImages}
             deleteAsset={this.deleteAsset}/>
           </div>
         }

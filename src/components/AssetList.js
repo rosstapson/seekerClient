@@ -130,6 +130,7 @@ export default class AssetList extends Component {
               key={asset.dnaCode}
               asset={asset}
               viewAsset={this.props.viewAsset}
+              viewImages={this.props.viewImages}
               //transferAsset={this.props.transferAsset}
               deleteAsset={this.props.deleteAsset} />)
           }

@@ -14,8 +14,9 @@ import ResetMailSent from './containers/ResetMailSent';
 
 import Assets from './containers/Assets';
 import AddAsset from './containers/AddAsset';
-import Users from './containers/Users'
-import UpdateUserContainer from './containers/UpdateUserContainer'
+import Users from './containers/Users';
+import Images from './containers/Images';
+import UpdateUserContainer from './containers/UpdateUserContainer';
 
 import './index.css';
 
@@ -27,7 +28,8 @@ ReactDOM.render(
     <Route path="/confirm/:id_token" component={Confirmation}/>
     <Route path="/login" component={LoginContainer}/>
     <Route path="/dashboard" component={Dashboard} onEnter={ verifyCredentials } username={ localStorage.username }/>
-    <Route path="/assets" component={Assets} onEnter={ requireCredentials } username={ localStorage.username }/>
+    <Route path="/assets" component={Assets} onEnter={ verifyCredentials } username={ localStorage.username }/>
+    <Route path="/images" component={Images} onEnter={requireCredentials} />
     <Route path="/addAsset" component={AddAsset} onEnter={ requireCredentials } />
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
@@ -62,6 +64,7 @@ function verifyCredentials(nextState, replace, next) {
           next();
         }
         else {
+          
           // localStorage.setItem("id_token", "");
           // localStorage.setItem('isAuthenticated',  false);
           localStorage.removeItem("id_token");
