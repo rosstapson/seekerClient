@@ -2,6 +2,7 @@
 
 import React, {Component, /* PropTypes */} from 'react'
 import './components.css';
+import {browserHistory} from 'react-router';
 
 export default class AssetListItem extends Component {
 
@@ -15,7 +16,8 @@ export default class AssetListItem extends Component {
      
 //    }
   handleView = () => {    
-    this.props.viewAsset(this.props.asset);
+    //this.props.viewAsset(this.props.asset);
+    browserHistory.push({pathname: "/updateAsset", state: {asset: this.props.asset}})
   };
   handleViewImages = () => {    
     this.props.viewImages(this.props.asset);

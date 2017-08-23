@@ -4,6 +4,7 @@ import React, {
   Component,
   /* PropTypes */
 } from 'react'
+import {browserHistory} from 'react-router';
 
 import TransferAssetWidget from './TransferAssetWidget';
 
@@ -11,34 +12,10 @@ import './components.css';
 
 export default class UpdateAsset extends Component {
   constructor(props) {
-    super(props);
-    this.setState = this
-      .setState
-      .bind(this);
-    //this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleUpdate = this
-      .handleUpdate
-      .bind(this);
-    this.handleClose = this
-      .handleClose
-      .bind(this);
-    
-    
-    this.handleAlertPressed = this
-      .handleAlertPressed
-      .bind(this);
-    this.handleTransferPressed = this
-      .handleTransferPressed
-      .bind(this);
-    this.handleTransferAsset = this
-      .handleTransferAsset
-      .bind(this);
+    super(props);    
 
-    this.state = {
-      
+    this.state = {      
       uploadPending: false,
-      imageUploadError: false,
-      selectedFile: '',
       showTransferWidget: false,
       showAlertWidget: false,     
       imageUrls: this.props.asset.imageUrls,
@@ -47,112 +24,45 @@ export default class UpdateAsset extends Component {
     }
 
   }
-  // handleOnChange(event) {   this.setState({isEditing: true}); }
-  handleClose(event) {
+  handleChange = (event) => {
+    let asset = {...this.state.asset};
+    
+    asset[event.target.id] = event.target.value;
+    //console.log(asset);
+    this.setState({ asset });
+    
+  }
+  logAsset = () => {   // just for debuggery
+    console.log(this.state);
+  }
+  handleClose = (event) => {
     //console.log("handleClose");
-    this
-      .props
-      .close();
+    browserHistory.push("/assets");
 
   }
   
   
-  handleUpdate() {
-    alert("handleUpdate");
-    var tempAsset = this.props.asset;
-    tempAsset.dnaCode = this
-      .refs
-      .dnaCode
-      .value
-      .trim();
-    tempAsset.assetCode = this
-      .refs
-      .assetCode
-      .value
-      .trim();
-    tempAsset.itemCode = this
-      .refs
-      .itemCode
-      .value
-      .trim();
-    tempAsset.description = this
-      .refs
-      .description
-      .value
-      .trim();
-    tempAsset.location = this
-      .refs
-      .location
-      .value
-      .trim();
-    tempAsset.unitOfMeasure = this
-      .refs
-      .unitOfMeasure
-      .value
-      .trim();
-    tempAsset.audited = this
-      .refs
-      .audited
-      .value
-      .trim();
-    tempAsset.status = this
-      .refs
-      .status
-      .value
-      .trim();
-    tempAsset.capturedOrModifiedBy = this
-      .refs
-      .capturedOrModifiedBy
-      .value
-      .trim();
-    tempAsset.dateReported = this
-      .refs
-      .dateReported
-      .value
-      .trim();
-    tempAsset.caseNumber = this
-      .refs
-      .caseNumber
-      .value
-      .trim();
-    tempAsset.atPoliceStation = this
-      .refs
-      .atPoliceStation
-      .value
-      .trim();
-    tempAsset.nextAuditDate = this
-      .refs
-      .nextAuditDate
-      .value
-      .trim();
-    tempAsset.appliedBy = this
-      .refs
-      .appliedBy
-      .value
-      .trim();
-    tempAsset.checkedBy = this
-      .refs
-      .checkedBy
-      .value
-      .trim();
-    this
-      .props
-      .updateAsset(tempAsset);
+  handleUpdate =() => {
+    try {
+      this.props.updateAsset(this.state.asset);
+    }
+    catch(err) {
+      alert(err);
+    }
   }
-    handleAlertPressed() {      
+    handleAlertPressed = () => {      
       this.setState({
         showAlertWidget: true,
         showTransferWidget: false
       });
     }
-    handleTransferPressed() {
-      
+    handleTransferPressed = () => {      
       this.setState({
         showAlertWidget: false,
         showTransferWidget: true
       });
     }
-    handleTransferAsset(username) {
+    handleTransferAsset = (username) => {
       //alert("handleTransferAsset: " + username);
       let tempAsset = Object.assign(
         {},
@@ -186,8 +96,7 @@ export default class UpdateAsset extends Component {
               <div className="inline-div">
                 <input
                   className='form-field'
-                  type="text"
-                  ref="dnaCode"
+                  type="text"                  
                   id="dnaCode"
                   disabled
                   defaultValue={this.props.asset.dnaCode}/>
@@ -203,7 +112,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.assetCode}
-                  ref="assetCode"
+                  onChange={ this.handleChange }                 
                   id="assetCode"/>
               </div>
             </div>
@@ -218,7 +127,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.itemCode}
-                  ref="itemCode"
+                  onChange={ this.handleChange }
                   id="itemCode"/>
               </div>
             </div>
@@ -285,7 +194,7 @@ export default class UpdateAsset extends Component {
                 <textarea
                   className='textarea'
                   defaultValue={this.props.asset.description}
-                  ref="description"
+                  onChange={ this.handleChange }
                   id="description"/>
               </div>
 
@@ -301,7 +210,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.location}
-                  ref="location"
+                  onChange={ this.handleChange }
                   id="location"/>
               </div>
             </div>
@@ -314,7 +223,7 @@ export default class UpdateAsset extends Component {
                 <select
                   className="select"
                   defaultValue={this.props.asset.unitOfMeasure}
-                  ref="unitOfMeasure"
+                  onChange={ this.handleChange }
                   id="unitOfMeasure">
 
                   <option value="EA">EA</option>
@@ -335,7 +244,7 @@ export default class UpdateAsset extends Component {
                 <select
                   className="select"
                   defaultValue={this.props.asset.audited}
-                  ref="audited"
+                  onChange={ this.handleChange }
                   id="audited">
 
                   <option value="No">No</option>
@@ -385,7 +294,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.capturedOrModifiedBy}
-                  ref="capturedOrModifiedBy"
+                  onChange={ this.handleChange }
                   id="capturedOrModifiedBy"/>
               </div>
             </div>
@@ -400,7 +309,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.dateReported}
-                  ref="dateReported"
+                  onChange={ this.handleChange }
                   id="dateReported"/>
               </div>
             </div>
@@ -414,7 +323,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.caseNumber}
-                  ref="caseNumber"
+                  onChange={ this.handleChange }
                   id="caseNumber"/>
               </div>
             </div>
@@ -428,7 +337,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.atPoliceStation}
-                  ref="atPoliceStation"
+                  onChange={ this.handleChange }
                   id="atPoliceStation"/>
               </div>
             </div>
@@ -442,7 +351,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.nextAuditDate}
-                  ref="nextAuditDate"
+                  onChange={ this.handleChange }
                   id="nextAuditDate"/>
               </div>
             </div>
@@ -456,7 +365,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.appliedBy}
-                  ref="appliedBy"
+                  onChange={ this.handleChange }
                   id="appliedBy"/>
               </div>
             </div>
@@ -470,7 +379,7 @@ export default class UpdateAsset extends Component {
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.checkedBy}
-                  ref="checkedBy"
+                  onChange={ this.handleChange }
                   id="checkedBy"/>
               </div>
             </div>

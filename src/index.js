@@ -14,6 +14,7 @@ import ResetMailSent from './containers/ResetMailSent';
 
 import Assets from './containers/Assets';
 import AddAsset from './containers/AddAsset';
+import UpdateAssetContainer from './containers/UpdateAssetContainer';
 import Users from './containers/Users';
 import Images from './containers/Images';
 import UpdateUserContainer from './containers/UpdateUserContainer';
@@ -31,6 +32,7 @@ ReactDOM.render(
     <Route path="/assets" component={Assets} onEnter={ verifyCredentials } username={ localStorage.username }/>
     <Route path="/images" component={Images} onEnter={requireCredentials} />
     <Route path="/addAsset" component={AddAsset} onEnter={ requireCredentials } />
+    <Route path="/updateAsset" component={ UpdateAssetContainer } onEnter={requireCredentials} />
     <Route path="/users" component={Users} onEnter={requireCredentials } />
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/forgotpassword" component={ForgotPassword} />
