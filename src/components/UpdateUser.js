@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
+import SelectCountry from './SelectCountry';
+
 import './components.css';
 
 export class UpdateUser extends Component {
@@ -14,7 +16,7 @@ export class UpdateUser extends Component {
 
   }
   updateUser = () => {
-
+    
     const userNameRef = this.refs.userName;
     const emailRef = this.refs.email;
     const emailConfirmRef = this.refs.emailConfirm;
@@ -66,7 +68,6 @@ export class UpdateUser extends Component {
                 .trim(),
               country: addressCountryRef
                 .value
-                .trim()
             },
             telephone: telephoneRef
               .value
@@ -75,13 +76,13 @@ export class UpdateUser extends Component {
               .value
               .trim()
           }
-
+          alert("here:" + addressCountryRef.value);
           let self = this;
           this
             .props
             .updateUser(user)
             .then(function () {
-              //console.log("here.");
+              
               if (!self.props.errorMessage) {
                 userNameRef.value = emailRef.value = emailConfirmRef.value = passwordRef.value = passwordConfirmRef.value = companyNameRef.value = telephoneRef.value = contactPersonRef.value = addressLine1Ref.value = addressLine2Ref.value = addressLine3Ref.value = addressStateRef.value = addressCountryRef.value = '';
               }
@@ -226,14 +227,14 @@ export class UpdateUser extends Component {
               <br />
             <label className="form-label" htmlFor="addressCountry">Country:</label>
             <br />
-            <input
-              className='form-field'
-              type="text"
+            <SelectCountry 
               defaultValue={this.props.userDetails.address.country}
-              placeholder="Country"
+              id="addressCountry"
               ref="addressCountry"
-              id="addressCountry"/>
-              </div><div>
+              /> 
+            
+              </div>
+              <div>
             <label className="form-label" htmlFor="telephone">Company Telephone:</label>
             <br />
             <input

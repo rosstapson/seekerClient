@@ -83,61 +83,68 @@ export default class UpdateAsset extends Component {
   render() {
 
     return (
-      <div>
-        <div className="float-left">
-          <form>
-            <div className="form-title">
-              Asset Details
-            </div>
-            <div>
-              <div className="inline-div">
-                <label className="form-label" htmlFor="dnaCode">DNA Code:</label>
-              </div>
-              <div className="inline-div">
+      <div style={{
+        
+        display: 'flex',
+        flex: '1',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }}>       
+        
+          <h2 className="form-title">
+            Asset Details
+          </h2>
+            <div style={{          
+              display: 'flex',
+              flex: '1',
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }}>
+            <form>
+            <table className="table" style={{backgroundColor: 'yellow'}}><tbody>
+            <tr>
+              <td>
+                <div className="form-label">DNA Code:</div>
+                <br />
                 <input
                   className='form-field'
                   type="text"                  
                   id="dnaCode"
                   disabled
                   defaultValue={this.props.asset.dnaCode}/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
-                <label className="form-label" htmlFor="assetCode">Asset Code:
-                </label>
-              </div>
-              <div className="inline-div">
+              </td>            
+            
+              <td>
+                <div className="form-label">Asset Code:
+                </div>
+                <br/>
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.assetCode}
                   onChange={ this.handleChange }                 
                   id="assetCode"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
-
-                <label className="form-label" htmlFor="itemCode">Item Code:
-                </label>
-              </div>
-              <div className="inline-div">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div className="form-label">Item Code:
+                </div>
+              <br/>
+              
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.itemCode}
                   onChange={ this.handleChange }
                   id="itemCode"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
-                <label className="form-label" htmlFor="status">Status:
-                </label>
-              </div>
-              <div className="inline-div">
-                <div className="inline-div">
+              </td>
+            
+              <td>
+                <div className="form-label">Status:
+                </div>
+                <br/>
+                
                 <input
                   className='form-field'
                   type="text"
@@ -145,10 +152,11 @@ export default class UpdateAsset extends Component {
                   id="status"
                   disabled
                   defaultValue={this.props.asset.status}/>
-              </div>
-              </div>
-            </div>
-            <div>
+              </td>
+              </tr>
+           
+            <tr>
+              <td>
             {this.props.asset.status === "Active" &&
             <div className="inline-div">
                 <button
@@ -157,6 +165,8 @@ export default class UpdateAsset extends Component {
                   onClick={this.handleTransferPressed}>Transfer</button>
               </div>
             }
+            </td>
+            <td>
             {this.props.asset.status === "Active" &&
             <div className="inline-div">
                 <button
@@ -165,61 +175,55 @@ export default class UpdateAsset extends Component {
                   onClick={this.handleAlertPressed}>Alert</button>
               </div>
               }
-            </div>
-            <div>
-            {this.state.showTransferWidget &&
-              <div className="inline-div">
-               <TransferAssetWidget 
-                  transferAsset={this.handleTransferAsset}
-                  
-               />
-              </div>
-                }
-              {this.state.showAlertWidget &&
-                  <div className="inline-div">
-
-                <label className="form-label" htmlFor="description">Alert:
-                </label>
-              </div>
-                }
-              </div>
+              </td>
+            </tr>
             
-            <div>
-              <div className="inline-div">
+            {this.state.showTransferWidget &&
+              <tr><td>
+               <TransferAssetWidget  transferAsset={this.handleTransferAsset} />
+               </td></tr>
+            }
+              
+                
+              {this.state.showAlertWidget &&
+                <tr><td>
 
-                <label className="form-label" htmlFor="description">Description:
-                </label>
-              </div>
-              <div className="inline-div">
+                <div className="form-label">Alert:
+                </div>
+                </td></tr>
+                }
+              
+            
+            <tr>
+              <td colSpan='2'>
+
+                <div className="form-label">Description:
+                </div>
+              <br/>
                 <textarea
                   className='textarea'
                   defaultValue={this.props.asset.description}
                   onChange={ this.handleChange }
                   id="description"/>
-              </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
 
-            </div>
-            <div>
-              <div className="inline-div">
-
-                <label className="form-label" htmlFor="location">Location:
-                </label>
-              </div>
-              <div className="inline-div">
+                <div className="form-label">Location:
+                </div>
+              <br/>
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.location}
                   onChange={ this.handleChange }
                   id="location"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
-                <label className="form-label" htmlFor="unitOfMeasure">Unit of Measure:
-                </label>
-              </div>
-              <div className="inline-div">
+              </td>
+              <td>  
+                <div className="form-label" >Unit of Measure:
+                </div>
+              <br/>              
                 <select
                   className="select"
                   defaultValue={this.props.asset.unitOfMeasure}
@@ -233,12 +237,12 @@ export default class UpdateAsset extends Component {
                   <option value="MT">MT</option>
                   <option value="MT2">MT2</option>
                 </select>
-              </div>
-            </div>
+              </td>
+            </tr>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="audited">Audited:
-                </label>
+                <div className="form-label">Audited:
+                </div>
               </div>
               <div className="inline-div">
                 <select
@@ -256,8 +260,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="dateAdded">Date Added:
-                </label>
+                <div className="form-label">Date Added:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -271,8 +275,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="dateUpdated">Last Modified:
-                </label>
+                <div className="form-label">Last Modified:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -286,8 +290,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="capturedOrModifiedBy">Captured/Modified By:
-                </label>
+                <div className="form-label">Captured/Modified By:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -301,8 +305,8 @@ export default class UpdateAsset extends Component {
            
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="dateReported">Date Reported:
-                </label>
+                <div className="form-label">Date Reported:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -315,8 +319,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="caseNumber">Case Number:
-                </label>
+                <div className="form-label">Case Number:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -329,8 +333,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="atPoliceStation">At Police Station:
-                </label>
+                <div className="form-label">At Police Station:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -343,8 +347,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="nextAuditDate">Next Audit Date:
-                </label>
+                <div className="form-label">Next Audit Date:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -357,8 +361,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="appliedBy">Applied By:
-                </label>
+                <div className="form-label">Applied By:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -371,8 +375,8 @@ export default class UpdateAsset extends Component {
             </div>
             <div>
               <div className="inline-div">
-                <label className="form-label" htmlFor="checkedBy">Checked By:
-                </label>
+                <div className="form-label">Checked By:
+                </div>
               </div>
               <div className="inline-div">
                 <input
@@ -397,9 +401,11 @@ export default class UpdateAsset extends Component {
                   onClick={this.handleClose}>Close</button>
               </div>
             </div>
-          </form>
+            </tbody>
+            </table>
+            </form>
         </div>
-       
+        
       </div>
     )
   }

@@ -2,7 +2,8 @@ import React, {PropTypes, Component} from 'react';
 //import auth from '../middleware/auth';
 import {browserHistory} from 'react-router';
 
-import UpdateUser from '../components/UpdateUser';
+//import UpdateUser from '../components/UpdateUser';
+import UserWidget from '../components/UserWidget';
 
 class UpdateUserContainer extends Component {
     constructor(props) {
@@ -32,13 +33,23 @@ class UpdateUserContainer extends Component {
         } else {
             return (
                 <div>
-                    <UpdateUser
-                        updateUser={this.updateUser}
-                        userDetails={this.state.userToUpdate}
-                        errorMessage={this.state.errorMessage}/>
+                    <UserWidget 
+                        user={this.state.userToUpdate}
+                        handleSubmit={this.updateUser}
+                    />
                 </div>
-            );
+            )
         }
+        // } else {
+        //     return (
+        //         <div>
+        //             <UpdateUser
+        //                 updateUser={this.updateUser}
+        //                 userDetails={this.state.userToUpdate}
+        //                 errorMessage={this.state.errorMessage}/>
+        //         </div>
+        //     );
+        // }
     }
     getUserDetails(username) {
         this.setState({isFetchingUserDetails: true});

@@ -62,8 +62,7 @@ constructor(props) {
         <div>
           <h2 className='form-title'>Register New Asset</h2>
         </div>
-        <div style={{
-          
+        <div style={{          
           display: 'flex',
           flex: '1',
           flexDirection: 'row',
