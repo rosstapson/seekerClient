@@ -7,6 +7,7 @@ import React, {
 import {browserHistory} from 'react-router';
 
 import TransferAssetWidget from './TransferAssetWidget';
+import AlertWidget from './AlertWidget';
 
 import './components.css';
 
@@ -14,14 +15,17 @@ export default class UpdateAsset extends Component {
   constructor(props) {
     super(props);    
 
+    let isAlert = this.props.asset.status === "Alert";
+    
     this.state = {      
       uploadPending: false,
       showTransferWidget: false,
-      showAlertWidget: false,     
+      showAlertWidget: false,
+      showCaseInfo: isAlert, 
       imageUrls: this.props.asset.imageUrls,
       asset: this.props.asset
-
     }
+    
 
   }
   handleChange = (event) => {
@@ -68,7 +72,7 @@ export default class UpdateAsset extends Component {
         {},
         this.state.asset,
         {
-          
+          status: "Pending Transfer",
           pendingTransfer: true,
           pendingTransferToUser: username
         }
@@ -80,6 +84,10 @@ export default class UpdateAsset extends Component {
         asset: tempAsset
       })
     }
+    alertAsset = (asset) => {
+      
+      this.props.updateAsset(asset);
+    }
   render() {
 
     return (
@@ -90,10 +98,11 @@ export default class UpdateAsset extends Component {
         flexDirection: 'column',
         justifyContent: 'center'
       }}>       
-        
+        <div>
           <h2 className="form-title">
             Asset Details
           </h2>
+        </div>
             <div style={{          
               display: 'flex',
               flex: '1',
@@ -101,7 +110,7 @@ export default class UpdateAsset extends Component {
               justifyContent: 'center'
             }}>
             <form>
-            <table className="table" style={{backgroundColor: 'yellow'}}><tbody>
+            <table className="table" style={{}}><tbody>
             <tr>
               <td>
                 <div className="form-label">DNA Code:</div>
@@ -177,26 +186,31 @@ export default class UpdateAsset extends Component {
               }
               </td>
             </tr>
-            
+            {this.state.showCaseInfo &&
+              <tr><td colSpan="2"><div className="form-label" style={{color: "black", backgroundColor: "red"}}>Case Info</div></td></tr>
+            }
+            {this.state.showCaseInfo &&
+              <tr><td colSpan="2" style={{border: "1px solid red"}}> 
+                <div className="form-label">Case Number</div><div className="td">{this.state.asset.caseNumber}</div><br/>
+                <div className="form-label">Police Station</div><div className="td">{this.state.asset.atPoliceStation}</div><br/>
+                <div className="form-label">Date Reported</div><div className="td">{this.state.asset.dateReported}</div><br/>
+              </td></tr>
+            }            
             {this.state.showTransferWidget &&
               <tr><td>
                <TransferAssetWidget  transferAsset={this.handleTransferAsset} />
                </td></tr>
             }
-              
-                
               {this.state.showAlertWidget &&
                 <tr><td>
-
-                <div className="form-label">Alert:
-                </div>
+                  <AlertWidget 
+                    asset={this.state.asset}
+                    alertAsset={this.alertAsset}
+                  />
                 </td></tr>
                 }
-              
-            
             <tr>
               <td colSpan='2'>
-
                 <div className="form-label">Description:
                 </div>
               <br/>
@@ -209,7 +223,6 @@ export default class UpdateAsset extends Component {
             </tr>
             <tr>
               <td>
-
                 <div className="form-label">Location:
                 </div>
               <br/>
@@ -225,11 +238,10 @@ export default class UpdateAsset extends Component {
                 </div>
               <br/>              
                 <select
-                  className="select"
+                  className="form-field"
                   defaultValue={this.props.asset.unitOfMeasure}
                   onChange={ this.handleChange }
                   id="unitOfMeasure">
-
                   <option value="EA">EA</option>
                   <option value="Kg">Kg</option>
                   <option value="Lt">Lt</option>
@@ -239,31 +251,11 @@ export default class UpdateAsset extends Component {
                 </select>
               </td>
             </tr>
-            <div>
-              <div className="inline-div">
-                <div className="form-label">Audited:
-                </div>
-              </div>
-              <div className="inline-div">
-                <select
-                  className="select"
-                  defaultValue={this.props.asset.audited}
-                  onChange={ this.handleChange }
-                  id="audited">
-
-                  <option value="No">No</option>
-                  <option value="Yes">Yes</option>
-                  <option value="Re-Audited">Re-Audited</option>
-
-                </select>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
+            <tr>
+              <td>
                 <div className="form-label">Date Added:
                 </div>
-              </div>
-              <div className="inline-div">
+              <br />
                 <input
                   className='form-field'
                   type="text"
@@ -271,14 +263,27 @@ export default class UpdateAsset extends Component {
                   disabled
                   ref="dateAdded"
                   id="dateAdded"/>
+              </td>
+              <td>
+              <div className="form-label">Audited:
               </div>
-            </div>
-            <div>
-              <div className="inline-div">
+              <br />
+              <select
+                className="form-field"
+                defaultValue={this.props.asset.audited}
+                onChange={ this.handleChange }
+                id="audited">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Re-Audited">Re-Audited</option>
+              </select>
+            </td>
+            </tr>
+            <tr>
+              <td>
                 <div className="form-label">Last Modified:
                 </div>
-              </div>
-              <div className="inline-div">
+              <br />
                 <input
                   className='form-field'
                   type="text"
@@ -286,121 +291,73 @@ export default class UpdateAsset extends Component {
                   disabled
                   ref="dateUpdated"
                   id="dateUpdated"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
+              </td>
+           
+              <td>
                 <div className="form-label">Captured/Modified By:
                 </div>
-              </div>
-              <div className="inline-div">
+                <br />
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.capturedOrModifiedBy}
                   onChange={ this.handleChange }
                   id="capturedOrModifiedBy"/>
-              </div>
-            </div>
+              </td>
+            </tr>
            
-            <div>
-              <div className="inline-div">
-                <div className="form-label">Date Reported:
-                </div>
-              </div>
-              <div className="inline-div">
-                <input
-                  className='form-field'
-                  type="text"
-                  defaultValue={this.props.asset.dateReported}
-                  onChange={ this.handleChange }
-                  id="dateReported"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
-                <div className="form-label">Case Number:
-                </div>
-              </div>
-              <div className="inline-div">
-                <input
-                  className='form-field'
-                  type="text"
-                  defaultValue={this.props.asset.caseNumber}
-                  onChange={ this.handleChange }
-                  id="caseNumber"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
-                <div className="form-label">At Police Station:
-                </div>
-              </div>
-              <div className="inline-div">
-                <input
-                  className='form-field'
-                  type="text"
-                  defaultValue={this.props.asset.atPoliceStation}
-                  onChange={ this.handleChange }
-                  id="atPoliceStation"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
+            
+            <tr>
+              <td>
                 <div className="form-label">Next Audit Date:
                 </div>
-              </div>
-              <div className="inline-div">
+              <br/>
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.nextAuditDate}
                   onChange={ this.handleChange }
                   id="nextAuditDate"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
+              </td>            
+              <td>
                 <div className="form-label">Applied By:
                 </div>
-              </div>
-              <div className="inline-div">
+              <br/>
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.appliedBy}
                   onChange={ this.handleChange }
                   id="appliedBy"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <div className="form-label">Checked By:
                 </div>
-              </div>
-              <div className="inline-div">
+                <br />
                 <input
                   className='form-field'
                   type="text"
                   defaultValue={this.props.asset.checkedBy}
                   onChange={ this.handleChange }
                   id="checkedBy"/>
-              </div>
-            </div>
-            <div>
-              <div className="inline-div">
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <button
                   type="button"
                   className="asset-submit-button"
                   onClick={this.handleUpdate}>Update</button>
-              </div>
-              <div className="inline-div">
+              </td>
+              <td>
                 <button
                   type="button"
                   className="asset-submit-button"
                   onClick={this.handleClose}>Close</button>
-              </div>
-            </div>
+              </td>
+            </tr>
             </tbody>
             </table>
             </form>

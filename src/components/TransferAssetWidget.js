@@ -23,7 +23,10 @@ export default class TransferAssetWidget extends Component {
         
     }
     handleSubmitPressed() {
-        
+        if (this.state.buyerUsername === '') {
+            alert("Please enter a valid username for this buyer");
+            return;
+        }
         this.props.transferAsset(this.state.buyerUsername);
     }
     render() {
@@ -39,12 +42,12 @@ export default class TransferAssetWidget extends Component {
                     type="text"
                     ref="buyerUsername"
                     id="buyerUsername"
-                    value={this.state.buyerUsername}
+                    defaultValue={this.state.buyerUsername}
                     onChange={this.handleChange}
                     />
                 </div>
                 <div className="inline-div">
-                <button className="asset-submit-button" onClick={this.handleSubmitPressed}>Submit</button>
+                <button type="button" className="asset-submit-button" onClick={this.handleSubmitPressed}>Submit</button>
               </div>
             </div>
         )

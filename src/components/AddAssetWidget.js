@@ -16,7 +16,7 @@ constructor(props) {
         unitOfMeasure: '',
         audited: '',
         description: '',
-        status: 'active',
+        status: 'Active',
         capturedOrModifiedBy: localStorage.getItem('username')              
       }
   }

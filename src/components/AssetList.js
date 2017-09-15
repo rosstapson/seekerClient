@@ -84,7 +84,7 @@ export default class AssetList extends Component {
       
       return (
         <div>
-        <div className="inline-div">Search:</div>
+        <div className="inline-div">Filter:</div>
         <div className="inline-div">
         <input
           type="text"
@@ -93,17 +93,15 @@ export default class AssetList extends Component {
           </div>
         <div className="inline-div">
           <select
-            className="select"
+            className="form-field"
             value={this.state.filterField}
             onChange={this.handleFilterFieldChange}>
             <option value="description">Description</option>
             <option value="dnaCode">DNA Code</option>
-            <option value="assetCode">Asset Code</option>
-            
+            <option value="assetCode">Asset Code</option>            
           </select>
         </div>
-        <div  style={{
-          
+        <div  style={{          
           display: 'flex',
           flex: '1',
           flexDirection: 'row',
@@ -114,8 +112,6 @@ export default class AssetList extends Component {
         <td className="column-name">DNA Code</td>
         <td className="column-name">Asset Code</td>
         <td className="column-name">Description</td>
-        
-       
         </tr>
           {this.state.filterBy && 
               this.state.filteredAssets.map(asset => <AssetListItem

@@ -32,7 +32,8 @@ export default class UpdateAssetContainer extends Component {
           .then(response => response.json().then(json => ({json, response})))
           .then(({json, response}) => {
             if (!response.ok) {
-              alert(response.errorMessage);
+              alert(json.errorMessage);
+              return;
             }
             alert("Asset transfer initiated.")
             return;
