@@ -97,8 +97,8 @@ export default class AssetList extends Component {
             value={this.state.filterField}
             onChange={this.handleFilterFieldChange}>
             <option value="description">Description</option>
-            <option value="dnaCode">DNA Code</option>
-            <option value="assetCode">Asset Code</option>            
+            <option value="dnaCode">DNA Product Pin</option>
+            <option value="assetCode">Asset Name/Code</option>            
           </select>
         </div>
         <div  style={{          
@@ -109,8 +109,8 @@ export default class AssetList extends Component {
         <table className="table">
         <tbody>
         <tr>
-        <td className="column-name">DNA Code</td>
-        <td className="column-name">Asset Code</td>
+        <td className="column-name">DNA Pin</td>
+        <td className="column-name">Asset Name/Code</td>
         <td className="column-name">Description</td>
         </tr>
           {this.state.filterBy && 

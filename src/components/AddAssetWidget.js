@@ -22,8 +22,16 @@ constructor(props) {
   }
     this.addAsset = this.addAsset.bind(this);
   }
-  addAsset = () => {   
-    this.setState({pendingAddAsset: true});
+  addAsset = () => {
+    if (this.state.dnaCode === '') {
+      alert("DNA Product Pin is a required field")
+      return;
+    }
+    if (this.state.assetCode === '') {
+      alert("Asset Code is a required field")
+      return;
+    }
+    this.setState({pendingAddAsset: true});    
     try {
       this.props.addAsset(this.state.asset);
     }
@@ -85,7 +93,7 @@ constructor(props) {
                 </td>
                 <td>
                   <div className="form-label">
-                    Asset Code
+                    Asset Name/Code
                   </div>
                   <br/>
                   <input
@@ -99,7 +107,7 @@ constructor(props) {
                 <tr>
                 <td>
                   <div className="form-label">
-                    Item code
+                    Asset Serial Number
                   </div>
                 <br/>
                   <input

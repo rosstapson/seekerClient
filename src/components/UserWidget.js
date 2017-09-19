@@ -56,9 +56,9 @@ export default class UserWidget extends Component {
         console.log(event.target.id + ":" + event.target.value);
         this.setState({ user });
     }
-    logUser = () => { //for debuggage
-        console.log(this.state);
-    }
+    // logUser = () => { //for debuggage
+    //     console.log(this.state);
+    // }
     render() {
        return(
            <div style={{
@@ -222,7 +222,7 @@ export default class UserWidget extends Component {
                     </table>
                     <div>
                     <button type="button" className="asset-submit-button" onClick={this.handleSubmit}>Submit</button>            
-                    <button type="button" className="asset-submit-button" onClick={this.logUser}>ZOMG</button>            
+                               
                   </div>
                 </form>
            </div>

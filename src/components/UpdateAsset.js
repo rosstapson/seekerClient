@@ -113,7 +113,7 @@ export default class UpdateAsset extends Component {
             <table className="table" style={{}}><tbody>
             <tr>
               <td>
-                <div className="form-label">DNA Code:</div>
+                <div className="form-label">DNA Product Pin:</div>
                 <br />
                 <input
                   className='form-field'
@@ -124,7 +124,7 @@ export default class UpdateAsset extends Component {
               </td>            
             
               <td>
-                <div className="form-label">Asset Code:
+                <div className="form-label">Asset Name/Code:
                 </div>
                 <br/>
                 <input
@@ -137,7 +137,7 @@ export default class UpdateAsset extends Component {
             </tr>
             <tr>
               <td>
-                <div className="form-label">Item Code:
+                <div className="form-label">Asset Serial Number:
                 </div>
               <br/>
               
