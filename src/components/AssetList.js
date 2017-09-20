@@ -65,10 +65,7 @@ export default class AssetList extends Component {
   componentDidMount() {
     
     var self = this;
-    this
-      .props
-      .promise
-      .then(function (value) {        
+    this.props.promise.then(function (value) {        
         self.setState({loading: false, assets: value});
       }, function (error) {
         self.setState({loading: false, error: error});

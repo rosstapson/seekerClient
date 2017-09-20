@@ -43,9 +43,14 @@ export default class DashboardWidget extends Component {
             <button className="widget-button" onClick={ this.props.goToAddAsset }> <img src={addAsset} alt="Add Asset" /><br/>Add Asset</button> 
             <button className="widget-button" onClick={ this.props.manageAccount } ><img src={profile} alt="Profile" /><br/>Profile</button>     
             {this.props.isAdmin &&
-              <button className="widget-button" onClick={ this.props.showUsers } ><img src={users} alt="Users" /><br/>Users</button>  
-              
-            }          
+              <button className="widget-button" onClick={ this.props.showUsers } ><img src={users} alt="Users" /><br/>Users</button>              
+            }
+            {this.props.isGod &&
+              <button className="widget-button" onClick={ this.props.showPins }>Show Pins</button>
+            }
+            {this.props.isGod &&
+              <button className="widget-button" onClick={ this.props.addPins }>Upload Pins</button>
+            }
             <button className="widget-button" onClick={ this.props.logout } ><img src={logout} alt="Secure Logout" /><br/>Logout</button>
           </div>
           <div style={{ 

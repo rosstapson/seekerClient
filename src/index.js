@@ -18,6 +18,8 @@ import UpdateAssetContainer from './containers/UpdateAssetContainer';
 import Users from './containers/Users';
 import Images from './containers/Images';
 import UpdateUserContainer from './containers/UpdateUserContainer';
+import PinsContainer from './containers/PinsContainer';
+import AddPinsContainer from './containers/AddPinsContainer';
 
 import './index.css';
 
@@ -37,6 +39,8 @@ ReactDOM.render(
     <Route path="/updateuser" component={UpdateUserContainer} onEnter={ requireCredentials } username={ localStorage.username }/>
     <Route path="/forgotpassword" component={ForgotPassword} />
     <Route path="/resetMailSent" component={ResetMailSent} />
+    <Route path="/pins" components={PinsContainer} onEnter={requireCredentials} />
+    <Route path="/addpins" components={AddPinsContainer} onEnter={requireCredentials} />
     <Route path="/error" component={Error} />
   </Route>
 </Router>, document.getElementById('root'));

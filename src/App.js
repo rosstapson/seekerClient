@@ -25,6 +25,8 @@ class App extends Component {
         this.goToRoot = this.goToRoot.bind(this);
         this.goToDashboard = this.goToDashboard.bind(this);
         this.goToAddAsset = this.goToAddAsset.bind(this);
+        this.showPins = this.showPins.bind(this);
+        this.addPins = this.addPins.bind(this);
     }
     componentWillMount() {
         let isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -62,6 +64,12 @@ class App extends Component {
   showUsers() {   
     browserHistory.push('/users');
   }
+  showPins() {
+      browserHistory.push('/pins');
+  }
+  addPins() {
+      browserHistory.push('/addpins');
+  }
   manageAccount() {
     localStorage.setItem("userInQuestion", localStorage.getItem("username"));
     browserHistory.push('/updateuser');
@@ -70,6 +78,7 @@ class App extends Component {
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("isGod");
     localStorage.removeItem("username");
     localStorage.removeItem("assets");
     localStorage.removeItem("userInQuestion");
@@ -113,7 +122,10 @@ class App extends Component {
                             goToAddAsset={this.goToAddAsset}        
                             manageAccount={this.manageAccount}
                             showUsers={this.showUsers}
+                            showPins={this.showPins}
+                            addPins={this.addPins}
                             isAdmin={localStorage.isAdmin}
+                            isGod={localStorage.isGod}
                             logout={this.logout}/>
                     </div>
 }

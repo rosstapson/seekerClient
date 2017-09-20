@@ -76,7 +76,7 @@ export class UpdateUser extends Component {
               .value
               .trim()
           }
-          alert("here:" + addressCountryRef.value);
+          //alert("here:" + addressCountryRef.value);
           let self = this;
           this
             .props

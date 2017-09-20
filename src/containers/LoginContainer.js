@@ -42,8 +42,14 @@ function loginUser(creds) {
                 if (json.accessLevel === 3) {                    
                     localStorage.setItem('isAdmin', true);
                 }
+                if (json.accessLevel === 4) {
+                    console.log("God mode!")
+                    localStorage.setItem('isAdmin', true);
+                    localStorage.setItem('isGod', true);
+                }
                 if (json.accessLevel < 3) {                    
                     localStorage.removeItem('isAdmin');
+                    localStorage.removeItem('isGod');
                 }
                 localStorage.setItem('isAuthenticated',  true);
                 browserHistory.push({pathname: '/assets', state: {showAddAsset: false}});

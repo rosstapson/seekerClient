@@ -11,7 +11,8 @@ export default class Dashboard extends Component {
   render() {
     const errorMessage = this.props.errorMessage;
     const username = localStorage.username;
-    //console.log("is admin? " + localStorage.isAdmin);
+    // console.log("is admin? " + localStorage.isAdmin);
+    // console.log("isGod? ", localStorage.isGod);
     //const isAdmin = localStorage.isAdmin;
 
     return (
@@ -40,6 +41,7 @@ export default class Dashboard extends Component {
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("isGod");
     localStorage.removeItem("username");
     localStorage.removeItem("assets");
     localStorage.removeItem("userInQuestion");
