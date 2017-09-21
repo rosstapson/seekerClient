@@ -8,6 +8,9 @@ import profile from './icons/profile.png';
 import users from './icons/users.png';
 import logout from './icons/logout.jpeg';
 import addAsset from './icons/addAsset.jpeg';
+import viewPins from './icons/vpins.png';
+//import addPin from './icons/addpin.png';
+import uploadXL from './icons/upxls.png';
 
 export default class DashboardWidget extends Component {
 
@@ -46,10 +49,10 @@ export default class DashboardWidget extends Component {
               <button className="widget-button" onClick={ this.props.showUsers } ><img src={users} alt="Users" /><br/>Users</button>              
             }
             {this.props.isGod &&
-              <button className="widget-button" onClick={ this.props.showPins }>Show Pins</button>
+              <button className="widget-button" onClick={ this.props.showPins }><img src={viewPins} alt="View Pins" /><br/>View Pins</button>
             }
             {this.props.isGod &&
-              <button className="widget-button" onClick={ this.props.addPins }>Upload Pins</button>
+              <button className="widget-button" onClick={ this.props.addPins }><img src={uploadXL} alt="Add Pins"/><br/>Add Pins</button>
             }
             <button className="widget-button" onClick={ this.props.logout } ><img src={logout} alt="Secure Logout" /><br/>Logout</button>
           </div>

@@ -21,20 +21,25 @@ export default class UploadPinsWidget extends Component {
       }
     render() {
         return (
-            <div><div className="inline-field-div">
-            <input
-              type="file"
-              accept=".xls, .xlsx"
-              name="pins"
-              placeholder="Click here to Select..."
-              className='form-field'
-              
-              onChange={this.pendingUploadPins}
-              ref="fileUrl"/>
-              
+            <div>
+            <h2 className='form-title'>Upload Pins from a Spreadsheet</h2>
+            <div className="form-label">
+                Spreadsheet file (".xls, .xlsx")
+            </div>
+            <div>
+                <input
+                type="file"
+                accept=".xls, .xlsx"
+                name="pins"
+                placeholder="Click here to Select..."
+                className='form-field'
+                
+                onChange={this.pendingUploadPins}
+                ref="fileUrl"/>
+              </div>
               <button className="asset-submit-button" onClick={this.handleUploadPins}>Upload</button>
             
-          </div></div>
+          </div>
         )
     }
 }
