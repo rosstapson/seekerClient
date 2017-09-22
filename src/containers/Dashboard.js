@@ -44,6 +44,7 @@ export default class Dashboard extends Component {
     localStorage.removeItem("isGod");
     localStorage.removeItem("username");
     localStorage.removeItem("assets");
+    localStorage.removeItem("products");
     localStorage.removeItem("userInQuestion");
     localStorage.removeItem("users");
     browserHistory.push('/login');

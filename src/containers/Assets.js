@@ -49,9 +49,11 @@ export default class Assets extends Component {
           browserHistory.push("/error");
         }
         //console.log("json.assets: " + json.assets);
-        this.setState({ pendingAddAsset: false, showUpdate: true, assetToView: asset});
+        this.setState({ pendingAddAsset: false, showUpdate: true, assetToView: asset});        
         return json.assets;
-
+      })
+      .catch(function(err){
+        alert(err.message);
       });
   }
   
@@ -98,7 +100,7 @@ export default class Assets extends Component {
   getAssetsForUsername(username) {
 
     let config = {
-      method: 'get',
+      method: 'post',
       headers: {
         'content-type': 'application/json',
         'x-access-token': localStorage.getItem('id_token')

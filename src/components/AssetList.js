@@ -9,15 +9,9 @@ import AssetListItem from './AssetListItem';
 export default class AssetList extends Component {
   constructor(props) {
     super(props);
-    this.handleFilterByChange = this
-      .handleFilterByChange
-      .bind(this);
-    this.handleFilterFieldChange = this
-      .handleFilterFieldChange
-      .bind(this);
-    this.customFilter = this
-      .customFilter
-      .bind(this);
+    this.handleFilterByChange = this.handleFilterByChange.bind(this);
+    this.handleFilterFieldChange = this.handleFilterFieldChange.bind(this); 
+    this.customFilter = this.customFilter.bind(this);
     this.state = {
       loading: true,
       error: null,
