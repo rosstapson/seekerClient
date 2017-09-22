@@ -8,6 +8,7 @@ import LoginContainer from './containers/LoginContainer';
 import RegistrationContainer from './containers/RegistrationContainer';
 import DashboardWidget from './components/DashboardWidget';
 //import Assets from './containers/Assets';
+import { API_ROOT } from './apiConfig';
 
 class App extends Component {
     constructor(props) {
@@ -17,9 +18,8 @@ class App extends Component {
             isInError: false,
             errorMessage: ""
         };
-        this.setState = this
-            .setState
-            .bind(this);
+        console.log("api: " + API_ROOT);
+        this.setState = this.setState.bind(this);
         this.goToRegistration = this.goToRegistration.bind(this);
         this.goToLogin = this.goToLogin.bind(this);
         this.goToRoot = this.goToRoot.bind(this);

@@ -2,6 +2,7 @@ import React, {PropTypes, Component} from 'react';
 import { browserHistory } from 'react-router';
 
 import Login from '../components/Login';
+import { API_ROOT } from '../apiConfig';
 
 class LoginContainer extends Component {
     
@@ -25,7 +26,7 @@ function loginUser(creds) {
         body: `username=${creds.username}&password=${creds.password}`
     };
 
-    return fetch('https://seekerdnasecure.co.za:3002/sessions/create', config)
+    return fetch(API_ROOT + '/sessions/create', config)
         .then(response => response.json().then(json => ({json, response})))
         .then(({json, response}) => {
             if (!response.ok) {

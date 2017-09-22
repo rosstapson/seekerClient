@@ -22,6 +22,7 @@ import PinsContainer from './containers/PinsContainer';
 import AddPinsContainer from './containers/AddPinsContainer';
 
 import './index.css';
+import { API_ROOT } from './apiConfig';
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -55,7 +56,7 @@ function requireCredentials(nextState, replace, next) {
 }
 function verifyCredentials(nextState, replace, next) {  
   if (localStorage.getItem("id_token")) {
-    let response = fetch('https://seekerdnasecure.co.za:3002/token', {
+    let response = fetch(API_ROOT + '/token', {
         method: 'post',
         headers: {
           'Accept': 'application/json',
