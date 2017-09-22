@@ -22,7 +22,8 @@ export default class AddAsset extends Component {
           .then(response => response.json().then(json => ({json, response})))
           .then(({json, response}) => {
             if (!response.ok) {
-              browserHistory.push("/error");
+              alert(json.errorMessage);
+              return;
             }
             localStorage.setItem('assets', json.assets);           
             browserHistory.push('/assets');    

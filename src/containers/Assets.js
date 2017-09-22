@@ -98,7 +98,7 @@ export default class Assets extends Component {
   getAssetsForUsername(username) {
 
     let config = {
-      method: 'post',
+      method: 'get',
       headers: {
         'content-type': 'application/json',
         'x-access-token': localStorage.getItem('id_token')
