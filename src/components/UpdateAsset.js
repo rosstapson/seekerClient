@@ -22,7 +22,7 @@ export default class UpdateAsset extends Component {
       showTransferWidget: false,
       showAlertWidget: false,
       showCaseInfo: isAlert, 
-      imageUrls: this.props.asset.imageUrls,
+      images: this.props.asset.images,
       asset: this.props.asset
     }
     

@@ -6,15 +6,6 @@ import {browserHistory} from 'react-router';
 
 export default class AssetListItem extends Component {
 
-  //NO THUMBNAIL ON ASSET LIST
-//   {this.props.asset.imageUrls[0] && 
-//     <img className='img' src={'https://seekerdnasecure.co.za:3002/image/' 
-//     + this.props.asset.imageUrls[0]} alt={this.props.asset.imageUrls[0]} />
-//  }
-//    {!this.props.asset.imageUrls[0] &&
-//      <td className="td-center">Click "View/Update" to upload images. </td>
-     
-//    }
   handleView = () => {    
     //this.props.viewAsset(this.props.asset);
     browserHistory.push({pathname: "/updateAsset", state: {asset: this.props.asset}})

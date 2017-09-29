@@ -99,7 +99,7 @@ export default class Assets extends Component {
   }
   
   getAssetsForUsername(username) {
-    console.log("getAssetsForUsername: " + API_ROOT);
+    //console.log("getAssetsForUsername: " + API_ROOT);
     let config = {
       method: 'post',
       headers: {

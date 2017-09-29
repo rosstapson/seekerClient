@@ -44,7 +44,7 @@ function loginUser(creds) {
                     localStorage.setItem('isAdmin', true);
                 }
                 if (json.accessLevel === 4) {
-                    console.log("God mode!")
+                    //console.log("God mode!")
                     localStorage.setItem('isAdmin', true);
                     localStorage.setItem('isGod', true);
                 }

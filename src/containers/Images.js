@@ -10,9 +10,10 @@ export default class Images extends Component {
         super(props);        
         this.state = {
             asset:  props.location.state.asset,
-            imageUrls:  props.location.state.asset.imageUrls,
+            images:  props.location.state.asset.images,
             updloadPending: false,
             selectedFile: '',
+            imageDescription: '',
             imageIsDeleting: false,
             imageIsUploading: false,
         }
@@ -24,6 +25,7 @@ export default class Images extends Component {
     formData.append('username', localStorage.getItem('userInQuestion'));
     formData.append('dnaCode', this.state.asset.dnaCode);
     formData.append('image', this.state.selectedFile);
+    formData.append('imageDescription', this.state.imageDescription);
     
     let config = {
       method: 'post',
@@ -41,7 +43,8 @@ export default class Images extends Component {
         if (!response.ok) {
           alert("Unable to upload image");
         }
-        return json.imageUrl;
+        console.log(json);
+        return json;
       });
     }
     deleteImage = (url) => {        
@@ -68,6 +71,12 @@ export default class Images extends Component {
         });
   
     }
+    descriptionChanged = (event) => {
+      
+      this.setState({
+        imageDescription: event.target.value
+      })
+    }
     pendingUploadImage = (event) => {
         this.setState({
           uploadPending: true,
@@ -83,13 +92,13 @@ export default class Images extends Component {
           imageIsDeleting: true,
          
         });
-        // call deleteImage remove url from  this.props.asset.imageUrls
+        // call deleteImage remove url from  this.props.asset.images
         this.deleteImage(url)
           .then(() => {            
-            var tempUrls = this.state.imageUrls.filter((value) => {
-                return value !== url;
+            var tempImages = this.state.images.filter((image) => {
+                return image.url !== url;
               });            
-            this.setState({imageUrls: tempUrls, imageIsDeleting: false});           
+            this.setState({images: tempImages, imageIsDeleting: false});           
           })
           .catch((err) => {
             alert(err);
@@ -106,14 +115,15 @@ export default class Images extends Component {
           imageIsUploading: true
         });
         this.uploadImage()
-          .then((imageUrl) => {
-            var tempArray = this.state.imageUrls.slice();
-            tempArray.push(imageUrl);        
+          .then((image) => {
+            console.log("optimistic update: " + image);
+            var tempArray = this.state.images.slice();
+            tempArray.push(image);        
     
             this.setState({
               imageIsUploading: false, 
               imageUploadError: false,          
-              imageUrls: tempArray
+              images: tempArray
           });
           }) 
           .catch((err) => {
@@ -133,10 +143,10 @@ export default class Images extends Component {
                         <div>
                           {this               
                             .state
-                            .imageUrls
-                            .map(function (url) {
+                            .images
+                            .map(function (image) {
                               return (
-                                <div key={url}><ImageListItem url={url} deleteImage={this.handleDeleteImage}/></div>
+                                <div key={image.url}><ImageListItem image={image} deleteImage={this.handleDeleteImage}/></div>
                               )
                             }, this)
                           }
@@ -151,10 +161,17 @@ export default class Images extends Component {
                               accept="image/*"
                               name="image"
                               placeholder="Click here to Select..."
-                              className='form-field'
-                              
+                              className='form-field'                              
                               onChange={this.pendingUploadImage}
                               ref="fileUrl"/>
+                          </div>
+                          <div className="inline-div">
+                            <input
+                              type="text"
+                              name="imageDescription"
+                              placeholder="Description"
+                              onChange={this.descriptionChanged}
+                            />
                           </div>
                           <div className="inline-div">
                             <button className="asset-submit-button" onClick={this.handleUploadImage}>Upload</button>
