@@ -170,6 +170,7 @@ export default class Images extends Component {
                               type="text"
                               name="imageDescription"
                               placeholder="Description"
+                              className='form-field'  
                               onChange={this.descriptionChanged}
                             />
                           </div>
