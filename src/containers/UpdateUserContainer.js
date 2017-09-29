@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react';
 //import auth from '../middleware/auth';
 import {browserHistory} from 'react-router';
 
-//import UpdateUser from '../components/UpdateUser';
+import { API_ROOT } from '../apiConfig';
 import UserWidget from '../components/UserWidget';
 
 class UpdateUserContainer extends Component {
@@ -63,7 +63,7 @@ class UpdateUserContainer extends Component {
             body: JSON.stringify({username})
         }
 
-        return fetch("https://seekerdnasecure.co.za:3002/userdetails", config)
+        return fetch(API_ROOT + "/userdetails", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {
@@ -88,7 +88,7 @@ class UpdateUserContainer extends Component {
             body: JSON.stringify(user)
         }
 
-        return fetch("https://seekerdnasecure.co.za:3002/updateuser", config)
+        return fetch(API_ROOT + "/updateuser", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {

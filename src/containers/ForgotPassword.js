@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import {browserHistory} from 'react-router'
+import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
+import { API_ROOT } from '../apiConfig';
 
 export default class ForgotPassword extends Component {
    sendPasswordReset = () => {
@@ -15,7 +16,7 @@ export default class ForgotPassword extends Component {
       },
             body: JSON.stringify({username: usernameRef})
     }
-    return fetch("https://seekerdnasecure.co.za:3002/mailpasswordreset", config)
+    return fetch(API_ROOT + "/mailpasswordreset", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {

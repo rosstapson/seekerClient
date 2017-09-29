@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
-import UpdateAsset from '../components/UpdateAsset'
+import UpdateAsset from '../components/UpdateAsset';
+import { API_ROOT } from '../apiConfig';
 
 import {browserHistory} from 'react-router';
 
@@ -28,7 +29,7 @@ export default class UpdateAssetContainer extends Component {
             asset: asset
           })
         }
-        return fetch("https://seekerdnasecure.co.za:3002/initiateTransferAsset", config)
+        return fetch(API_ROOT + "/initiateTransferAsset", config)
           .then(response => response.json().then(json => ({json, response})))
           .then(({json, response}) => {
             if (!response.ok) {
@@ -55,7 +56,7 @@ export default class UpdateAssetContainer extends Component {
             asset: asset
           })
         }
-        return fetch("https://seekerdnasecure.co.za:3002/updateasset", config)
+        return fetch(API_ROOT + "/updateasset", config)
           .then(response => response.json().then(json => ({json, response})))
           .then(({json, response}) => {
             if (!response.ok) {

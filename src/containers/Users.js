@@ -2,7 +2,8 @@ import React, {
   Component,
   /*PropTypes*/
 } from 'react'
-import UserList from '../components/UserList'
+import UserList from '../components/UserList';
+import { API_ROOT } from '../apiConfig';
 
 import {browserHistory} from 'react-router';
 
@@ -30,7 +31,7 @@ export default class Users extends Component {
       }
     }
     
-    return fetch("https://seekerdnasecure.co.za:3002/users", config)
+    return fetch(API_ROOT + "/users", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {          

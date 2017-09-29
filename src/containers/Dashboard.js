@@ -38,6 +38,9 @@ export default class Dashboard extends Component {
     browserHistory.push('/updateuser');
   }
   logout() {
+    if (!confirm("Logout?")) {
+      return;
+    }
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("isAdmin");

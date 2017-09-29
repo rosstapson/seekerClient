@@ -3,6 +3,7 @@ import React, {PropTypes, Component} from 'react';
 import { browserHistory } from 'react-router';
 
 import Registration from '../components/Registration';
+import { API_ROOT } from '../apiConfig';
 
 class RegistrationContainer extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class RegistrationContainer extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("https://seekerdnasecure.co.za:3002/users", config)
+        return fetch(API_ROOT + "/users", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 

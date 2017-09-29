@@ -2,6 +2,7 @@
 
 import React, {Component, /* PropTypes */} from 'react'
 import './components.css';
+import { API_ROOT } from '../apiConfig';
 
 export default class ImageListItem extends Component {
 
@@ -14,7 +15,7 @@ export default class ImageListItem extends Component {
     return (
       <div>
         <div>
-        <img className='img' src={'https://seekerdnasecure.co.za:3002/image/' + this.props.url} alt={this.props.url} />
+        <img className='img' src={API_ROOT + '/image/' + this.props.url} alt={this.props.url} />
         </div>
         <div className="inline-div">
         <button className="asset-submit-button" onClick={this.handleDelete}>Delete</button>

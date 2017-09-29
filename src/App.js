@@ -78,6 +78,7 @@ class App extends Component {
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("products");
     localStorage.removeItem("isGod");
     localStorage.removeItem("username");
     localStorage.removeItem("assets");

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ImageListItem from '../components/ImageListItem';
-
+import { API_ROOT } from '../apiConfig';
 
 import '../components/components.css';
 
@@ -35,7 +35,7 @@ export default class Images extends Component {
       body: formData
     }
 
-    return fetch("https://seekerdnasecure.co.za:3002/file-upload", config)
+    return fetch(API_ROOT + "/file-upload", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -57,7 +57,7 @@ export default class Images extends Component {
           dnaCode: this.state.asset.dnaCode
         })
       }
-      return fetch("https://seekerdnasecure.co.za:3002/deleteimage", config)
+      return fetch(API_ROOT + "/deleteimage", config)
         .then(response => response.json().then(json => ({json, response})))
         .then(({json, response}) => {
           if (!response.ok) {

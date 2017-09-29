@@ -1,8 +1,9 @@
 // components/Confirmation.js
 /* eslint-disable */
-import React, {Component} from 'react'
-import {Link, browserHistory} from 'react-router'
-import auth from '../middleware/auth'
+import React, {Component} from 'react';
+import {Link, browserHistory} from 'react-router';
+import auth from '../middleware/auth';
+import { API_ROOT } from '../apiConfig';
 
 export default class Confirmation extends Component {
   componentWillMount() {
@@ -17,7 +18,7 @@ export default class Confirmation extends Component {
       },
       body: JSON.stringify({id_token: this.props.params.id_token})
     }
-    fetch("https://seekerdnasecure.co.za:3002/token", config).then(function () {
+    fetch(API_ROOT + "/token", config).then(function () {
       
       localStorage.setItem("isAuthenticated", true);
     }, function (err) {

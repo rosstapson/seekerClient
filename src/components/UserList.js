@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {browserHistory} from 'react-router';
 import './components.css'
 import UserListItem from './UserListItem'
-import UpdateUser from './UpdateUser'
+import UpdateUser from './UpdateUser';
+import { API_ROOT } from '../apiConfig';
 
 export default class UserList extends Component {
 
@@ -94,7 +95,7 @@ export default class UserList extends Component {
             body: JSON.stringify(user)
         }
         
-        return fetch("https://seekerdnasecure.co.za:3002/updateuser", config)
+        return fetch(API_ROOT + "/updateuser", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 if (!response.ok) {

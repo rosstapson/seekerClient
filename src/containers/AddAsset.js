@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 
 import AddAssetWidget from '../components/AddAssetWidget';
+import { API_ROOT } from '../apiConfig';
 
 
 export default class AddAsset extends Component {
@@ -18,7 +19,7 @@ export default class AddAsset extends Component {
             asset: asset
           })
         }
-        return fetch("https://seekerdnasecure.co.za:3002/addasset", config)
+        return fetch(API_ROOT + "/addasset", config)
           .then(response => response.json().then(json => ({json, response})))
           .then(({json, response}) => {
             if (!response.ok) {

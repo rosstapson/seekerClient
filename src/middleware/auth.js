@@ -1,3 +1,5 @@
+import { API_ROOT } from '../apiConfig';
+
 function auth(token) {
 
   //console.log("auth: " + token);
@@ -9,7 +11,7 @@ function auth(token) {
     },
     body: JSON.stringify(this.props.params.id_token)
   }
-  return fetch("https://seekerdnasecure.co.za:3002/token", config)
+  return fetch(API_ROOT + "/token", config)
     .then(response => response.json().then(json => ({json, response})))
     .then(({json, response}) => {
       if (!response.ok) {

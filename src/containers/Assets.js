@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import AssetList from '../components/AssetList'
 //import UpdateAsset from '../components/UpdateAsset'
+import { API_ROOT } from '../apiConfig';
 
 import {browserHistory} from 'react-router';
 
@@ -42,7 +43,7 @@ export default class Assets extends Component {
         asset: asset
       })
     }
-    return fetch("https://seekerdnasecure.co.za:3002/addasset", config)
+    return fetch(API_ROOT + "/addasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -83,7 +84,7 @@ export default class Assets extends Component {
         dnaCode: dnaCode
       })
     }
-    return fetch("https://seekerdnasecure.co.za:3002/deleteasset", config)
+    return fetch(API_ROOT + "/deleteasset", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {
@@ -98,7 +99,7 @@ export default class Assets extends Component {
   }
   
   getAssetsForUsername(username) {
-
+    console.log("getAssetsForUsername: " + API_ROOT);
     let config = {
       method: 'post',
       headers: {
@@ -107,7 +108,7 @@ export default class Assets extends Component {
       },
       body: JSON.stringify({username: username})
     }
-    return fetch("https://seekerdnasecure.co.za:3002/assets", config)
+    return fetch(API_ROOT + "/assets", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {

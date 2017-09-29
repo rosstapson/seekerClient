@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import UploadPinsWidget from '../components/UploadPinsWidget';
 import AddPinWidget from '../components/AddPinWidget';
+import { API_ROOT } from '../apiConfig';
 
 export default class AddPinsContainer extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export default class AddPinsContainer extends Component {
             body: JSON.stringify(product)
         }
       
-          return fetch("https://seekerdnasecure.co.za:3002/add-pin", config)
+          return fetch( API_ROOT+ "/add-pin", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {               
               if (!response.ok) {
@@ -51,7 +52,7 @@ export default class AddPinsContainer extends Component {
       body: formData
     }
 
-    return fetch("https://seekerdnasecure.co.za:3002/upload-pins", config)
+    return fetch(API_ROOT + "/upload-pins", config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {

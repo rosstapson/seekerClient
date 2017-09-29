@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
 import {browserHistory} from 'react-router';
-import ProductList from '../components/ProductList'
+import ProductList from '../components/ProductList';
+import { API_ROOT } from '../apiConfig';
 
 export default class PinsContainer extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class PinsContainer extends Component {
                 'x-access-token': localStorage.getItem('id_token')
               }
             }
-            return fetch("https://seekerdnasecure.co.za:3002/pins", config)
+            return fetch(API_ROOT + "/pins", config)
               .then(response => response.json().then(json => ({json, response})))
               .then(({json, response}) => {
                 if (!response.ok) {

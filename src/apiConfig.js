@@ -1,7 +1,7 @@
 let apiHost;
 
 if (process.env.NODE_ENV === 'development') {
-    apiHost = "http://localhost:3000";
+    apiHost = "http://localhost:3002";
     console.log("process.env.NODE_ENV is 'development'");
 }
 else {
