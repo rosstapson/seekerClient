@@ -7,33 +7,10 @@ import './components.css';
 export default class UserWidget extends Component {
     constructor(props) {
         super(props);
+        console.log("division: " + props.user.division);
         this.state = {
             user: this.props.user,
-            confirmEmail: this.props.user.email
-            // user: {
-            //     username: this.props.user.username,
-            //     email: this.props.user.email,
-            //     password: this.props.user.password,
-            //     isVerified: this.props.user.isVerified,
-            //     accessLevel: this.props.user.accessLevel,
-            //     companyName: this.props.user.companyName,
-            //     telephone: this.props.user.telephone,
-            //     contactPerson: this.props.user.contactPerson,
-            //     mobile: this.props.user.mobile,
-            //     address: {
-            //         line1: this.props.user.address.line1,
-            //         line2: this.props.user.address.line2,
-            //         line3: this.props.user.address.line3,                    
-            //         state: this.props.user.address.state,
-            //         country: this.props.user.address.country
-            //     },
-            //     cuid: this.props.user.cuid,
-            //     dateAdded: this.props.user.dateAdded,
-            //     dateUpdated: this.props.user.dateUpdated, 
-            //     confirmEmail: this.props.user.email ,
-            //     confirmPassword: ''               
-            // },
-            
+            confirmEmail: this.props.user.email            
         }
     }
     handleSubmit = () => {
@@ -47,13 +24,13 @@ export default class UserWidget extends Component {
     handleChange = (event) => {
         let tempUser = {...this.state.user};
         tempUser[event.target.id] = event.target.value;
-        console.log(event.target.id + ":" + event.target.value);
+        //console.log(event.target.id + ":" + event.target.value);
         this.setState({ user: tempUser });
     }
     handleAddressChange = (event) => {
         let user = {...this.state.user};
         user.address[event.target.id] = event.target.value;
-        console.log(event.target.id + ":" + event.target.value);
+        //console.log(event.target.id + ":" + event.target.value);
         this.setState({ user });
     }
     // logUser = () => { //for debuggage
@@ -206,8 +183,15 @@ export default class UserWidget extends Component {
                                 id="companyName"
                                 defaultValue={this.props.user.companyName}
                                 onChange={ this.handleChange } />
-                        </td>
-                        <td>
+                            <div className="form-label">Division</div>
+                            <br/>
+                            <input
+                                className="form-field"
+                                type="text"
+                                id="division"
+                                defaultValue={this.props.user.division}
+                                onChange={ this.handleChange } />
+                       
                             <div className="form-label">Contact Person</div>
                             <br/>
                             <input
