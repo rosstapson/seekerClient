@@ -3,7 +3,7 @@
 import React, {Component, /* PropTypes */} from 'react'
 import './components.css';
 import { API_ROOT } from '../apiConfig';
-import styles from './components.css';
+//import styles from './components.css';
 
 export default class ImageListItem extends Component {
 

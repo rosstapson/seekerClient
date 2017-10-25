@@ -39,17 +39,7 @@ class UpdateUserContainer extends Component {
                     />
                 </div>
             )
-        }
-        // } else {
-        //     return (
-        //         <div>
-        //             <UpdateUser
-        //                 updateUser={this.updateUser}
-        //                 userDetails={this.state.userToUpdate}
-        //                 errorMessage={this.state.errorMessage}/>
-        //         </div>
-        //     );
-        // }
+        }        
     }
     getUserDetails(username) {
         this.setState({isFetchingUserDetails: true});

@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
-import SelectCountry from './SelectCountry';
+//import SelectCountry from './SelectCountry';
+import countries from './Countries';
 
 import './components.css';
 
@@ -11,7 +12,8 @@ export class UpdateUser extends Component {
 
     this.state = {
       isInError: false,
-      errorMessage: ""
+      errorMessage: "",
+      tempCountry: this.props.userDetails.country
     };
 
   }
@@ -24,7 +26,7 @@ export class UpdateUser extends Component {
     const passwordRef = this.refs.password;
     const passwordConfirmRef = this.refs.passwordConfirm;
     const companyNameRef = this.refs.companyName;
-
+    const divisionRef = this.refs.division;
     const addressLine1Ref = this.refs.addressline1;
     const addressLine2Ref = this.refs.addressline2;
     const addressLine3Ref = this.refs.addressline3;
@@ -52,6 +54,7 @@ export class UpdateUser extends Component {
             companyName: companyNameRef
               .value
               .trim(),
+            division: divisionRef.value.trim(),
 
             address: {
               line1: addressLine1Ref
@@ -66,8 +69,7 @@ export class UpdateUser extends Component {
               state: addressStateRef
                 .value
                 .trim(),
-              country: addressCountryRef
-                .value
+              country: this.state.tempCountry
             },
             telephone: telephoneRef
               .value
@@ -76,7 +78,7 @@ export class UpdateUser extends Component {
               .value
               .trim()
           }
-          //alert("here:" + addressCountryRef.value);
+          alert("here:" + addressCountryRef.value);
           let self = this;
           this
             .props
@@ -105,7 +107,10 @@ export class UpdateUser extends Component {
     alert("Please fill out essential fields");
 
   };
-
+  handleCountryChange = (value) => {
+    console.log("handleCountryChange: " + value.value);
+    this.setState({tempCountry: value});
+  }
   render() {
     let isAdmin = null;
     if (localStorage.isAdmin) {
@@ -160,9 +165,9 @@ export class UpdateUser extends Component {
               id='accessLevel'
               >
               <option value="0">Guest</option>
-              <option value="1">Client</option>
-              <option value="2">Agent</option>
-              <option value="3">Admin</option>
+              <option value="1">User</option>
+              <option value="2">Admin</option>
+              <option value="3">DNA Admin</option>
               <option value="4">God</option>
             </select>
           </div>
@@ -186,7 +191,7 @@ export class UpdateUser extends Component {
 
           </div>
           <div className="form-group">
-            <label className="form-label" htmlFor="companyName">Company Name:</label><br />
+            <label className="form-label" htmlFor="companyName">Company:</label><br />
             <input
               className='form-field'
               type="text"
@@ -194,6 +199,13 @@ export class UpdateUser extends Component {
               placeholder="Company name"
               ref="companyName"
               id="companyName"/>
+              <input
+              className='form-field'
+              type="text"
+              defaultValue={this.props.userDetails.division}
+              placeholder="Division"
+              ref="division"
+              id="division"/>
               </div><div>
             <label className="form-label" htmlFor="addressline1">Address:</label><br />
             <input
@@ -227,12 +239,15 @@ export class UpdateUser extends Component {
               <br />
             <label className="form-label" htmlFor="addressCountry">Country:</label>
             <br />
-            <SelectCountry 
+            <select 
               defaultValue={this.props.userDetails.address.country}
               id="addressCountry"
-              ref="addressCountry"
-              /> 
-            
+              ref="addressCountry"              
+              > 
+              {countries.map((i, index) => (
+                <option key={index} value={i.value}>{i.label}</option>
+                ))}
+              </select>
               </div>
               <div>
             <label className="form-label" htmlFor="telephone">Company Telephone:</label>

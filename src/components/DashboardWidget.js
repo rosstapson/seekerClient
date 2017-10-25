@@ -24,7 +24,7 @@ export default class DashboardWidget extends Component {
           marginRight: '80px',
           marginBottom: '40px',
           marginTop: '40px',
-          border: 'solid', 
+          border: 'ridge', 
           borderColor: '#2b7485', 
           padding: '5px', 
           display: 'flex',

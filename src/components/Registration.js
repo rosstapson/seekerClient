@@ -19,7 +19,7 @@ export class Registration extends Component {
     const passwordRef = this.refs.password;
     const passwordConfirmRef = this.refs.passwordConfirm;
     const companyNameRef = this.refs.companyName;
-
+    const divisionRef = this.refs.division;
     const addressLine1Ref = this.refs.addressline1;
     const addressLine2Ref = this.refs.addressline2;
     const addressLine3Ref = this.refs.addressline3;
@@ -44,7 +44,7 @@ export class Registration extends Component {
             companyName: companyNameRef
               .value
               .trim(),
-
+            division: divisionRef.value.trim(),
             address: {
               line1: addressLine1Ref
                 .value
@@ -77,7 +77,7 @@ export class Registration extends Component {
             .then(function () { //adduser returns a promise. shouldn't.
               //console.log("here.");
               if (!self.props.errorMessage) {
-                userNameRef.value = emailRef.value = emailConfirmRef.value = passwordRef.value = passwordConfirmRef.value = companyNameRef.value = telephoneRef.value = contactPersonRef.value = addressLine1Ref.value = addressLine2Ref.value = addressLine3Ref.value = addressStateRef.value = addressCountryRef.value = '';
+                userNameRef.value = emailRef.value = emailConfirmRef.value = passwordRef.value = passwordConfirmRef.value = companyNameRef.value = divisionRef.value = telephoneRef.value = contactPersonRef.value = addressLine1Ref.value = addressLine2Ref.value = addressLine3Ref.value = addressStateRef.value = addressCountryRef.value = '';
               }
             }, function (error) {
               //console.log("promise rejected:" + error.message);

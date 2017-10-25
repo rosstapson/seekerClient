@@ -156,7 +156,7 @@ export default class UserList extends Component {
             <option value="username">Username</option>
             <option value="email">Email</option>
             <option value="companyName">Company Name</option>
-            <option value="contactPerson">Contact Person</option>
+            <option value="division">Division</option>
             
           </select>
         </div><div>
@@ -166,7 +166,7 @@ export default class UserList extends Component {
         <td className="column-name">Username</td>
         <td className="column-name">Email</td>
         <td className="column-name">Company Name</td>
-        <td className="column-name">Contact Person</td>        
+        <td className="column-name">Division</td>        
         </tr>
           {this.state.filterBy && 
               this.state.filteredUsers.map(user => <UserListItem

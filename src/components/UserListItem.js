@@ -24,7 +24,8 @@ export default class UserListItem extends Component {
         <td className="td">{this.props.user.username}</td>
         <td className="td">{this.props.user.email} </td>
         <td className="td">{this.props.user.companyName} </td>
-        <td className="td">{this.props.user.contactPerson} </td>
+        <td className="td">{this.props.user.division} </td>
+        
         
         <td><button className="asset-submit-button" onClick={this.handleView}>Update</button></td>
         <td><button className="asset-submit-button" onClick={this.handleViewAssets}>Assets</button></td>
