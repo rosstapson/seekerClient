@@ -9,7 +9,7 @@ export class UpdateUser extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = {
       isInError: false,
       errorMessage: "",

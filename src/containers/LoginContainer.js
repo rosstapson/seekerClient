@@ -48,9 +48,22 @@ function loginUser(creds) {
                     localStorage.setItem('isAdmin', true);
                     localStorage.setItem('isGod', true);
                 }
+                if (json.accessLevel === 3) {
+                    localStorage.setItem('isDnaAdmin', true);
+                }
+                if (json.accessLevel === 2) {
+                    localStorage.setItem('isAdmin', true);
+                }
+                // 3 = dnaAdmin
+                // 2 = admin
+                // 1 = user
                 if (json.accessLevel < 3) {                    
-                    localStorage.removeItem('isAdmin');
+                    //localStorage.removeItem('isAdmin');
                     localStorage.removeItem('isGod');
+                }
+                // this just to be sure - some oddities on logout/login
+                if (json.accessLevel < 2) {
+                    localStorage.removeItem('isAdmin');
                 }
                 localStorage.setItem('isAuthenticated',  true);
                 browserHistory.push({pathname: '/assets', state: {showAddAsset: false}});

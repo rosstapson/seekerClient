@@ -76,7 +76,9 @@ export default class UserList extends Component {
     return false;
   }
   viewUser(user) {
-    this.setState({userToUpdate: user, showUpdate: true});
+    //this.setState({userToUpdate: user, showUpdate: true});
+    localStorage.setItem("userInQuestion", user.username);
+    browserHistory.push('/updateuser');
   }
   viewAssets(user) {
     //this.setState({userToUpdate: user, showAssets: true});

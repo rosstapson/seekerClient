@@ -9,18 +9,22 @@ export default class AlertWidget extends Component {
         .handleSubmit
         .bind(this);
         this.state = {
-            asset: this.props.asset
+            asset: this.props.asset,
+            incident: {}
         }
     }
     handleChange = (event) => {
-        let asset = {...this.state.asset};        
-        asset[event.target.id] = event.target.value;
-        this.setState({ asset });        
+        let incident = {...this.state.incident};
+        incident[event.target.id] = event.target.value;
+        this.setState({ incident });        
       }
     handleSubmit = () => {
         let asset = {...this.state.asset};
-        asset.dateReported = Date.now();
-        asset.status = "Alert";       
+        let incident = {...this.state.incident};
+        incident.dateReported = Date.now();
+        incident.status = "Active";
+        asset.status = "Alert";    
+        asset.incidents.push(incident);   
         this.props.alertAsset(asset);
     }
     render() {

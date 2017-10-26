@@ -187,13 +187,19 @@ export default class UpdateAsset extends Component {
               </td>
             </tr>
             {this.state.showCaseInfo &&
-              <tr><td colSpan="2"><div className="form-label" style={{color: "black", backgroundColor: "red"}}>Case Info</div></td></tr>
+              <tr><td colSpan="2"><div className="form-label" style={{color: "black", backgroundColor: "red"}}>Incident Log</div></td></tr>
             }
             {this.state.showCaseInfo &&
-              <tr><td colSpan="2" style={{border: "1px solid red"}}> 
-                <div className="form-label">Case Number</div><div className="td">{this.state.asset.caseNumber}</div><br/>
-                <div className="form-label">Police Station</div><div className="td">{this.state.asset.atPoliceStation}</div><br/>
-                <div className="form-label">Date Reported</div><div className="td">{this.state.asset.dateReported}</div><br/>
+              <tr><td colSpan="2"> 
+                {this.state.asset.incidents.map((incident) => {
+                  return(
+                  <div  style={{border: "1px solid red"}}>
+                    <div className="form-label">Case Number</div><div className="td">{incident.caseNumber}</div><br/>
+                    <div className="form-label">Police Station</div><div className="td">{incident.atPoliceStation}</div><br/>
+                    <div className="form-label">Date Reported</div><div className="td">{incident.dateReported}</div><br/>
+                    <div className="form-label">Status</div><div className="td">{incident.status}</div><br/>
+                  </div>
+                )})}
               </td></tr>
             }            
             {this.state.showTransferWidget &&

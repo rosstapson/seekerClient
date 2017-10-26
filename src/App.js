@@ -78,12 +78,13 @@ class App extends Component {
     localStorage.removeItem("id_token");
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("isDnaAdmin");
     localStorage.removeItem("products");
     localStorage.removeItem("isGod");
     localStorage.removeItem("username");
     localStorage.removeItem("assets");
     localStorage.removeItem("userInQuestion");
-    localStorage.removeItem("users");
+    localStorage.removeItem("users");    
     browserHistory.push('/login');
   }
     render() {

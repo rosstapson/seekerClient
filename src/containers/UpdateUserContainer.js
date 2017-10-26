@@ -18,8 +18,9 @@ class UpdateUserContainer extends Component {
     }
     componentWillMount() {
         var _this = this;
+        
         this
-            .getUserDetails(localStorage.getItem('username'))
+            .getUserDetails(localStorage.getItem('userInQuestion'))
             .then(function (user) {
                 _this.setState({userToUpdate: user, isFetchingUserDetails: false});
             });
@@ -35,7 +36,7 @@ class UpdateUserContainer extends Component {
                 <div>
                     <UserWidget 
                         user={this.state.userToUpdate}
-                        handleSubmit={this.updateUser}
+                        handleSubmit={this.updateUser}                       
                     />
                 </div>
             )
@@ -86,7 +87,8 @@ class UpdateUserContainer extends Component {
                     throw new Error(json.errorMessage);
 
                 }
-
+                let tempName = localStorage.getItem("username");
+                localStorage.setItem("userInQuestion", tempName);
                 browserHistory.push('/dashboard');
                 return json;
             });
