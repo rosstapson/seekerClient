@@ -42,8 +42,7 @@ export default class Images extends Component {
       .then(({json, response}) => {
         if (!response.ok) {
           alert("Unable to upload image");
-        }
-        console.log(json);
+        }       
         return json;
       });
     }
@@ -81,8 +80,7 @@ export default class Images extends Component {
         this.setState({
           uploadPending: true,
           selectedFile: event.target.files[0]
-        });
-        //console.log(event.target.files[0]);
+        });       
       }
       handleDeleteImage = (url) => {
         if (!confirm("Delete Image?")) {
@@ -108,15 +106,13 @@ export default class Images extends Component {
       }
       handleUploadImage = (event) => {
         event.preventDefault();
-        //console.log(event);
-    
+       
         this.setState({
           uploadPending: false,
           imageIsUploading: true
         });
         this.uploadImage()
-          .then((image) => {
-            console.log("optimistic update: " + image);
+          .then((image) => {            
             var tempArray = this.state.images.slice();
             tempArray.push(image);        
     

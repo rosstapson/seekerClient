@@ -43,8 +43,10 @@ function loginUser(creds) {
                 if (json.accessLevel === 3) {                    
                     localStorage.setItem('isAdmin', true);
                 }
-                if (json.accessLevel === 4) {
-                    //console.log("God mode!")
+                
+                localStorage.setItem('country', json.country);
+                localStorage.setItem('company', json.companyName);
+                if (json.accessLevel === 4) {                    
                     localStorage.setItem('isAdmin', true);
                     localStorage.setItem('isGod', true);
                 }
@@ -71,8 +73,7 @@ function loginUser(creds) {
             }
             
             return;
-        })
-        //.catch(err => console.log("ZoMG! Error: ", err));
+        })       
 
 }
 

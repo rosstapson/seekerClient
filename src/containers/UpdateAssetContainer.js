@@ -14,10 +14,7 @@ export default class UpdateAssetContainer extends Component {
         }
         
     }
-    transferAsset = (asset) => {
-        console.log("updateassetcontainer.js transferAsset");
-        //req.body.username (seller)
-        //req.body.asset (with pendingTransferToUser set to buyer's username, and status: PendingTransfer)
+    transferAsset = (asset) => {   
         let config = {
           method: 'post',
           headers: {

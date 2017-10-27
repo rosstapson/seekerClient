@@ -24,20 +24,16 @@ export default class UserWidget extends Component {
     handleChange = (event) => {
         let tempUser = {...this.state.user};
         tempUser[event.target.id] = event.target.value;
-        //console.log(event.target.id + ":" + event.target.value);
+       
         this.setState({ user: tempUser });
     }
     handleAddressChange = (event) => {
         let user = {...this.state.user};
-        user.address[event.target.id] = event.target.value;
-        //console.log(event.target.id + ":" + event.target.value);
+        user.address[event.target.id] = event.target.value;        
         this.setState({ user });
     }
-    // logUser = () => { //for debuggage
-    //     console.log(this.state);
-    // }
-    render() {
-        console.log("render method: " + this.state.isGod);
+    
+    render() {        
        return(
            <div style={{
                 display: 'flex',

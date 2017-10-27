@@ -55,15 +55,13 @@ export default class UserList extends Component {
     this.setState({
       filterBy: event.target.value,
       filteredUsers: tempUsers
-    });
-    //console.log(this.state.filterField + ":" + event.target.value);
+    });    
     
   }
   handleFilterFieldChange(event) {
     this.setState({filterField: event.target.value});    
   }
-  customFilter(user, arg) {
-    //var tempFilterBy = this.state.filterBy;
+  customFilter(user, arg) {    
     var tempFilterField = this.state.filterField;
     var keys = Object.keys(user);
     for (var i = 0, len = keys.length; i < len; i++) {
@@ -86,8 +84,7 @@ export default class UserList extends Component {
     browserHistory.push("/assets");
   }
   
-    updateUser(user) {
-        //console.log(JSON.stringify(user));
+    updateUser(user) {        
         let config = {
             method: 'post',
             headers: {
@@ -100,20 +97,14 @@ export default class UserList extends Component {
         return fetch(API_ROOT + "/updateuser", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
-                if (!response.ok) {
-                    //console.log("json.errorMessage " + json.errorMessage);                    
-                    throw new Error(json.errorMessage);
-                    
-                }             
-
-               
+                if (!response.ok) {                                       
+                    throw new Error(json.errorMessage);                    
+                }
                 browserHistory.push('/dashboard');
                 return json;
-            });
-            //.catch(response => response, error => error);
+            });           
 
     }
-
   
   componentDidMount() {
     

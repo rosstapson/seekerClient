@@ -74,19 +74,16 @@ export class Registration extends Component {
           this
             .props
             .addUser(user)
-            .then(function () { //adduser returns a promise. shouldn't.
-              //console.log("here.");
+            .then(function () {              
               if (!self.props.errorMessage) {
                 userNameRef.value = emailRef.value = emailConfirmRef.value = passwordRef.value = passwordConfirmRef.value = companyNameRef.value = divisionRef.value = telephoneRef.value = contactPersonRef.value = addressLine1Ref.value = addressLine2Ref.value = addressLine3Ref.value = addressStateRef.value = addressCountryRef.value = '';
               }
-            }, function (error) {
-              //console.log("promise rejected:" + error.message);
+            }, function (error) {              
               alert(error);         
               self.setState({
                 errorMessage: error.message,
                 isInError: true, 
-                });
-             // console.log("this.state.errorMessage:" + self);
+                });             
             });
 
           return;

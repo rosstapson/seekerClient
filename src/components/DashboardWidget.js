@@ -15,8 +15,7 @@ import uploadXL from './icons/upxls.png';
 export default class DashboardWidget extends Component {
 
   render() {
-    //const { errorMessage } = this.props.errorMessage;
-    //console.log("still admin? " + this.props.isAdmin);
+    
     return (
       <div style={{ 
           backgroundColor: '#ffffff', 

@@ -90,12 +90,3 @@ function verifyCredentials(nextState, replace, next) {
   }
   
 }
-
-// function requireToken(nextState, replace, next) {  
-//   if (!localStorage.getItem("id_token") && !nextState.params.id_token) {
-//     //console.log("no token");
-//     replace('/login')    
-//   }
-  
-//   next()
-// }

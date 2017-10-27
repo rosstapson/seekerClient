@@ -48,8 +48,7 @@ export default class Assets extends Component {
       .then(({json, response}) => {
         if (!response.ok) {
           browserHistory.push("/error");
-        }
-        //console.log("json.assets: " + json.assets);
+        }        
         this.setState({ pendingAddAsset: false, showUpdate: true, assetToView: asset});        
         return json.assets;
       })
@@ -58,8 +57,7 @@ export default class Assets extends Component {
       });
   }
   
-  viewImages(asset) {
-    console.log("assets viewImages: " + asset)
+  viewImages(asset) {  
     browserHistory.push({pathname: "/images", state: { asset: asset }});
   }
   uploadImage(file) {
@@ -98,8 +96,7 @@ export default class Assets extends Component {
 
   }
   
-  getAssetsForUsername(username) {
-    //console.log("getAssetsForUsername: " + API_ROOT);
+  getAssetsForUsername(username) {    
     let config = {
       method: 'post',
       headers: {

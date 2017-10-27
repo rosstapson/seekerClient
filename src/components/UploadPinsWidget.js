@@ -12,9 +12,7 @@ export default class UploadPinsWidget extends Component {
         this.setState({
           uploadPending: true,
           selectedFile: event.target.files[0]
-        });
-        
-        //console.log(event.target.files[0]);
+        });       
       }
       handleUploadPins = () => {
         this.props.uploadPins(this.state.selectedFile);

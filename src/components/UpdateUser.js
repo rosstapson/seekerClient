@@ -88,11 +88,9 @@ export class UpdateUser extends Component {
               if (!self.props.errorMessage) {
                 userNameRef.value = emailRef.value = emailConfirmRef.value = passwordRef.value = passwordConfirmRef.value = companyNameRef.value = telephoneRef.value = contactPersonRef.value = addressLine1Ref.value = addressLine2Ref.value = addressLine3Ref.value = addressStateRef.value = addressCountryRef.value = '';
               }
-            }, function (error) {
-              //console.log("promise rejected:" + error.message);
+            }, function (error) {              
               alert(error);
-              self.setState({errorMessage: error.message, isInError: true});
-              // console.log("this.state.errorMessage:" + self);
+              self.setState({errorMessage: error.message, isInError: true});              
             });
 
           return;
@@ -107,8 +105,7 @@ export class UpdateUser extends Component {
     alert("Please fill out essential fields");
 
   };
-  handleCountryChange = (value) => {
-    console.log("handleCountryChange: " + value.value);
+  handleCountryChange = (value) => {   
     this.setState({tempCountry: value});
   }
   render() {

@@ -22,16 +22,29 @@ export default class Users extends Component {
   }
   
   getUsers() {
-    
+    let apiEndpoint = '';
     let config = {
       method: 'get',
       headers: {
         'content-type': 'application/json',
-        'x-access-token' : localStorage.getItem('id_token')
+        'x-access-token' : localStorage.getItem('id_token')        
       }
     }
+    if (localStorage.getItem('isDnaAdmin')) {
+      apiEndpoint = '/usersByCountry';
+      //set config
+    }
+    if (localStorage.getItem('isAdmin')) {
+      apiEndpoint = '/usersByCompany';
+      //set config
+    }
+    if (localStorage.getItem('isGod')) {
+      apiEndpoint = '/users';
+    }
     
-    return fetch(API_ROOT + "/users", config)
+    
+    
+    return fetch(API_ROOT + apiEndpoint, config)
       .then(response => response.json().then(json => ({json, response})))
       .then(({json, response}) => {
         if (!response.ok) {          
@@ -44,8 +57,7 @@ export default class Users extends Component {
       });
 
   }
-  viewUser() {}
-  deleteUser() {}
+  
   
   render() {
     return (
@@ -56,8 +68,7 @@ export default class Users extends Component {
         <div>
           <UserList
             promise={this.getUsers()}
-            viewUser={this.viewUser}
-            deleteUser={this.deleteUser}/>
+            />
 
         </div>
       </div>

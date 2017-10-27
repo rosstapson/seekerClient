@@ -10,10 +10,7 @@ export default class Dashboard extends Component {
   
   render() {
     const errorMessage = this.props.errorMessage;
-    const username = localStorage.username;
-    // console.log("is admin? " + localStorage.isAdmin);
-    // console.log("isGod? ", localStorage.isGod);
-    //const isAdmin = localStorage.isAdmin;
+    const username = localStorage.username;   
 
     return (
       <div>

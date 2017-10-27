@@ -18,7 +18,7 @@ class App extends Component {
             isInError: false,
             errorMessage: ""
         };
-        console.log("api: " + API_ROOT);
+        
         this.setState = this.setState.bind(this);
         this.goToRegistration = this.goToRegistration.bind(this);
         this.goToLogin = this.goToLogin.bind(this);

@@ -27,34 +27,28 @@ export default class Login extends Component {
             password: passwordRef
               .value
               .trim(),
-      }
-      //console.log("here.");
+      }      
       let self = this;
       this
             .props
             .loginUser(user)
-            .then(function () { 
-              //console.log("here.");
+            .then(function () {               
               if (!self.props.errorMessage) {
                 userNameRef.value = passwordRef.value = '';
               }
-            }, function (error) {
-              //console.log("promise rejected:" + error.message);
+            }, function (error) {              
               alert(error);         
               self.setState({
                 errorMessage: error.message,
                 isInError: true, 
-                });
-             // console.log("this.state.errorMessage:" + self);
+                });             
             });
     }
     else {
       alert("Please provide username and password.");
     }
   }
-  render() {
-    //const { errorMessage } = this.props.errorMessage;
- 
+  render() {  
 
     return (
       <div>

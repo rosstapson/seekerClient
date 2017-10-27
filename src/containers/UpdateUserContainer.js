@@ -25,8 +25,7 @@ class UpdateUserContainer extends Component {
                 _this.setState({userToUpdate: user, isFetchingUserDetails: false});
             });
     }
-    render() {
-        //console.log(this.state.errorMessage);
+    render() {       
         if (this.state.isFetchingUserDetails) {
             return (
                 <div className="loader">Fetching User Details...</div>
@@ -43,8 +42,7 @@ class UpdateUserContainer extends Component {
         }        
     }
     getUserDetails(username) {
-        this.setState({isFetchingUserDetails: true});
-        //console.log(JSON.stringify(user));
+        this.setState({isFetchingUserDetails: true});        
         let config = {
             method: 'post',
             headers: {
@@ -57,19 +55,16 @@ class UpdateUserContainer extends Component {
         return fetch(API_ROOT + "/userdetails", config)
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
-                if (!response.ok) {
-                    //console.log("json.errorMessage " + json.errorMessage);
+                if (!response.ok) {                  
                     alert(json.errorMessage);
-
                 }
 
                 return json;
             });
-        //.catch(response => response, error => error);
+       
 
     }
-    updateUser(user) {
-        //console.log(JSON.stringify(user));
+    updateUser(user) {       
         let config = {
             method: 'post',
             headers: {

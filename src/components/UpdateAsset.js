@@ -29,20 +29,16 @@ export default class UpdateAsset extends Component {
 
   }
   handleChange = (event) => {
-    let asset = {...this.state.asset};
-    
-    asset[event.target.id] = event.target.value;
-    //console.log(asset);
+    let asset = {...this.state.asset};    
+    asset[event.target.id] = event.target.value;    
     this.setState({ asset });
     
   }
   logAsset = () => {   // just for debuggery
     console.log(this.state);
   }
-  handleClose = (event) => {
-    //console.log("handleClose");
+  handleClose = (event) => {    
     browserHistory.push("/assets");
-
   }
   
   

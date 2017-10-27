@@ -13,16 +13,14 @@ class RegistrationContainer extends Component {
         };
 
     }
-    render() {
-        console.log(this.state.errorMessage);
+    render() {        
         return (
             <div >
                 <Registration addUser={this.addUser} errorMessage={this.state.errorMessage}/>
             </div>
         );
     }
-    addUser(user) {
-        //console.log(JSON.stringify(user));
+    addUser(user) {        
         let config = {
             method: 'post',
             headers: {
@@ -35,17 +33,13 @@ class RegistrationContainer extends Component {
             .then(response => response.json().then(json => ({json, response})))
             .then(({json, response}) => {
                 
-                if (!response.ok) {
-                    //console.log(json.errorMessage);                    
+                if (!response.ok) {                               
                     throw new Error(json.errorMessage);
-                    
-                }             
-
+                }
     
                 browserHistory.push('/confirmationPending');
                 return json;
             });
-            //.catch(response => response, error => error);
 
     }
 }

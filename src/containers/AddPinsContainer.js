@@ -5,12 +5,8 @@ import AddPinWidget from '../components/AddPinWidget';
 import { API_ROOT } from '../apiConfig';
 
 export default class AddPinsContainer extends Component {
-    constructor(props) {
-        super(props);
-        console.log("AddPinsContainer  constructor");
-    }
-    addPin = (product) => {
-        
+    
+    addPin = (product) => {        
         let config = {
             method: 'post',
             headers: {
@@ -59,7 +55,7 @@ export default class AddPinsContainer extends Component {
           alert("Unable to upload file");
         }
         if (json.rejected) {
-            console.log("rejected: " + json.rejected);
+            alert("rejected: " + json.rejected);            
         }
         return;
       });

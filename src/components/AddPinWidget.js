@@ -13,7 +13,6 @@ export default class AddPinWidget extends Component {
           uploadPending: true
         });
         
-        //console.log(event.target.files[0]);
       }
       handleAddPin = () => {
           let product = {...this.state.product};
