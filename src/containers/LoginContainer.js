@@ -60,7 +60,7 @@ function loginUser(creds) {
                 // 2 = admin
                 // 1 = user
                 if (json.accessLevel < 3) {                    
-                    //localStorage.removeItem('isAdmin');
+                    localStorage.removeItem('isDnaAdmin');
                     localStorage.removeItem('isGod');
                 }
                 // this just to be sure - some oddities on logout/login

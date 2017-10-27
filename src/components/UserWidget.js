@@ -10,7 +10,8 @@ export default class UserWidget extends Component {
         this.state = {
             user: this.props.user,
             confirmEmail: this.props.user.email,
-            isGod: localStorage.getItem('isGod')
+            isGod: localStorage.getItem('isGod'),
+            isDnaAdmin: localStorage.getItem('isDnaAdmin')
         }
     }
     handleSubmit = () => {
@@ -79,6 +80,23 @@ export default class UserWidget extends Component {
                                             </select>
                                             </td>                            
                                         }
+                                        {this.state.isDnaAdmin &&
+                                            
+                                                <td>
+                                                <div className="form-label">Access Level </div>                                
+                                                <br/>
+                                                <select 
+                                                    className='form-field' 
+                                                    defaultValue={this.props.user.accessLevel}
+                                                    onChange={ this.handleChange }
+                                                    id='accessLevel'
+                                                    >
+                                                    <option value="0">Guest</option>
+                                                    <option value="1">User</option>
+                                                    <option value="2">Admin</option>                                                    
+                                                </select>
+                                                </td>                            
+                                            }
                             </tr>
                             <tr>
                                 <td>

@@ -53,6 +53,12 @@ export default class DashboardWidget extends Component {
             {this.props.isGod &&
               <button className="widget-button" onClick={ this.props.addPins }><img src={uploadXL} alt="Add Pins"/><br/>Add Pins</button>
             }
+            {this.props.isDnaAdmin &&
+              <button className="widget-button" onClick={ this.props.showPins }><img src={viewPins} alt="View Pins" /><br/>View Pins</button>
+            }
+            {this.props.isDnaAdmin &&
+              <button className="widget-button" onClick={ this.props.addPins }><img src={uploadXL} alt="Add Pins"/><br/>Add Pins</button>
+            }
             <button className="widget-button" onClick={ this.props.logout } ><img src={logout} alt="Secure Logout" /><br/>Logout</button>
           </div>
           <div style={{ 

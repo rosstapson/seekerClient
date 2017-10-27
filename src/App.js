@@ -129,6 +129,7 @@ class App extends Component {
                             addPins={this.addPins}
                             isAdmin={localStorage.isAdmin}
                             isGod={localStorage.isGod}
+                            isDnaAdmin={localStorage.isDnaAdmin}
                             logout={this.logout}/>
                     </div>
 }

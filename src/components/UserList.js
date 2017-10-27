@@ -152,7 +152,12 @@ export default class UserList extends Component {
             <option value="division">Division</option>
             
           </select>
-        </div><div>
+        </div>
+        <div style={{          
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'row',
+          justifyContent: 'center'}}>
         <table className="table">
         <tbody>
         <tr>

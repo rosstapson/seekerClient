@@ -23,23 +23,45 @@ export default class Users extends Component {
   
   getUsers() {
     let apiEndpoint = '';
-    let config = {
-      method: 'get',
-      headers: {
-        'content-type': 'application/json',
-        'x-access-token' : localStorage.getItem('id_token')        
+    let config = {};
+
+    if (localStorage.getItem('isAdmin')) {
+      let company = localStorage.getItem('company'); 
+      apiEndpoint = '/usersByCompany';
+      config = {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json',
+          'x-access-token' : localStorage.getItem('id_token')
+        },
+        body: JSON.stringify({company})
+        //body: localStorage.getItem('company')
       }
     }
-    if (localStorage.getItem('isDnaAdmin')) {
+    if (localStorage.getItem('isDnaAdmin')) {      
       apiEndpoint = '/usersByCountry';
-      //set config
+      let country = localStorage.getItem('country');
+      config = {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json',
+          'x-access-token' : localStorage.getItem('id_token')
+        },
+        //body: localStorage.getItem('country') //shouldn't need to JSON.stringify()  this??? :|
+        body: JSON.stringify({country})
+      }
     }
-    if (localStorage.getItem('isAdmin')) {
-      apiEndpoint = '/usersByCompany';
-      //set config
-    }
+    
     if (localStorage.getItem('isGod')) {
+      
       apiEndpoint = '/users';
+      config = {
+        method: 'get',
+        headers: {
+          'content-type': 'application/json',
+          'x-access-token' : localStorage.getItem('id_token')        
+        }
+      }
     }
     
     
