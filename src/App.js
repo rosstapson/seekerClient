@@ -2,13 +2,11 @@ import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 
 import logo from './logo.png';
-//import geotrust from './geotrust.gif';
+
 import './App.css';
 import LoginContainer from './containers/LoginContainer';
 import RegistrationContainer from './containers/RegistrationContainer';
 import DashboardWidget from './components/DashboardWidget';
-//import Assets from './containers/Assets';
-import { API_ROOT } from './apiConfig';
 
 class App extends Component {
     constructor(props) {
@@ -84,7 +82,10 @@ class App extends Component {
     localStorage.removeItem("username");
     localStorage.removeItem("assets");
     localStorage.removeItem("userInQuestion");
-    localStorage.removeItem("users");    
+    localStorage.removeItem("users");
+    localStorage.removeItem("country");
+    localStorage.removeItem("company");
+    localStorage.removeItem("userInQuestion");
     browserHistory.push('/login');
   }
     render() {

@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 //import ErrorMessage from './ErrorMessage';
 import './components.css';
+import SelectCountry from './SelectCountry';
 
 export class Registration extends Component {
 
@@ -8,11 +9,17 @@ export class Registration extends Component {
     super(props);
     this.state = {
       isInError: false,
-      errorMessage: ""
+      errorMessage: "",
+      country: "ZA"
     };
   }
+  handleAddressChange = (event) => {
+    let country = this.state.country
+    country = event.target.value;        
+    this.setState({ country });
+}
   addUser = () => {
-
+    
     const userNameRef = this.refs.userName;
     const emailRef = this.refs.email;
     const emailConfirmRef = this.refs.emailConfirm;
@@ -58,19 +65,19 @@ export class Registration extends Component {
               state: addressStateRef
                 .value
                 .trim(),
-              country: addressCountryRef
-                .value
-                .trim(),
+              country: this.state.country
             },
             telephone: telephoneRef
               .value
               .trim(),
             contactPerson: contactPersonRef
               .value
-              .trim()
+              .trim(),
+            accessLevel: 1 //default to 'User'
           }
 
           let self = this;
+          //console.log(user);
           this
             .props
             .addUser(user)
@@ -160,6 +167,15 @@ export class Registration extends Component {
               id="companyName"/>
           </div>
           <div className="form-group">
+          <label className="form-label" htmlFor="division">Division:</label><br />
+          <input
+            className='form-field'
+            type="text"
+            placeholder="Division"
+            ref="division"
+            id="division"/>
+        </div>
+          <div className="form-group">
             <label className="form-label" htmlFor="addressline1">Address:</label><br />
             <input
               className='form-field'
@@ -186,13 +202,10 @@ export class Registration extends Component {
               ref="addressState"/>
               <br />
             <label className="form-label" htmlFor="addressCountry">Country:</label><br />
-            <input
-              className='form-field'
-              type="text"
-              placeholder="Country"
-              ref="addressCountry"
-              id="addressCountry"/>
-              <br />
+            <SelectCountry
+              id="country"            
+              handleChange={this.handleAddressChange}
+          />
             <label className="form-label" htmlFor="telephone">Company Telephone:</label><br />
             <input
               className='form-field'
