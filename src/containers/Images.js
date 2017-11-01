@@ -42,7 +42,9 @@ export default class Images extends Component {
       .then(({json, response}) => {
         if (!response.ok) {
           alert("Unable to upload image");
-        }       
+        }
+        //console.log("fetch result: " + JSON.stringify(json));
+        
         return json;
       });
     }
@@ -65,13 +67,11 @@ export default class Images extends Component {
           if (!response.ok) {
             alert(response.errorMessage);
           }
-          return;
-  
-        });
-  
+          return;  
+        });  
     }
-    descriptionChanged = (event) => {
-      
+    
+    descriptionChanged = (event) => {      
       this.setState({
         imageDescription: event.target.value
       })
@@ -115,7 +115,7 @@ export default class Images extends Component {
           .then((image) => {            
             var tempArray = this.state.images.slice();
             tempArray.push(image);        
-    
+            //console.log("date uploaded: " + image.dateUploaded);
             this.setState({
               imageIsUploading: false, 
               imageUploadError: false,          

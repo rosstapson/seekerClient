@@ -76,11 +76,16 @@ function verifyCredentials(nextState, replace, next) {
           // localStorage.setItem('isAuthenticated',  false);
           localStorage.removeItem("id_token");
           localStorage.removeItem("isAuthenticated");
+          localStorage.removeItem("isGod");
           localStorage.removeItem("isAdmin");
+          localStorage.removeItem("isDnaAdmin");
+          localStorage.removeItem("products");
           localStorage.removeItem("username");
           localStorage.removeItem("assets");
           localStorage.removeItem("userInQuestion");
           localStorage.removeItem("users");
+          localStorage.removeItem("country");
+          localStorage.removeItem("company");
           //browserHistory.push('/login');
           replace("/login");
           next();

@@ -8,13 +8,13 @@ import {browserHistory} from 'react-router';
 
 import TransferAssetWidget from './TransferAssetWidget';
 import AlertWidget from './AlertWidget';
+import IncidentWidget from './IncidentWidget';
 
 import './components.css';
 
 export default class UpdateAsset extends Component {
   constructor(props) {
-    super(props);    
-
+    super(props);        
     let isAlert = this.props.asset.status === "Alert";
     
     this.state = {      
@@ -28,6 +28,7 @@ export default class UpdateAsset extends Component {
     
 
   }
+  
   handleChange = (event) => {
     let asset = {...this.state.asset};    
     asset[event.target.id] = event.target.value;    
@@ -52,10 +53,11 @@ export default class UpdateAsset extends Component {
   }
     handleAlertPressed = () => {      
       this.setState({
-        showAlertWidget: true,
+        showAlertWidget: !this.state.showAlertWidget,
         showTransferWidget: false
       });
     }
+    
     handleTransferPressed = () => {      
       this.setState({
         showAlertWidget: false,
@@ -79,6 +81,18 @@ export default class UpdateAsset extends Component {
         showTransferWidget: false,
         asset: tempAsset
       })
+    }
+    updateIncident = (incident) => {
+      let asset = {...this.state.asset};
+      
+      let tempArray = asset.incidents.filter((data) => {        
+        return incident.incidentID !== data.incidentID;
+      })
+      tempArray.push(incident);
+      asset.incidents = tempArray;
+      //console.log(asset);
+      this.props.updateAsset(asset);
+      
     }
     alertAsset = (asset) => {
       
@@ -171,33 +185,15 @@ export default class UpdateAsset extends Component {
               </div>
             }
             </td>
-            <td>
-            {this.props.asset.status === "Active" &&
+            <td>            
             <div className="inline-div">
                 <button
                   type="button"
                   className="asset-submit-button"
-                  onClick={this.handleAlertPressed}>Alert</button>
-              </div>
-              }
+                  onClick={this.handleAlertPressed}>Create Incident Report</button>
+              </div>              
               </td>
             </tr>
-            {this.state.showCaseInfo &&
-              <tr><td colSpan="2"><div className="form-label" style={{color: "black", backgroundColor: "red"}}>Incident Log</div></td></tr>
-            }
-            {this.state.showCaseInfo &&
-              <tr><td colSpan="2"> 
-                {this.state.asset.incidents.map((incident) => {
-                  return(
-                  <div  style={{border: "1px solid red"}}>
-                    <div className="form-label">Case Number</div><div className="td">{incident.caseNumber}</div><br/>
-                    <div className="form-label">Police Station</div><div className="td">{incident.atPoliceStation}</div><br/>
-                    <div className="form-label">Date Reported</div><div className="td">{incident.dateReported}</div><br/>
-                    <div className="form-label">Status</div><div className="td">{incident.status}</div><br/>
-                  </div>
-                )})}
-              </td></tr>
-            }            
             {this.state.showTransferWidget &&
               <tr><td>
                <TransferAssetWidget  transferAsset={this.handleTransferAsset} />
@@ -208,9 +204,27 @@ export default class UpdateAsset extends Component {
                   <AlertWidget 
                     asset={this.state.asset}
                     alertAsset={this.alertAsset}
+                    handleCancel={this.handleAlertPressed}
                   />
                 </td></tr>
                 }
+            {this.state.showCaseInfo &&
+              <tr><td colSpan="2"><div className="form-label" style={{color: "black", backgroundColor: "red"}}>Incident Log</div></td></tr>
+            }
+            {this.state.showCaseInfo &&
+              <tr><td colSpan="2"> 
+                {this.state.asset.incidents.map((incident) => {
+                  return(
+                   <IncidentWidget 
+                    key={incident.incidentID}
+                    asset={this.state.asset}
+                    incident={incident}
+                    updateIncident={this.updateIncident}
+                   />
+                )})}
+              </td></tr>
+            }
+            
             <tr>
               <td colSpan='2'>
                 <div className="form-label">Description:
