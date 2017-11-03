@@ -43,7 +43,7 @@ export default class IncidentWidget extends Component {
             }
             else {
                 return (
-                <div style={{border: "1px solid red"}}>
+                <div style={{border: "1px #96bdea"}}>
                     <div className="form-label">Case Number</div><div className="td">{this.state.incident.caseNumber}</div><br/>
                     <div className="form-label">Police Station</div><div className="td">{this.state.incident.atPoliceStation}</div><br/>
                     <div className="form-label">Date Reported</div><div className="td">{this.state.incident.dateReported}</div><br/>                    

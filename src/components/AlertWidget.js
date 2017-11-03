@@ -56,7 +56,7 @@ export default class AlertWidget extends Component {
     render() {
         return(
             <div
-                style={{color: "black", backgroundColor: 'red', columnSpan: "2"}}>
+                style={{color: "black", backgroundColor: '#96bdea', columnSpan: "2"}}>
             <h1>Alert for this Asset</h1>
             <div>
              <div className="form-label">
