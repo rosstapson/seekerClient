@@ -4,7 +4,12 @@ import React, {Component} from 'react'
 import './components.css';
 // eslint-disable-next-line
 import AssetListItem from './AssetListItem';
-
+import ReportWidget from './ReportWidget';
+import ReactDOMServer from 'react-dom/server';
+import cuid from 'cuid';
+import jsPDF from 'jspdf';
+import PDFFormat from './PDFFormat';
+//import html2canvas from './util/html2canvas';
 
 export default class AssetList extends Component {
   constructor(props) {
@@ -17,7 +22,8 @@ export default class AssetList extends Component {
       error: null,
       assets: null,
       filterField: 'description', 
-      filterBy: ''
+      filterBy: '',
+      viewReport: false
     };
   }
   handleFilterByChange(event) {
@@ -56,8 +62,8 @@ export default class AssetList extends Component {
     }
     return false;
   }
-  componentDidMount() {
-    
+
+  componentDidMount() {    
     var self = this;
     this.props.promise.then(function (value) {        
         self.setState({loading: false, assets: value});
@@ -65,14 +71,62 @@ export default class AssetList extends Component {
         self.setState({loading: false, error: error});
       });
   }
+  handleViewReport = () => {    
+    this.setState({ viewReport: true })
+  }
+  handleCancelReport = () => {
+    this.setState({ viewReport: false })
+  }
+  makePDF = () => {
+    let assets = this.state.assets;
+    if (this.state.filterBy) {
+      assets = this.state.filteredAssets;
+    } 
+    let html = ReactDOMServer.renderToStaticMarkup(<PDFFormat assets={assets} />);
+  //   html2canvas(html)
+  //   .then((canvas) => {
+  //     const imgData = canvas.toDataURL('image/png');
+  //     const pdf = new jsPDF();
+  //     pdf.addImage(imgData, 'JPEG', 0, 0);
+  //     pdf.output('dataurlnewwindow');
+  //     //pdf.save("download.pdf");
+  //   })
+  // ;
+    let doc = new jsPDF();
+    //console.log(doc.getFontList());
+    let specialElementHandlers = {
+      '#zomg': function(element, renderer){
+         console.log("test");
+         return true;
+      }
+    };
+    doc.setDisplayMode(1, 'continuous', 'UseOutlines');
+    doc.fromHTML(html, 15, 15, {
+      'width': 500,
+      'elementHandlers': specialElementHandlers
+    });    
+    let title = cuid();
+    // doc.autoPrint();
+    //doc.output("dataurlnewwindow");
+    doc.save(title + '.pdf')
+    //console.log(html)
+    //alert(html);
+  }
   render() {
     
     if (this.state.loading) {      
       return <div  className="loader">Loading Assets....</div>
     } else if (this.state.error !== null) {
       return <span>Error: {this.state.error.message}</span>;
-    } else {
-      
+    } else if (this.state.viewReport) {
+      let assets = this.state.assets;
+      if (this.state.filterBy) {
+        assets = this.state.filteredAssets;
+      } 
+      return (
+        <ReportWidget hideReportWidget={this.handleCancelReport} makePDF={this.makePDF} assets={assets} />
+      )
+    } else {      
       return (
         <div>
         <div className="inline-div">Filter:</div>
@@ -91,6 +145,9 @@ export default class AssetList extends Component {
             <option value="dnaCode">DNA Product Pin</option>
             <option value="assetCode">Asset Name/Code</option>            
           </select>
+          </div>
+          <div className="inline-div">
+          <button className="asset-submit-button" onClick={this.handleViewReport}>View Report</button>
         </div>
         <div  style={{          
           display: 'flex',
@@ -100,17 +157,17 @@ export default class AssetList extends Component {
         <table className="table">
         <tbody>
         <tr>
-        <td className="column-name">DNA Pin</td>
-        <td className="column-name">Asset Name/Code</td>
-        <td className="column-name">Description</td>
+          <td className="column-name">DNA Pin</td>
+          <td className="column-name">Asset Name/Code</td>
+          <td className="column-name">Description</td>
         </tr>
           {this.state.filterBy && 
               this.state.filteredAssets.map(asset => <AssetListItem
-              key={asset.dnaCode}
-              asset={asset}
-              viewAsset={this.props.viewAsset}
-              //transferAsset={this.props.transferAsset}
-              deleteAsset={this.props.deleteAsset} />)
+                key={asset.dnaCode}
+                asset={asset}
+                viewAsset={this.props.viewAsset}
+                //transferAsset={this.props.transferAsset}
+                deleteAsset={this.props.deleteAsset} />)
           }
           {!this.state.filterBy &&
             this.state.assets.map(asset => <AssetListItem

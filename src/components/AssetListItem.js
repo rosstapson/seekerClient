@@ -27,8 +27,8 @@ export default class AssetListItem extends Component {
     return (
       <tr onClick={this.handleOnClick} className="tr-highlight">
         <td className="td">{this.props.asset.dnaCode}</td>
-        <td className="td">{this.props.asset.assetCode} </td>
-        <td className="td">{this.props.asset.description} </td>
+        <td className="td">{this.props.asset.assetCode}</td>
+        <td className="td">{this.props.asset.description}</td>
         <td><button className="asset-submit-button" onClick={this.handleViewImages}>Images</button></td>
         <td><button className="asset-submit-button" onClick={this.handleView}>View/Update</button></td>
         {this.state.isGod &&
