@@ -83,17 +83,9 @@ export default class AssetList extends Component {
       assets = this.state.filteredAssets;
     } 
     let html = ReactDOMServer.renderToStaticMarkup(<PDFFormat assets={assets} />);
-  //   html2canvas(html)
-  //   .then((canvas) => {
-  //     const imgData = canvas.toDataURL('image/png');
-  //     const pdf = new jsPDF();
-  //     pdf.addImage(imgData, 'JPEG', 0, 0);
-  //     pdf.output('dataurlnewwindow');
-  //     //pdf.save("download.pdf");
-  //   })
-  // ;
+    
     let doc = new jsPDF();
-    //console.log(doc.getFontList());
+    
     let specialElementHandlers = {
       '#zomg': function(element, renderer){
          console.log("test");

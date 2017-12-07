@@ -35,24 +35,20 @@ export default class ReportWidget extends Component {
                     flex: '1',
                     flexDirection: 'row',
                     justifyContent: 'center'}}>
-                    <table className="table">
-                        <tbody>
-                            <tr>
-                                <td style={{
-                                    textAlign: 'left',
-                                    fontSize: '22px',
-                                    marginBottom: '12px',
-                                    color: '#757575',
-                                    padding: '15px'
-                                    }}>
-                                    <h2>Incident Report</h2>
-                                </td>
-                            </tr>
-                            {this.props.assets.map((asset) => {
-                                return <ReportItem asset={asset} key={asset.dnaCode}/>
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="table">                        
+                        <div style={{
+                            textAlign: 'left',
+                            fontSize: '22px',
+                            marginBottom: '12px',
+                            color: '#757575',
+                            padding: '15px'
+                            }}>
+                            <h2>Incident Report</h2>
+                        </div>                            
+                        {this.props.assets.map((asset) => {
+                            return <ReportItem asset={asset} key={asset.dnaCode}/>
+                        })}                        
+                    </div>
                 </div>
             </div>
         )
