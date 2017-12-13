@@ -205,7 +205,8 @@ export class Registration extends Component {
             <SelectCountry
               id="country"            
               handleChange={this.handleAddressChange}
-          />
+            />
+            <br />
             <label className="form-label" htmlFor="telephone">Company Telephone:</label><br />
             <input
               className='form-field'
