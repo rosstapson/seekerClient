@@ -29,8 +29,10 @@ export default class ReportWidget extends Component {
                         marginLeft: '5px',
                         boxShadow : '10px 10px 10px  #808080'
                         }} 
-                        onClick={this.props.makePDF}>Download PDF</button>
-                <div  style={{          
+                        onClick={this.props.print}>Print</button>
+                <div 
+                    id='printable'
+                    style={{          
                     display: 'flex',
                     flex: '1',
                     flexDirection: 'row',
@@ -43,7 +45,7 @@ export default class ReportWidget extends Component {
                             color: '#757575',
                             padding: '15px'
                             }}>
-                            <h2>Incident Report</h2>
+                            <h2>SeekerDNASecure Asset Incident Report</h2>
                         </div>                            
                         {this.props.assets.map((asset) => {
                             return <ReportItem asset={asset} key={asset.dnaCode}/>

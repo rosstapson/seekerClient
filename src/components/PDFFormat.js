@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ReportItem from './ReportItem';
-//import PDFItem from './PDFItem';
+//import ReportItem from './ReportItem';
+import PDFItem from './PDFItem';
 import cuid from 'cuid';
 
 export default class PDFFormat extends Component {
@@ -24,7 +24,7 @@ export default class PDFFormat extends Component {
                             Incident Report
                         </div>                               
                         {this.props.assets.map((asset) => {
-                            return <ReportItem asset={asset} key={cuid()}/>
+                            return <PDFItem asset={asset} key={cuid()}/>
                         })}                       
                 </div>
             </div>

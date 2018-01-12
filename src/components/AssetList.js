@@ -5,10 +5,9 @@ import './components.css';
 // eslint-disable-next-line
 import AssetListItem from './AssetListItem';
 import ReportWidget from './ReportWidget';
+import PrintWidget from './PrintWidget';
 import ReactDOMServer from 'react-dom/server';
-import cuid from 'cuid';
-import jsPDF from 'jspdf';
-import PDFFormat from './PDFFormat';
+// import PDFFormat from './PDFFormat';
 //import html2canvas from './util/html2canvas';
 
 export default class AssetList extends Component {
@@ -21,7 +20,7 @@ export default class AssetList extends Component {
       loading: true,
       error: null,
       assets: null,
-      filterField: 'description', 
+      filterField: 'dnaCode', 
       filterBy: '',
       viewReport: false
     };
@@ -77,33 +76,53 @@ export default class AssetList extends Component {
   handleCancelReport = () => {
     this.setState({ viewReport: false })
   }
-  makePDF = () => {
-    let assets = this.state.assets;
-    if (this.state.filterBy) {
-      assets = this.state.filteredAssets;
-    } 
-    let html = ReactDOMServer.renderToStaticMarkup(<PDFFormat assets={assets} />);
-    
-    let doc = new jsPDF();
-    
-    let specialElementHandlers = {
-      '#zomg': function(element, renderer){
-         console.log("test");
-         return true;
-      }
-    };
-    doc.setDisplayMode(1, 'continuous', 'UseOutlines');
-    doc.fromHTML(html, 15, 15, {
-      'width': 500,
-      'elementHandlers': specialElementHandlers
-    });    
-    let title = cuid();
-    // doc.autoPrint();
-    //doc.output("dataurlnewwindow");
-    doc.save(title + '.pdf')
-    //console.log(html)
-    //alert(html);
+  // got to figure out how to reformat for report printing at some point
+  // perhaps open the report in a new window
+  // or fix what's below
+  print = () => {
+    // let header = `
+    // <!doctype html>
+    // <html lang="en">
+    // <head>    
+    //     <link rel="stylesheet" type="text/css"
+    //           href="https://fonts.googleapis.com/css?family=Calibri">   
+    //     <title>SeekerDNA Asset Incident Report</title>    
+    // </head>
+    // <body>
+    // `;
+    // let footer = `
+    //   </body></html>
+    // `;
+    // let assets = this.state.assets;
+    // if (this.state.filterBy) {
+    //   assets = this.state.filteredAssets;
+    // } 
+    // let html = header + 
+    //   ReactDOMServer.renderToStaticMarkup(<PrintWidget
+    //     printable={'true'}
+    //     assets={assets} />) + 
+    //   footer;
+    // console.log(html);
+    // let mywindow = window.open('', 'PRINT');
+    // mywindow.document.write(html);
+    // mywindow.document.close();
+    // mywindow.focus();
+    // mywindow.print();
+    // mywindow.close();
+    // return true;
+    var content = document.getElementById("printable");
+    var pri = document.getElementById("ifmcontentstoprint").contentWindow;
+    pri.document.open();
+    console.log(content.innerHTML);
+    console.log(content.innerText);
+    pri.document.write(content.innerHTML);
+    pri.document.close();
+    pri.focus();
+    pri.print();
   }
+  // print = () => {
+  //   window.print();
+  // }
   render() {
     
     if (this.state.loading) {      
@@ -116,7 +135,7 @@ export default class AssetList extends Component {
         assets = this.state.filteredAssets;
       } 
       return (
-        <ReportWidget hideReportWidget={this.handleCancelReport} makePDF={this.makePDF} assets={assets} />
+        <ReportWidget hideReportWidget={this.handleCancelReport} print={this.print} assets={assets} />
       )
     } else {      
       return (
@@ -132,14 +151,17 @@ export default class AssetList extends Component {
           <select
             className="form-field"
             value={this.state.filterField}
-            onChange={this.handleFilterFieldChange}>
-            <option value="description">Description</option>
+            onChange={this.handleFilterFieldChange}>            
             <option value="dnaCode">DNA Product Pin</option>
-            <option value="assetCode">Asset Name/Code</option>            
+            <option value="assetCode">Asset Name/Code</option>
+            <option value="description">Description</option>
           </select>
           </div>
           <div className="inline-div">
           <button className="asset-submit-button" onClick={this.handleViewReport}>View Report</button>
+        </div>
+        <div className="inline-div2">
+          Use the filter to select which assets to include in report.
         </div>
         <div  style={{          
           display: 'flex',
