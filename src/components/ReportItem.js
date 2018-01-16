@@ -9,17 +9,18 @@ export default class ReportItem extends Component {
                     borderWidth: "1px",
                     
                 }}>
-                    <table><tbody>
+                    <table style={{tableLayout: 'fixed', width: "80%"}}><tbody>
                     <tr>
-                        <td>
+                        <td style={{width: '40%'}}>
                             <h3 style={{
                                 fontSize: '20px',
                                 fontWeight: '700',                            
                                 color: 'black',
-                                textAlign: "left"
+                                textAlign: "left",
+                                backgroundColor: '#757575'
                                 }}>DNA Pin:</h3>
                         </td>
-                        <td>{this.props.asset.dnaCode}</td>
+                        <td style={{textAlign: 'left'}}>{this.props.asset.dnaCode}</td>
                     </tr>
                     <tr>
                         <td colSpan={2}>No incidents reported.
@@ -37,18 +38,21 @@ export default class ReportItem extends Component {
                     borderWidth: "1px",
                     
                 }}>
-                <table><tbody>
+                <table style={{tableLayout: 'fixed', width: "80%"}}><tbody>
                 <tr>
-                    <td>
-                        <div style={{
+                    <td style={{width: '40%'}}>
+                        <h3 style={{
                             fontSize: '20px',
                             fontWeight: '700',                            
                             color: 'black',
-                            textAlign: "left"
-                        }}>DNA Pin:</div>
+                            textAlign: "left",
+                            backgroundColor: '#757575'
+                        }}>DNA Pin:</h3>
                     </td>
                     <td>
-                        <div  className="td">{this.props.asset.dnaCode}</div>
+                        <div style={{textAlign: 'left'}}>
+                        {this.props.asset.dnaCode}
+                        </div>
                     </td>
                 </tr>
                     {this.props.asset.incidents.map((incident) => {                        

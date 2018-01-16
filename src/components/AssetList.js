@@ -5,10 +5,6 @@ import './components.css';
 // eslint-disable-next-line
 import AssetListItem from './AssetListItem';
 import ReportWidget from './ReportWidget';
-import PrintWidget from './PrintWidget';
-import ReactDOMServer from 'react-dom/server';
-// import PDFFormat from './PDFFormat';
-//import html2canvas from './util/html2canvas';
 
 export default class AssetList extends Component {
   constructor(props) {
