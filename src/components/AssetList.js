@@ -109,8 +109,8 @@ export default class AssetList extends Component {
     var content = document.getElementById("printable");
     var pri = document.getElementById("ifmcontentstoprint").contentWindow;
     pri.document.open();
-    console.log(content.innerHTML);
-    console.log(content.innerText);
+    // console.log(content.innerHTML);
+    // console.log(content.innerText);
     pri.document.write(content.innerHTML);
     pri.document.close();
     pri.focus();

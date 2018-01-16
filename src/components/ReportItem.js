@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import cuid from 'cuid';
+
 export default class ReportItem extends Component {
     render() {
         if (this.props.asset.incidents.length === 0) {
@@ -55,8 +57,10 @@ export default class ReportItem extends Component {
                         </div>
                     </td>
                 </tr>
+                <tr><td  colSpan={2}>
                     {this.props.asset.incidents.map((incident) => {                        
-                        return <div key={incident.incidentID}>                        
+                        return <div key={cuid()}>
+                            <table><tbody>
                             <tr>
                                 <td>
                                     <div style={{
@@ -124,9 +128,11 @@ export default class ReportItem extends Component {
                                     }}>{incident.status}</div>
                                 </td>                                
                             </tr>
-                            <hr/>
+                           
+                            </tbody></table>
                         </div>
                     })}
+                    </td></tr>
                     </tbody></table>
                 </div>
             )
